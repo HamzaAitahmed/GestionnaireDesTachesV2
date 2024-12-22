@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.model;
+package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import aitahmed.hamza.gestionnairedestachesservice.Enum.Priorite;
 import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
@@ -11,30 +11,29 @@ import java.util.Date;
 public class Tache {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @Column(unique=true) // unique seulement dans le projet
-    private String Nom;
+    private String nom;
 
     @Enumerated(EnumType.STRING)
     private StatutTache statutTache;
 
     @Enumerated(EnumType.STRING)
-    private Priorite Priorite;
+    private Priorite priorite;
 
     private Date dateDeCreation, dateDebut, dateFin;
 
-    private String Description;
+    private String description;
 
     //============ Relation =============//
 
     @ManyToOne
-    private HistoriqueStatut HistoriqueStatut;
+    private HistoriqueStatut historiqueStatut;
 
     @ManyToOne
-    private Projet ProjetDeTache;
+    private Projet projetDeTache;
 
     @ManyToOne
-    @JoinColumn(name = "assignee_id")
-    private Utilisateur assignee;
+    private Utilisateur assigneurDeTache;
 }

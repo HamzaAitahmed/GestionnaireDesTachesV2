@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.model;
+package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import aitahmed.hamza.gestionnairedestachesservice.Enum.Niveau;
 import jakarta.persistence.*;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.Collection;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
-public class CompetenceRequise {
+public class Competence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -17,11 +17,6 @@ public class CompetenceRequise {
     @Column(unique=true) // unique seulement dans le projet
     private String nom;
 
-    @Enumerated(EnumType.STRING)
-    private Niveau niveau;
-
     //============ Relation =============//
 
-    @ManyToMany(mappedBy = "CompetenceRequise")
-    private Collection<Projet> CompetenceDesProjets;
 }

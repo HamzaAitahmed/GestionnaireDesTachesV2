@@ -1,6 +1,5 @@
-package aitahmed.hamza.gestionnairedestachesservice.model;
+package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,18 +12,18 @@ import java.util.List;
 public class HistoriqueStatut {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     //============ Relation =============//
 
-    @OneToMany(mappedBy = "HistoriqueStatutId")
+    @OneToMany(mappedBy = "historiqueStatutId")
     private List<StatutAvecDate> historique;
 
     @OneToOne
-    private Utilisateur modifiéPar;
+    private Utilisateur modifiePar;
 
     @OneToOne
-    private Tache LesStatutDeLaTache;
+    private Tache lesStatutDeLaTache;
 
     //============ Les Methodes =============//
 

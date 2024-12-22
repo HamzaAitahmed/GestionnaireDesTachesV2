@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.model;
+package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,22 +11,21 @@ import java.time.LocalDateTime;
 public class StatutAvecDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     String statut;
     LocalDateTime dateDeModification;
+
+    //============ Les Relations =============//
+
+    @ManyToOne
+    private HistoriqueStatut historiqueStatutId;
+
+    //============ Les Methodes =============//
 
     public StatutAvecDate(String statut, LocalDateTime dateDeModification) {
         this.statut = statut;
         this.dateDeModification = dateDeModification;
     }
-
-    //============ Les Relations =============//
-
-    @ManyToOne
-    private HistoriqueStatut HistoriqueStatutId;
-
-    //============ Les Methodes =============//
-
 
 }

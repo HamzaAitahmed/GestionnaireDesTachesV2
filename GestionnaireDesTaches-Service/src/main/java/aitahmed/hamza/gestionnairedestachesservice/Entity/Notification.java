@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.model;
+package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,17 +11,17 @@ import java.util.Date;
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     private Date dateDeCreation, dateLu;
 
-    private boolean Lu;
+    private boolean lu;
 
-    private String Titre,Message;
+    private String titre,message;
 
     //============ Relation =============//
 
-    @OneToOne
-    private Utilisateur Destinataire;
+    @ManyToOne
+    private Utilisateur recepteur;
 
 }

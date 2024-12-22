@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.model;
+package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,22 +8,22 @@ import java.util.Date;
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class Equipe {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @Column(unique=true)
-    private String Nom;
+    private String nom;
 
     private Date dateDeCreation;
 
     //============ Relation =============//
 
     @ManyToOne
-    private Utilisateur ChefEquipe;
+    private Utilisateur chefEquipe;
 
-    @OneToMany(mappedBy = "EquipeDeProjet")
-    private Collection<Projet> ProjetsEquipe;
+    @OneToMany(mappedBy = "equipeDeProjet")
+    private Collection<Projet> projetsEquipe;
 
     @ManyToMany
-    private  Collection<Utilisateur> MesMembers;
+    private  Collection<Utilisateur> mesMembers;
     
 }
