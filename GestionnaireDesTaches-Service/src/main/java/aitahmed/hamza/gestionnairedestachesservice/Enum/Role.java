@@ -1,9 +1,9 @@
 package aitahmed.hamza.gestionnairedestachesservice.Enum;
 
 public enum Role {
-    ADMIN,
-    CHEF_PROJET,
-    CHEF_EQUIPE,
+    USER,
     MEMBRE,
-    USER
+    CHEF_EQUIPE,
+    CHEF_PROJET,
+    ADMIN,
 }
