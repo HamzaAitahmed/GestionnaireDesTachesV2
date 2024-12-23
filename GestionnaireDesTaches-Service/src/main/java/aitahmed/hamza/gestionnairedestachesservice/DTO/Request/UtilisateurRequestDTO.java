@@ -1,9 +1,5 @@
-package aitahmed.hamza.gestionnairedestachesservice.DTO;
+package aitahmed.hamza.gestionnairedestachesservice.DTO.Request;
 
-import aitahmed.hamza.gestionnairedestachesservice.DTO.Request.CompetenceRequestDTO;
-import aitahmed.hamza.gestionnairedestachesservice.DTO.Request.EquipeRequestDTO;
-import aitahmed.hamza.gestionnairedestachesservice.DTO.Request.ProjetRequestDTO;
-import aitahmed.hamza.gestionnairedestachesservice.DTO.Request.TacheRequestDTO;
 import lombok.Data;
 
 import java.util.Collection;
@@ -19,4 +15,9 @@ public class UtilisateurRequestDTO {
     private Date DateInscription, AnneeExpeience;
     private String Role;
     private String ProfilePicture;
+    private Collection<ProjetRequestDTO> mesProjetDTOS;
+    private Collection<CompetenceRequestDTO> MesCompetence;
+    private Collection<TacheRequestDTO> mesTaches;
+    private Collection<EquipeRequestDTO> mesEquipeRequestDTOS;
+    private Collection<EquipeRequestDTO> membreEquipeRequestDTO;
 }
