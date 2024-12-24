@@ -2,22 +2,16 @@ package aitahmed.hamza.gestionnairedestachesservice.DTO.Request;
 
 import lombok.Data;
 
-import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class UtilisateurRequestDTO {
-    private Integer Id;
-    private String Email;
-    private double Salaire;
-    private String Nom, Prenom, Username, Password, Gender;
-    private Date DateOfBirth;
-    private Date DateInscription, AnneeExpeience;
-    private String Role;
-    private String ProfilePicture;
-    private Collection<ProjetRequestDTO> mesProjetDTOS;
-    private Collection<CompetenceRequestDTO> MesCompetence;
-    private Collection<TacheRequestDTO> mesTaches;
-    private Collection<EquipeRequestDTO> mesEquipeRequestDTOS;
-    private Collection<EquipeRequestDTO> membreEquipeRequestDTO;
+    private String email;
+    private double salaire;
+    private String nom, prenom, username, password, gender;
+    private LocalDate dateOfBirth;
+    private LocalDate dateInscription;
+    private int anneeExpeience;
+    private String role;
+    private String profilePicture;
 }
