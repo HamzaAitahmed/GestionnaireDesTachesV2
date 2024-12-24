@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class StatutAvecDate {
@@ -13,8 +13,11 @@ public class StatutAvecDate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    String statut;
-    LocalDateTime dateDeModification;
+    protected String statut;
+
+    protected LocalDate dateDeModification;
+
+    private Integer idHistoriqueStatut;
 
     //============ Les Relations =============//
 
@@ -23,7 +26,13 @@ public class StatutAvecDate {
 
     //============ Les Methodes =============//
 
-    public StatutAvecDate(String statut, LocalDateTime dateDeModification) {
+
+    public void setHistoriqueStatutId(HistoriqueStatut historiqueStatutId) {
+        this.historiqueStatutId = historiqueStatutId;
+        this.idHistoriqueStatut = historiqueStatutId.getId();
+    }
+
+    public StatutAvecDate(String statut, LocalDate dateDeModification) {
         this.statut = statut;
         this.dateDeModification = dateDeModification;
     }

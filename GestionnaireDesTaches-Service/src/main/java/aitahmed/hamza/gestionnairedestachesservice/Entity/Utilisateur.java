@@ -3,8 +3,10 @@ package aitahmed.hamza.gestionnairedestachesservice.Entity;
 import aitahmed.hamza.gestionnairedestachesservice.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class Utilisateur {
@@ -18,11 +20,11 @@ public class Utilisateur {
 
     private String nom, prenom, username, password, gender;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
-//    @Temporal(TemporalType.DATE)
-    private Date dateInscription, anneeExpeience;
+    private LocalDate dateInscription;
+
+    private int anneeExpeience;
 
     @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
@@ -42,8 +44,8 @@ public class Utilisateur {
     @OneToMany(mappedBy = "assigneurDeTache")
     private Collection<Tache> mesTaches;
 
-    @OneToMany(mappedBy = "recepteur")
-    private Collection<Notification> notifications;
+//    @OneToMany(mappedBy = "recepteur")
+//    private Collection<Notification> notifications;
 
     @OneToMany(mappedBy = "chefEquipe")
     private Collection<Equipe> mesEquipes;

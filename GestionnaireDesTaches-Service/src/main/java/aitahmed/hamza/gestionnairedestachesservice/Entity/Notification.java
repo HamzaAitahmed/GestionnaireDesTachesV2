@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class Notification {
@@ -13,11 +13,13 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date dateDeCreation, dateLu;
+    private LocalDate dateDeCreation, dateLu;
 
     private boolean lu;
 
     private String titre,message;
+
+    private Integer idRecepteur;
 
     //============ Relation =============//
 

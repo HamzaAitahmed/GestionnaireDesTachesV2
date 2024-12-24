@@ -6,16 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
-
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class CompetenceRequise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String nom;
+
     @Enumerated(EnumType.STRING)
     private Niveau niveau;
+
+    private Integer ProjetId;
 
     //============ Relation =============//
 
@@ -24,4 +26,16 @@ public class CompetenceRequise {
 
     @OneToOne
     private Competence competences;
+
+    //============ Les Methodes =============//
+
+    public void setCompetenceDeProjet(Projet competenceDeProjet) {
+        this.competenceDeProjet = competenceDeProjet;
+        this.ProjetId = competenceDeProjet.getId();
+    }
+
+    public void setCompetences(Competence competences) {
+        this.competences = competences;
+        this.nom = competences.getNom();
+    }
 }

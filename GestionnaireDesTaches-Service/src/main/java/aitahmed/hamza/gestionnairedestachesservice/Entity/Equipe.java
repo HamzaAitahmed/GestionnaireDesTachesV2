@@ -3,7 +3,7 @@ package aitahmed.hamza.gestionnairedestachesservice.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class Equipe {
@@ -13,7 +13,9 @@ public class Equipe {
     @Column(unique=true)
     private String nom;
 
-    private Date dateDeCreation;
+    private LocalDate dateDeCreation;
+
+    private Integer idChefEquipe;
 
     //============ Relation =============//
 
@@ -25,5 +27,10 @@ public class Equipe {
 
     @ManyToMany
     private  Collection<Utilisateur> mesMembers;
-    
+    //============ Les Methodes =============//
+
+    public void setChefEquipe(Utilisateur chefEquipe) {
+        this.chefEquipe = chefEquipe;
+        this.idChefEquipe = chefEquipe.getId();
+    }
 }
