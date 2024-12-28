@@ -1,18 +1,20 @@
 package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import aitahmed.hamza.gestionnairedestachesservice.Enum.Niveau;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
+
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class CompetenceUtilisateur {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String nom;
@@ -20,25 +22,32 @@ public class CompetenceUtilisateur {
     @Enumerated(EnumType.STRING)
     private Niveau niveau;
 
-    private Integer UtilisateurId;
+    private Integer idListDesCompetences;
 
     //============ Relation =============//
 
     @ManyToOne
-    private Utilisateur competenceDeUtilisateur;
+    @JoinColumn(name = "Competence_Id", nullable = false)
+    private Competence competence;
 
-    @OneToOne
-    private Competence competences;
+    @ManyToOne
+    private ListCompetencesUtilisateur ListDesCompetences;
+
     //============ Les Methodes =============//
 
-    public void setcompetenceDeUtilisateur(Utilisateur competenceDeUtilisateur) {
-        this.competenceDeUtilisateur = competenceDeUtilisateur;
-        this.UtilisateurId = competenceDeUtilisateur.getId();
+    public void setListDesCompetences(ListCompetencesUtilisateur listDesCompetencesUtilisateur) {
+        this.ListDesCompetences = listDesCompetencesUtilisateur;
+        this.idListDesCompetences = listDesCompetencesUtilisateur.getId();
     }
 
     public void setCompetences(Competence competences) {
-        this.competences = competences;
+        this.competence = competences;
         this.nom = competences.getNom();
+    }
+
+    @JsonIgnore
+    public ListCompetencesUtilisateur getListDesCompetences() {
+        return ListDesCompetences;
     }
 
 }

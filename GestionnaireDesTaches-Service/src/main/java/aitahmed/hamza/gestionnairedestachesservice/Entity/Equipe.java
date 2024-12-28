@@ -1,5 +1,8 @@
 package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Collection;
@@ -19,13 +22,13 @@ public class Equipe {
 
     //============ Relation =============//
 
-    @ManyToOne
+    @ManyToOne @JsonBackReference
     private Utilisateur chefEquipe;
 
-    @OneToMany(mappedBy = "equipeDeProjet")
+    @OneToMany(mappedBy = "equipeDeProjet") @JsonIgnore
     private Collection<Projet> projetsEquipe;
 
-    @ManyToMany
+    @ManyToMany @JsonManagedReference
     private  Collection<Utilisateur> mesMembers;
     //============ Les Methodes =============//
 

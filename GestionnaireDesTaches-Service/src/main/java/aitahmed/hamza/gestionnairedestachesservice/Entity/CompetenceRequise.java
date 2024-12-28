@@ -1,41 +1,45 @@
 package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import aitahmed.hamza.gestionnairedestachesservice.Enum.Niveau;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor @Entity
-public class CompetenceRequise {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Data @AllArgsConstructor @NoArgsConstructor @Entity
+    public class CompetenceRequise {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
 
-    private String nom;
+        private String nom;
 
-    @Enumerated(EnumType.STRING)
-    private Niveau niveau;
+        @Enumerated(EnumType.STRING)
+        private Niveau niveau;
 
-    private Integer ProjetId;
+        private Integer idListCompetencesRequise;
 
-    //============ Relation =============//
+        //============ Relation =============//
 
-    @ManyToOne
-    private Projet competenceDeProjet;
+        @ManyToOne
+        @JsonManagedReference
+        private ListCompetencesRequise ListDesCompetencesRequise;
 
-    @OneToOne
-    private Competence competences;
+        @ManyToOne
+        @JoinColumn(name = "competence_id", nullable = false)
+        private Competence competences;
 
-    //============ Les Methodes =============//
+        //============ Les Methodes =============//
 
-    public void setCompetenceDeProjet(Projet competenceDeProjet) {
-        this.competenceDeProjet = competenceDeProjet;
-        this.ProjetId = competenceDeProjet.getId();
+        public void setCompetenceDeProjet(ListCompetencesRequise listcompetenceDeProjet) {
+            this.ListDesCompetencesRequise = listcompetenceDeProjet;
+            this.idListCompetencesRequise = listcompetenceDeProjet.getId();
+        }
+
+        public void setCompetences(Competence competences) {
+            this.competences = competences;
+            this.nom = competences.getNom();
+        }
     }
-
-    public void setCompetences(Competence competences) {
-        this.competences = competences;
-        this.nom = competences.getNom();
-    }
-}

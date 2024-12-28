@@ -27,7 +27,12 @@ public class Projet {
 
     private Integer  idEquipeDeProjet;
 
+    private Integer idListCompetencesRequise;
+
     //============ Relation =============//
+
+    @OneToOne
+    private ListCompetencesRequise listMesCompetencesRequise;
 
     @OneToMany(mappedBy = "projetDeTache")
     private Collection<Tache> tachesDeProjet;
@@ -37,9 +42,6 @@ public class Projet {
 
     @ManyToOne
     private Equipe equipeDeProjet;
-
-    @OneToMany(mappedBy = "competenceDeProjet")
-    private Collection<CompetenceRequise> competenceRequise;
 
     //============ Les Methodes =============//
 
