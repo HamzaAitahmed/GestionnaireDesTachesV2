@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "UserCollection", path = "UserPath") // seulement pour tester est savoir la diffenrence entre Path est CollectionResourceRel
+//@RepositoryRestResource(collectionResourceRel = "UserCollection", path = "UserPath") // seulement pour tester est savoir la diffenrence entre Path est CollectionResourceRel
 public interface UtilisateurRepository extends JpaRepository<Utilisateur,Integer> {
 
     Utilisateur findByEmail(String email); // http://localhost:8088/Utilisateurs/search/findByEmail?email=hamza@gmail.com
