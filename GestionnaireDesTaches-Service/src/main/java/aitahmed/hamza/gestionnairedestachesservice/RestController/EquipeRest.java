@@ -18,7 +18,7 @@ public class EquipeRest {
         return equipeRepository.findAll();
     }
 
-    @GetMapping(path="/ById/{id}")
+    @GetMapping(path="/{id}")
     public Equipe getEquipeById(@PathVariable int id) {
         return equipeRepository.findById(id);
     }

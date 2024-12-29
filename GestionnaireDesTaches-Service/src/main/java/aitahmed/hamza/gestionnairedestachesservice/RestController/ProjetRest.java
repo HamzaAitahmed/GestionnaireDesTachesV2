@@ -2,7 +2,6 @@ package aitahmed.hamza.gestionnairedestachesservice.RestController;
 
 import aitahmed.hamza.gestionnairedestachesservice.Entity.Projet;
 import aitahmed.hamza.gestionnairedestachesservice.Repository.ProjetRepository;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.ProjetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ public class ProjetRest {
         return projetRepository.findAll();
     }
 
-    @GetMapping(path="/ById/{id}")
+    @GetMapping(path="/{id}")
     public Projet ProjetId(@PathVariable int id)
     {
         return projetRepository.findById(id);
@@ -30,7 +29,6 @@ public class ProjetRest {
     public Projet AjouterProjet(@RequestBody Projet projet)
     {
         System.out.println("AjouterProjet : ");
-//        System.out.println("AjouterProjet : "+projet.toString());
         return projetRepository.save(projet);
     }
 

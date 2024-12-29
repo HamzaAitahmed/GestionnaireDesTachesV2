@@ -18,7 +18,7 @@ public class UtilisateurRest {
         return utilisateurRepository.findAll();
     }
 
-    @GetMapping(path="/ById/{id}")
+    @GetMapping(path="/{id}")
     public Utilisateur UtilisateurId(@PathVariable int id)
     {
         return utilisateurRepository.findById(id);

@@ -18,7 +18,7 @@ public class TacheRest {
         return tacheRepository.findAll();
     }
 
-    @GetMapping(path="/ById/{id}")
+    @GetMapping(path="/{id}")
     public Tache TacheId(@PathVariable int id)
     {
         return tacheRepository.findById(id);
