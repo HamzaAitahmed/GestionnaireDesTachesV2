@@ -1,6 +1,6 @@
-import {MesMember} from './childModels/MesMember.model';
+import {MesMember} from './MesMember.model';
 
-export interface Equipe {
+export interface MesEquipe {
   id: number
   nom: string
   dateDeCreation: string

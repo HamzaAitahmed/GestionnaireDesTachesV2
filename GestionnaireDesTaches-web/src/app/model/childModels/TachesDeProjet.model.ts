@@ -1,6 +1,6 @@
-import {HistoriqueStatut} from './HistoriqueStatut.model';
+import {HistoriqueStatut} from '../HistoriqueStatut.model';
 
-export interface Tache {
+export interface TachesDeProjet {
   id: number
   nom: string
   statutTache: string

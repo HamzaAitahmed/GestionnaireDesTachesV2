@@ -1,4 +1,4 @@
-interface Competence {
-  id: number;
-  nom: string;
+export interface Competence {
+  id: number
+  nom: string
 }

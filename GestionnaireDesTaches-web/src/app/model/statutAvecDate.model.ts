@@ -1,6 +1,6 @@
-interface StatutAvecDate {
+export interface StatutAvecDate {
   id: number;
   statut: string;
-  dateDeModification:Date;
+  dateDeModification:string;
   idHistoriqueStatut: number;
 }
