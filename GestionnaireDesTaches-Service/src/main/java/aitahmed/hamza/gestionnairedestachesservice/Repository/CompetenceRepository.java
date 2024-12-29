@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface CompentenceRepository extends JpaRepository<Competence,Integer> {
+public interface CompetenceRepository extends JpaRepository<Competence,Integer> {
     Competence findCompetenceById(int id);
 }

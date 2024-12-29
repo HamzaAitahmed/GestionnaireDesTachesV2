@@ -6,4 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface CompetenceUtilisateurRepository extends JpaRepository<CompetenceUtilisateur,Integer> {
+    CompetenceUtilisateur findCompetenceUtilisateurById(int id);
 }
