@@ -1,6 +1,8 @@
 package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutProjet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Collection;
@@ -35,12 +37,13 @@ public class Projet {
     private ListCompetencesRequise listMesCompetencesRequise;
 
     @OneToMany(mappedBy = "projetDeTache")
+    @JsonManagedReference
     private Collection<Tache> tachesDeProjet;
 
-    @ManyToOne
+    @ManyToOne  @JsonIgnore
     private Utilisateur chefProjet;
 
-    @ManyToOne
+    @ManyToOne  @JsonIgnore
     private Equipe equipeDeProjet;
 
     //============ Les Methodes =============//

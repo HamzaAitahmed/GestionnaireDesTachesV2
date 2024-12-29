@@ -1,6 +1,7 @@
 package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,12 +23,12 @@ public class ListCompetencesRequise {
 
     //============ Relation =============//
 
-    @OneToOne
+    @OneToOne @JsonIgnore
     private Projet projet;
 
+    //    @JsonManagedReference
     @OneToMany(mappedBy = "ListDesCompetencesRequise")
-    @JsonBackReference
-    private List<CompetenceRequise> competenceRequise;
+    private List<CompetenceRequise> CompetenceRequise;
 
     //============ Les Methodes =============//
 

@@ -20,7 +20,7 @@ public class ListCompetencesUtilisateur {
 
     //============ Relation =============//
 
-    @OneToOne @JsonIgnore
+    @OneToOne @JsonBackReference
     private Utilisateur utilisateur;
 
     @OneToMany( mappedBy = "ListDesCompetences")
@@ -33,4 +33,13 @@ public class ListCompetencesUtilisateur {
         this.idUtilisateur = utilisateur.getId();
     }
 
+    @Override
+    public String toString() {
+
+        return "ListCompetencesUtilisateur{" +
+                "id=" + id +
+                ", idUtilisateur=" + idUtilisateur +
+                ", CompetenceUtilisateur=" +  CompetenceUtilisateur +
+                '}';
+    }
 }

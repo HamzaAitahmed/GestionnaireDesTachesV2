@@ -2,6 +2,7 @@ package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import aitahmed.hamza.gestionnairedestachesservice.Enum.Niveau;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,14 +25,13 @@ import lombok.NoArgsConstructor;
         //============ Relation =============//
 
         @ManyToOne
-        @JsonManagedReference
-        private ListCompetencesRequise ListDesCompetencesRequise;
+        @JoinColumn(name = "Competence_Id", nullable = false)
+        private Competence competence;
 
         @ManyToOne
-        @JoinColumn(name = "competence_id", nullable = false)
-        private Competence competences;
+        private ListCompetencesRequise ListDesCompetencesRequise;
 
-        //============ Les Methodes =============//
+   //============ Les Methodes =============//
 
         public void setCompetenceDeProjet(ListCompetencesRequise listcompetenceDeProjet) {
             this.ListDesCompetencesRequise = listcompetenceDeProjet;
@@ -39,7 +39,12 @@ import lombok.NoArgsConstructor;
         }
 
         public void setCompetences(Competence competences) {
-            this.competences = competences;
+            this.competence = competences;
             this.nom = competences.getNom();
+        }
+
+        @JsonIgnore
+        public ListCompetencesRequise getListDesCompetencesRequise() {
+            return ListDesCompetencesRequise;
         }
     }

@@ -50,4 +50,14 @@ public class CompetenceUtilisateur {
         return ListDesCompetences;
     }
 
+    @Override
+    public String toString() {
+        return "CompetenceUtilisateur{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", niveau=" + niveau +
+                ", idListDesCompetences=" + idListDesCompetences +
+                ", competence=" + competence.toString() +
+                '}';
+    }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/CompetenceUtilisateur")
-public class CompetenceUtilisateurRestx {
+public class CompetenceUtilisateurRest {
     @Autowired CompetenceUtilisateurRepository competenceUtilisateurRepository;
 
     @GetMapping(path="/All")

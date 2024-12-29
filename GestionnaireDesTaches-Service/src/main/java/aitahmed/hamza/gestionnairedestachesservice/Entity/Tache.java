@@ -2,8 +2,12 @@ package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
 import aitahmed.hamza.gestionnairedestachesservice.Enum.Priorite;
 import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
@@ -35,22 +39,20 @@ public class Tache {
 
     //============ Relation =============//
 
-    @ManyToOne
+    @ManyToOne @JsonManagedReference
     private HistoriqueStatut historiqueStatut;
 
-    @ManyToOne
+    @ManyToOne @JsonBackReference
     private Projet projetDeTache;
 
-    @ManyToOne
+    @ManyToOne @JsonIgnore
     private Utilisateur assigneurDeTache;
 
     //============ Les Methodes =============//
 
     public void setStatutTache(StatutTache statutTache) {
-        System.out.println("Statut Change from " + this.statutTache + " to " + statutTache);
         this.statutTache = statutTache;
-        this.historiqueStatut.ajouterStatut(statutTache.toString(), LocalDate.now());
-        System.out.println("setStatutTache Without Lombok ....");
+        this.historiqueStatut.ajouterStatut(statutTache);
     }
 
     public void setHistoriqueStatut(HistoriqueStatut historiqueStatut) {
@@ -64,7 +66,7 @@ public class Tache {
     }
 
     public void setAssigneurDeTache(Utilisateur assigneurDeTache) {
-        System.out.println("Change Utilisateur " +  this.assigneurDeTache.getId() + " ==> " + assigneurDeTache.getId());
+//        System.out.println("Change Utilisateur " +  this.assigneurDeTache.getId + " ==> " + assigneurDeTache.getId());
         this.assigneurDeTache = assigneurDeTache;
         this.idAssigneurDeTache = assigneurDeTache.getId();
     }

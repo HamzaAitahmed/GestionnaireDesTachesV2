@@ -1,11 +1,16 @@
 package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
+import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
@@ -19,12 +24,13 @@ public class HistoriqueStatut {
     //============ Relation =============//
 
     @OneToMany(mappedBy = "historiqueStatutId")
-    private List<StatutAvecDate> historique;
+    @JsonManagedReference
+    private List<StatutAvecDate> historique = new ArrayList<>();;
 
 //    @OneToOne
 //    private Utilisateur modifiePar;
 
-    @OneToOne
+    @OneToOne @JsonBackReference
     private Tache lesStatutDeLaTache;
 
     //============ Les Methodes =============//
@@ -34,16 +40,19 @@ public class HistoriqueStatut {
         this.idTache = lesStatutDeLaTache.getId();
     }
 
-    public void ajouterStatut(String statut, LocalDate date) {
-        historique.add(new StatutAvecDate(statut, date));
+    public void ajouterStatut(StatutTache statutTache) {
+        StatutAvecDate statutAvecDate = new StatutAvecDate(statutTache, LocalDate.now());
+        statutAvecDate.setHistoriqueStatutId(this);
+        historique.add(statutAvecDate);
     }
 
     public String getStatut(LocalDate date) {
         for (StatutAvecDate statutAvecDate : historique) {
             if (statutAvecDate.dateDeModification.equals(date)) {
-                return statutAvecDate.statut;
+                return statutAvecDate.statut.toString();
             }
         }
         return null;
     }
+
 }

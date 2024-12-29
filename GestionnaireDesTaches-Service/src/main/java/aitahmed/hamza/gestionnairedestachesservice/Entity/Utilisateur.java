@@ -39,7 +39,7 @@ public class Utilisateur {
 
     //============ Relation =============//
 
-    @OneToOne
+    @OneToOne @JsonManagedReference
     private ListCompetencesUtilisateur listMesCompetences;
 
     @OneToMany(mappedBy = "chefProjet") @JsonIgnore
@@ -58,4 +58,11 @@ public class Utilisateur {
     @ManyToMany(mappedBy = "mesMembers") @JsonBackReference
     private Collection<Equipe> membreEquipe;
 
+    //============ Les Methodes =============//
+
+    public void setListMesCompetences(ListCompetencesUtilisateur listMesCompetences) {
+        this.listMesCompetences = listMesCompetences;
+        this.listMesCompetences.setUtilisateur(this);
+        this.idListMesCompetences = listMesCompetences.getId();
+    }
 }

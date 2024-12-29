@@ -1,5 +1,7 @@
 package aitahmed.hamza.gestionnairedestachesservice.Entity;
 
+import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +15,8 @@ public class StatutAvecDate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    protected String statut;
+    @Enumerated(EnumType.STRING)
+    protected StatutTache statut;
 
     protected LocalDate dateDeModification;
 
@@ -21,7 +24,7 @@ public class StatutAvecDate {
 
     //============ Les Relations =============//
 
-    @ManyToOne
+    @ManyToOne @JsonBackReference
     private HistoriqueStatut historiqueStatutId;
 
     //============ Les Methodes =============//
@@ -32,7 +35,7 @@ public class StatutAvecDate {
         this.idHistoriqueStatut = historiqueStatutId.getId();
     }
 
-    public StatutAvecDate(String statut, LocalDate dateDeModification) {
+    public StatutAvecDate(StatutTache statut, LocalDate dateDeModification) {
         this.statut = statut;
         this.dateDeModification = dateDeModification;
     }
