@@ -1,0 +1,153 @@
+type Query{
+    Projets : [Projet]
+    ProjetId (id:String) : Projet
+    Equipes : [Equipe]
+    EquipeId (id:String) : Equipe
+}
+
+type Mutation {
+    AjouterProjet(projet : ProjetDTO) : Projet
+    AjouterEquipe(equipe : EquipeDTO) : Equipe
+    ModifierProjet(id: Int,projet : ProjetDTO) : Projet
+    ModifierEquipe(id: Int,equipe : EquipeDTO) : Equipe
+    supprimerProjet(id: Int) : Boolean
+    supprimerEquipe(id: Int) : Boolean
+}
+
+type Competence {
+    id: Int
+    nom: String
+}
+
+type CompetenceRequise {
+    id: Int
+    nom: String
+    niveau: String
+    idListCompetencesRequise: Int
+    competence: Competence
+}
+
+type CompetenceUtilisateur {
+    id: Int
+    nom: String
+    niveau: String
+    idListDesCompetences: Int
+    competence: Competence
+}
+
+type Equipe {
+    id: Int
+    nom: String
+    dateDeCreation: String
+    idChefEquipe: Int
+    mesMembers: [Utilisateur]
+}
+
+type HistoriqueStatut {
+    id: Int
+    idTache: Int
+    historique: [StatutAvecDate]
+}
+
+type ListMesCompetencesRequise {
+    id: Int
+    idProjet: Int
+    competenceRequise: [CompetenceRequise]
+}
+
+type ListCompetencesUtilisateur {
+    id: Int
+    idUtilisateur: Int
+    competenceUtilisateur: [CompetenceUtilisateur]
+}
+
+type Projet {
+    id: Int
+    nom: String
+    budget: Int
+    client: String
+    description: String
+    statut: String
+    dateDeCreation: String
+    dateDebut: String
+    dateFin: String
+    idChefProjet: Int
+    idEquipeDeProjet: Int
+    idListCompetencesRequise: Int
+    listMesCompetencesRequise: ListMesCompetencesRequise
+    tachesDeProjet: [Tache]
+}
+
+type StatutAvecDate {
+    id: Int
+    statut: String
+    dateDeModification: String
+    idHistoriqueStatut: Int
+}
+
+type Tache {
+    id: Int
+    nom: String
+    statutTache: String
+    priorite: String
+    dateDeCreation: String
+    dateDebut: String
+    dateFin: String
+    description: String
+    idAssigneurDeTache: Int
+    idProjetDeTache: Int
+    idHistoriqueStatut: Int
+    historiqueStatut: HistoriqueStatut
+}
+
+type Utilisateur {
+    id: Int
+    email: String
+    salaire: Int
+    nom: String
+    prenom: String
+    username: String
+    gender: String
+    dateOfBirth: String
+    dateInscription: String
+    anneeExpeience: Int
+    role: String
+    profilePicture: String
+    idListMesCompetences: Int
+    listMesCompetences: ListCompetencesUtilisateur
+    mesEquipes: [Equipe]
+}
+
+input EquipeDTO {
+    nom: String
+    idChefEquipe: Int
+}
+
+input TacheDTO {
+    nom: String
+    statutTache: String
+    priorite: String
+    dateDebut: String
+    dateFin: String
+    description: String
+}
+
+input UtilisateurDTO {
+    email: String
+    salaire: Int
+    nom: String
+    prenom: String
+    username: String
+    gender: String
+    dateOfBirth: String
+}
+
+input ProjetDTO {
+    nom: String
+    budget: Int
+    client: String
+    description: String
+    statut: String
+    dateDebut: String
+    dateFin: String
+}
