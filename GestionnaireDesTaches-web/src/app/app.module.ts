@@ -27,8 +27,9 @@ import { DeconnexionComponent } from './Authentification/deconnexion/deconnexion
 import { ConnecterComponent } from './Authentification/connecter/connecter.component';
 import { ListDesUtilisateursComponent } from './utilisateur/list-des-utilisateurs/list-des-utilisateurs.component';
 import {ListDesProjetsComponent} from './projet/list-des-projets/list-des-projets.component';
-import {provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { GraphQLModule } from './graphql.module';
 
 
 @NgModule({
@@ -65,6 +66,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    GraphQLModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
