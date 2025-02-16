@@ -1,6 +1,6 @@
 package aitahmed.hamza.gestionnairedestachesservice.Repository;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.Competence;
+import aitahmed.hamza.gestionnairedestachesservice.entity.Competence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

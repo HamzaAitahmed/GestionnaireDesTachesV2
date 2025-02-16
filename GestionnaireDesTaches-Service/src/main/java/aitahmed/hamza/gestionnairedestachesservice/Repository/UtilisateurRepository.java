@@ -1,9 +1,8 @@
 package aitahmed.hamza.gestionnairedestachesservice.Repository;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.Utilisateur;
+import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Integer
 
 //    List<Utilisateur> findUtilisateursByMembreEquipeId(Integer TeamId);
 
-    @Query("select u from Utilisateur u Join Equipe On u Not IN ( Select t.mesMembers from Equipe t where t.id = :TeamId ) ")
+    @Query("select u from Utilisateur u Join Equipe On u Not IN ( Select t.lesMembresDEquipe from Equipe t where t.id = :TeamId ) ")
     List<Utilisateur> findUtilisateursIsNotMembreEquipe(Integer TeamId);
 
 }

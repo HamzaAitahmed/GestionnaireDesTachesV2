@@ -1,6 +1,6 @@
 package aitahmed.hamza.gestionnairedestachesservice.Repository;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.*;
+import aitahmed.hamza.gestionnairedestachesservice.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,9 +14,9 @@ public interface EquipeRepository extends JpaRepository<Equipe,Integer>{
 //    @Query("SELECT p.equipeDeProjet FROM Projet p WHERE p.equipeDeProjet IS NOT NULL ")
 //    List<Equipe> findEquipesByProjetNotNull();
 
-    List<Equipe> findEquipesByProjetsEquipeIsNotNull();
+//    List<Equipe> findEquipesByLesProjetsDEquipeIsNotNull();
 
-    List<Equipe> findEquipesByProjetsEquipeIsNull();
+    List<Equipe> findEquipesByLesProjetsDEquipeIsNull();
 
     Equipe findById(int id);
 
@@ -29,11 +29,6 @@ public interface EquipeRepository extends JpaRepository<Equipe,Integer>{
 //    @Query("SELECT t FROM Equipe t WHERE t.chefEquipe.id = :id")
 //    List<Equipe> findMesEquipesByChefEquipe(@Param("id") Integer id);
 
-
-//    @Query("SELECT t FROM Equipe t WHERE t In (select u.mesEquipes from Utilisateur u  where u.id = :id )")
-//    List<Equipe> findMesEquipesByMember(@Param("id") Integer id);
-
-//    List<Equipe> findEquipes(@Param("id") Integer id);
 
     @Query("SELECT t FROM Equipe t WHERE t In (select u.mesEquipes from Utilisateur u  where u.id = :id ) or t.chefEquipe.id = :id ")
     List<Equipe> findMesEquipesByUser(@Param("id") Integer id);
