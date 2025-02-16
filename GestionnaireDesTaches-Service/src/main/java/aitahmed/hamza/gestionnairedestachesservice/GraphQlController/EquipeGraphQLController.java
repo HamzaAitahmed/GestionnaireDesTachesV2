@@ -1,54 +1,62 @@
-package aitahmed.hamza.gestionnairedestachesservice.GraphQlController;
+package aitahmed.hamza.gestionnairedestachesservice.graphqlController;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.Equipe;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.EquipeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import aitahmed.hamza.gestionnairedestachesservice.dtos.request.EquipeRequestDTO;
+import aitahmed.hamza.gestionnairedestachesservice.dtos.response.EquipeResponseDTO;
+import aitahmed.hamza.gestionnairedestachesservice.entity.Equipe;
+import aitahmed.hamza.gestionnairedestachesservice.mappers.EquipeMapper;
+import aitahmed.hamza.gestionnairedestachesservice.services.EquipeService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class EquipeGraphQLController {
-    @Autowired private EquipeRepository equipeRepository;
+    private final EquipeService equipeService;
+    private final EquipeMapper equipeMapper;
 
-    @QueryMapping
-    public List<Equipe> Equipes()
-    {
-        System.out.println("Equipes [] ");
-        return equipeRepository.findAll();
+    EquipeGraphQLController (EquipeService equipeService, EquipeMapper equipeMapper) {
+        this.equipeService = equipeService;
+        this.equipeMapper = equipeMapper;
     }
 
     @QueryMapping
-    public Equipe EquipeId(@Argument int id)
-    {
-        System.out.println("EquipeId : "+id);
-        return equipeRepository.findById(id);
+    public List<EquipeResponseDTO> Equipes() {
+        List<Equipe> equipes = equipeService.getToutesLesEquipes();
+        return equipes.stream()
+                .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
+    public EquipeResponseDTO EquipeById(@Argument int id) {
+        Equipe equipe = equipeService.getEquipeById(id);
+        return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @MutationMapping
-    public Equipe AjouterEquipe(@Argument Equipe equipe )
+    public EquipeResponseDTO AjouterEquipe(@Argument EquipeRequestDTO equipeRequest)
     {
-        System.out.println("AjouterEquipe : ");
-        return equipeRepository.save(equipe);
+        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeRequest);
+        Equipe equipe = equipeService.ajouterEquipe(recupererEquipe);
+        return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @MutationMapping
-    public Equipe ModifierEquipe(@Argument int id, @Argument Equipe equipe)
+    public EquipeResponseDTO ModifierEquipe(@Argument int id, @Argument EquipeRequestDTO equipeRequest)
     {
-        System.out.println("ModifierEquipe id : "+id);
-        return equipeRepository.findById(id);
+        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeRequest);
+        Equipe equipe = equipeService.modifierEquipe(id, recupererEquipe);
+        return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @MutationMapping
     public boolean supprimerEquipe(@Argument int id)
     {
-        System.out.println("DeleteEquipesById :"+id);
-        equipeRepository.deleteById(id);
-        return true;
+        return equipeService.supprimerEquipe(id);
     }
+    
 }
