@@ -1,14 +1,14 @@
-package aitahmed.hamza.gestionnairedestachesservice.RestController;
+package aitahmed.hamza.gestionnairedestachesservice.restController;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.StatutAvecDate;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.StatutAvecDateRepository;
+import aitahmed.hamza.gestionnairedestachesservice.entity.StatutAvecDate;
+import aitahmed.hamza.gestionnairedestachesservice.repository.StatutAvecDateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/StatutAvecDate")
+@RequestMapping("/api/StatutAvecDate/{userId}")
 public class StatutAvecDateRest {
     @Autowired
     StatutAvecDateRepository statutAvecDateRepository;

@@ -1,14 +1,14 @@
-package aitahmed.hamza.gestionnairedestachesservice.RestController;
+package aitahmed.hamza.gestionnairedestachesservice.restController;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.ListCompetencesRequise;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.ListCompetencesRequiseRepository;
+import aitahmed.hamza.gestionnairedestachesservice.entity.ListCompetencesRequise;
+import aitahmed.hamza.gestionnairedestachesservice.repository.ListCompetencesRequiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ListCompetencesRequise")
+@RequestMapping("/api/ListCompetencesRequise/{userId}")
 public class ListCompetencesRequiseRest {
     @Autowired ListCompetencesRequiseRepository listCompetencesRequiseRepository;
 

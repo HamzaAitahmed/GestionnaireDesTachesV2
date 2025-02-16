@@ -1,14 +1,14 @@
-package aitahmed.hamza.gestionnairedestachesservice.RestController;
+package aitahmed.hamza.gestionnairedestachesservice.restController;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.Tache;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.TacheRepository;
+import aitahmed.hamza.gestionnairedestachesservice.entity.Tache;
+import aitahmed.hamza.gestionnairedestachesservice.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Tache")
+@RequestMapping("/api/Tache/{userId}")
 public class TacheRest {
     @Autowired TacheRepository tacheRepository;
 

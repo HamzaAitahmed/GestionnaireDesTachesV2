@@ -1,14 +1,14 @@
-package aitahmed.hamza.gestionnairedestachesservice.RestController;
+package aitahmed.hamza.gestionnairedestachesservice.restController;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.Equipe;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.EquipeRepository;
+import aitahmed.hamza.gestionnairedestachesservice.entity.Equipe;
+import aitahmed.hamza.gestionnairedestachesservice.repository.EquipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Equipe")
+@RequestMapping("/api/Equipe/{userId}")
 public class EquipeRest {
 
     @Autowired private EquipeRepository equipeRepository;

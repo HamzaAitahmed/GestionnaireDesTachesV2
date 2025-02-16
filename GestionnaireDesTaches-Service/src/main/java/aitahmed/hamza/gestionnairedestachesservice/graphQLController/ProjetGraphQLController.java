@@ -1,9 +1,8 @@
-package aitahmed.hamza.gestionnairedestachesservice.graphqlController;
+package aitahmed.hamza.gestionnairedestachesservice.graphQLController;
 
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.ProjetRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.ProjetResponseDTO;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Projet;
-import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
 import aitahmed.hamza.gestionnairedestachesservice.mappers.ProjetMapper;
 import aitahmed.hamza.gestionnairedestachesservice.services.ProjetService;
 import org.springframework.graphql.data.method.annotation.Argument;

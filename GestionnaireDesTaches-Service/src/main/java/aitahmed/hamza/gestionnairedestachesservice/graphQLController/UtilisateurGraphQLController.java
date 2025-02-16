@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.graphqlController;
+package aitahmed.hamza.gestionnairedestachesservice.graphQLController;
 
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.UtilisateurRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.UtilisateurResponseDTO;

@@ -1,14 +1,14 @@
-package aitahmed.hamza.gestionnairedestachesservice.RestController;
+package aitahmed.hamza.gestionnairedestachesservice.restController;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.HistoriqueStatut;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.HistoriqueStatutRepository;
+import aitahmed.hamza.gestionnairedestachesservice.entity.HistoriqueStatut;
+import aitahmed.hamza.gestionnairedestachesservice.repository.HistoriqueStatutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/HistoriqueStatut")
+@RequestMapping("/api/HistoriqueStatut/{userId}")
 public class HistoriqueStatutRest {
     @Autowired
     HistoriqueStatutRepository historiqueStatutRepository;

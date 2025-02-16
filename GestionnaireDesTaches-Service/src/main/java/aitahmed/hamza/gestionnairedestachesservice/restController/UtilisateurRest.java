@@ -1,14 +1,14 @@
-package aitahmed.hamza.gestionnairedestachesservice.RestController;
+package aitahmed.hamza.gestionnairedestachesservice.restController;
 
-import aitahmed.hamza.gestionnairedestachesservice.Entity.Utilisateur;
-import aitahmed.hamza.gestionnairedestachesservice.Repository.UtilisateurRepository;
+import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
+import aitahmed.hamza.gestionnairedestachesservice.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Utilisateur")
+@RequestMapping("/api/Utilisateur/{userId}")
 public class UtilisateurRest {
     @Autowired  UtilisateurRepository utilisateurRepository;
 
@@ -34,7 +34,6 @@ public class UtilisateurRest {
     public Utilisateur AjouterUtilisateur(@RequestBody Utilisateur utilisateur)
     {
         System.out.println("AjouterUtilisateur : ");
-//        System.out.println("AjouterUtilisateur : "+utilisateur.toString());
         return utilisateurRepository.save(utilisateur);
     }
 
