@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.Repository;
+package aitahmed.hamza.gestionnairedestachesservice.repository;
 
 import aitahmed.hamza.gestionnairedestachesservice.entity.CompetenceRequise;
 import org.springframework.data.jpa.repository.JpaRepository;
