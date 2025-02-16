@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.Enum;
+package aitahmed.hamza.gestionnairedestachesservice.enumeration;
 
 public enum Priorite {
     BASSE,
