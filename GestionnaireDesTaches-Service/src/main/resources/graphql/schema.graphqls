@@ -1,153 +1,261 @@
 type Query{
-    Projets : [Projet]
-    ProjetId (id:String) : Projet
-    Equipes : [Equipe]
-    EquipeId (id:String) : Equipe
+    Projets  (id:Int) : [ProjetResponse]
+    ProjetsSearch  (id:Int, search:String) : [ProjetResponse]
+    ProjetById (id:Int) : ProjetResponse
+
+    Equipes : [EquipeResponse]
+    EquipeById (id:Int) : EquipeResponse
+
+    Taches (id:Int) : [TacheResponse]
+    TacheById (id:Int) : TacheResponse
+
+    Utilisateurs : [UtilisateurResponse]
+    UtilisateurById (id:Int) : UtilisateurResponse
+    UtilisateurByEmail (email:String): UtilisateurResponse
 }
 
 type Mutation {
-    AjouterProjet(projet : ProjetDTO) : Projet
-    AjouterEquipe(equipe : EquipeDTO) : Equipe
-    ModifierProjet(id: Int,projet : ProjetDTO) : Projet
-    ModifierEquipe(id: Int,equipe : EquipeDTO) : Equipe
-    supprimerProjet(id: Int) : Boolean
-    supprimerEquipe(id: Int) : Boolean
+    AjouterProjet (projetObject : ProjetRequest) : ProjetResponse
+    ModifierProjet (id: Int,projetObject : ProjetRequest) : ProjetResponse
+    supprimerProjet (id: Int) : Boolean
+
+    AjouterEquipe (equipeObject : EquipeRequest) : EquipeResponse
+    ModifierEquipe (id: Int, equipeObject : EquipeRequest) : EquipeResponse
+    supprimerEquipe (id: Int) : Boolean
+
+    AjouterTache (tacheObject : TacheRequest) : TacheResponse
+    ModifierTache (id: Int,  tacheObject : TacheRequest) : TacheResponse
+    supprimerTache (id: Int) : Boolean
+
+    AjouterUtilisateur (utilisateurObject : UtilisateurRequest) : UtilisateurResponse
+    ModifierUtilisateur (id: Int,  utilisateurObject : UtilisateurRequest) : UtilisateurResponse
+    supprimerUtilisateur (id: Int) : Boolean
 }
 
-type Competence {
-    id: Int
+input CompetenceRequest {
     nom: String
 }
 
-type CompetenceRequise {
-    id: Int
+input CompetenceRequiseRequest {
     nom: String
     niveau: String
-    idListCompetencesRequise: Int
-    competence: Competence
+    competenceId: Int
+    listCompetencesRequiseId: Int
 }
 
-type CompetenceUtilisateur {
-    id: Int
+input CompetenceUtilisateurRequest {
     nom: String
     niveau: String
-    idListDesCompetences: Int
-    competence: Competence
+    competenceId: Int
+    listCompetencesUtilisateurId: Int
 }
 
-type Equipe {
-    id: Int
+input ConnecterRequest {
+    email: String
+    password: String
+}
+
+input EquipeRequest {
     nom: String
     dateDeCreation: String
-    idChefEquipe: Int
-    mesMembers: [Utilisateur]
+    chefEquipeId: Int
+    lesProjetsDEquipeIds: [Int]
+    lesMembresDEquipeIds: [Int]
 }
 
-type HistoriqueStatut {
-    id: Int
-    idTache: Int
-    historique: [StatutAvecDate]
+input HistoriqueStatutRequest {
+    tacheDeHistoriqueId: Int
+    listDesStatutsIds: [Int]
 }
 
-type ListMesCompetencesRequise {
-    id: Int
-    idProjet: Int
-    competenceRequise: [CompetenceRequise]
+input InscriptionRequest {
+    username: String
+    email: String
+    password: String
+    confirmerPassword: String
 }
 
-type ListCompetencesUtilisateur {
-    id: Int
-    idUtilisateur: Int
-    competenceUtilisateur: [CompetenceUtilisateur]
+input ListCompetencesRequiseRequest {
+    projetId: Int
+    lesCompetencesRequiseIds: [Int]
 }
 
-type Projet {
-    id: Int
+input ListCompetencesUtilisateurRequest {
+    utilisateurId: Int
+    lesCompetencesUtilisateurIds: [Int]
+}
+
+input MessageRequestRequest {
+    dateEnvoyer: String
+    dateRecever: String
+    dateLu: Boolean
+    lu: Boolean
+    titre: String
+    message: String
+    idEmmetteur: Int
+    idRecepteur: Int
+}
+
+input NotificationRequest {
+    dateLu: String
+    lu: Boolean
+    idRecepteur: Int
+}
+
+input ProjetRequest {
     nom: String
-    budget: Int
+    budget: Float
     client: String
     description: String
     statut: String
     dateDeCreation: String
     dateDebut: String
     dateFin: String
-    idChefProjet: Int
-    idEquipeDeProjet: Int
-    idListCompetencesRequise: Int
-    listMesCompetencesRequise: ListMesCompetencesRequise
-    tachesDeProjet: [Tache]
+    chefProjetId: Int
+    equipeDuProjetId: Int
+    listMesCompetencesId: Int
+    lesTachesDeProjetIds: [Int]
 }
 
-type StatutAvecDate {
-    id: Int
+input StatutAvecDateRequest {
     statut: String
     dateDeModification: String
-    idHistoriqueStatut: Int
+    historiqueId: Int
 }
 
-type Tache {
-    id: Int
+input TacheRequest {
     nom: String
+    description: String
     statutTache: String
     priorite: String
     dateDeCreation: String
     dateDebut: String
     dateFin: String
-    description: String
-    idAssigneurDeTache: Int
-    idProjetDeTache: Int
-    idHistoriqueStatut: Int
-    historiqueStatut: HistoriqueStatut
+    historiqueDeLaTacheId: Int
+    projetDeTacheId: Int
+    assigneurDeTacheId: Int
 }
 
-type Utilisateur {
-    id: Int
+input UtilisateurRequest {
     email: String
-    salaire: Int
+    salaire: Float
     nom: String
     prenom: String
     username: String
     gender: String
     dateOfBirth: String
     dateInscription: String
-    anneeExpeience: Int
+    anneeExperience: Int
     role: String
     profilePicture: String
-    idListMesCompetences: Int
-    listMesCompetences: ListCompetencesUtilisateur
-    mesEquipes: [Equipe]
+    listMesCompetencesId: Int
+    mesProjetsIds: [Int]
+    mesTachesIds: [Int]
+    mesEquipesIds: [Int]
+    membreDansLEquipeIds: [Int]
 }
 
-input EquipeDTO {
+type CompetenceResponse {
+    id: Int
     nom: String
-    idChefEquipe: Int
 }
 
-input TacheDTO {
+type CompetenceRequiseResponse {
+    id: Int
     nom: String
-    statutTache: String
-    priorite: String
+    niveau: String
+    competenceId: Int
+    listCompetencesRequiseId: Int
+}
+
+type CompetenceUtilisateurResponse {
+    id: Int
+    nom: String
+    niveau: String
+    competenceId: Int
+    listCompetencesUtilisateurId: Int
+}
+
+type EquipeResponse {
+    id: Int
+    nom: String
+    dateDeCreation: String
+    chefEquipeId: Int
+    lesProjetsDEquipeIds: [Int]
+    lesMembresDEquipeIds: [Int]
+}
+
+type HistoriqueStatutResponse {
+    id: Int
+    tacheDeHistoriqueId: Int
+    listDesStatutsIds: [Int]
+}
+
+type ListCompetencesRequiseResponse {
+    id: Int
+    projetId: Int
+    lesCompetencesRequiseIds: [Int]
+}
+
+type ListCompetencesUtilisateurResponse {
+    id: Int
+    utilisateurId: Int
+    lesCompetencesUtilisateurIds: [Int]
+}
+
+type ProjetResponse {
+    id: Int
+    nom: String
+    budget: Float
+    client: String
+    description: String
+    statut: String
+    dateDeCreation: String
     dateDebut: String
     dateFin: String
-    description: String
+    chefProjetId: Int
+    equipeDuProjetId: Int
+    listMesCompetencesId: Int
+    lesTachesDeProjetIds: [Int]
 }
 
-input UtilisateurDTO {
+type StatutAvecDateResponse {
+    id: Int
+    statut: String
+    dateDeModification: String
+    historiqueId: Int
+}
+
+type TacheResponse {
+    id: Int
+    nom: String
+    description: String
+    statutTache: String
+    priorite: String
+    dateDeCreation: String
+    dateDebut: String
+    dateFin: String
+    historiqueDeLaTacheId: Int
+    projetDeTacheId: Int
+    assigneurDeTacheId: Int
+}
+
+type UtilisateurResponse {
+    id: Int
     email: String
-    salaire: Int
+    salaire: Float
     nom: String
     prenom: String
     username: String
     gender: String
     dateOfBirth: String
-}
-
-input ProjetDTO {
-    nom: String
-    budget: Int
-    client: String
-    description: String
-    statut: String
-    dateDebut: String
-    dateFin: String
+    dateInscription: String
+    anneeExperience: Int
+    role: String
+    profilePicture: String
+    listMesCompetencesId: Int
+    mesProjetsIds: [Int]
+    mesTachesIds: [Int]
+    mesEquipesIds: [Int]
+    membreDansLEquipeIds: [Int]
 }
