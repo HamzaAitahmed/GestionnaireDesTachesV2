@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

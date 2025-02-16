@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
@@ -12,34 +12,18 @@ import java.util.List;
 //        property = "id")
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class ListCompetencesUtilisateur {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    private Integer idUtilisateur;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     //============ Relation =============//
 
     @OneToOne @JsonBackReference
     private Utilisateur utilisateur;
 
-    @OneToMany( mappedBy = "ListDesCompetences")
-    private List<CompetenceUtilisateur> CompetenceUtilisateur;
+    @OneToMany( mappedBy = "listCompetencesUtilisateur")
+    private List<CompetenceUtilisateur> lesCompetencesUtilisateur;
 
     //============ Les Methodes =============//
 
-    public void setcompetenceDeUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
-        this.idUtilisateur = utilisateur.getId();
-    }
-
-    @Override
-    public String toString() {
-
-        return "ListCompetencesUtilisateur{" +
-                "id=" + id +
-                ", idUtilisateur=" + idUtilisateur +
-                ", CompetenceUtilisateur=" +  CompetenceUtilisateur +
-                '}';
-    }
 }

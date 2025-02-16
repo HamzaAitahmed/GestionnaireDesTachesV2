@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,8 +9,8 @@ import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class Message {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private LocalDate dateDeCreation, dateEnvoyer, dateRecever, dateLu;

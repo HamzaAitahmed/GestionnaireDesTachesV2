@@ -1,8 +1,6 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class ListCompetencesRequise {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    private Integer idProjet;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     //============ Relation =============//
 
@@ -27,14 +23,9 @@ public class ListCompetencesRequise {
     private Projet projet;
 
     //    @JsonManagedReference
-    @OneToMany(mappedBy = "ListDesCompetencesRequise")
-    private List<CompetenceRequise> CompetenceRequise;
+    @OneToMany(mappedBy = "listCompetencesRequise")
+    private List<CompetenceRequise> lesCompetencesRequise;
 
     //============ Les Methodes =============//
-
-    public void setcompetenceDeUtilisateur(Projet projet) {
-        this.projet = projet;
-        this.idProjet = projet.getId();
-    }
 
 }

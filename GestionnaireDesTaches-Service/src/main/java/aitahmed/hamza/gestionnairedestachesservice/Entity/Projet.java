@@ -1,6 +1,6 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutProjet;
+import aitahmed.hamza.gestionnairedestachesservice.enumeration.StatutProjet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class Projet {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -17,45 +18,32 @@ public class Projet {
     private String nom;
 
     private double budget;
-
-    private String client, description;
+    private String client;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private StatutProjet statut;
 
-    private LocalDate dateDeCreation, dateDebut, dateFin;
-
-    private Integer idChefProjet;
-
-    private Integer  idEquipeDeProjet;
-
-    private Integer idListCompetencesRequise;
+    private LocalDate dateDeCreation;
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
 
     //============ Relation =============//
 
     @OneToOne
-    private ListCompetencesRequise listMesCompetencesRequise;
+    private ListCompetencesRequise listMesCompetences;
 
     @OneToMany(mappedBy = "projetDeTache")
     @JsonManagedReference
-    private Collection<Tache> tachesDeProjet;
+    private Collection<Tache> lesTachesDeProjet;
 
     @ManyToOne  @JsonIgnore
     private Utilisateur chefProjet;
 
     @ManyToOne  @JsonIgnore
-    private Equipe equipeDeProjet;
+    private Equipe equipeDuProjet;
 
     //============ Les Methodes =============//
 
-    public void setChefProjet(Utilisateur chefProjet) {
-        this.chefProjet = chefProjet;
-        this.idChefProjet = chefProjet.getId();
-    }
-
-    public void setEquipeDeProjet(Equipe equipeDeProjet) {
-        this.equipeDeProjet = equipeDeProjet;
-        this.idEquipeDeProjet = equipeDeProjet.getId();
-    }
 
 }

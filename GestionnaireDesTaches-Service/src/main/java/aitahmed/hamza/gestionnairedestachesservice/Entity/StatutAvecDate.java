@@ -1,6 +1,6 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
+import aitahmed.hamza.gestionnairedestachesservice.enumeration.StatutTache;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,8 @@ import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class StatutAvecDate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)
@@ -20,20 +20,12 @@ public class StatutAvecDate {
 
     protected LocalDate dateDeModification;
 
-    private Integer idHistoriqueStatut;
-
     //============ Les Relations =============//
 
     @ManyToOne @JsonBackReference
-    private HistoriqueStatut historiqueStatutId;
+    private HistoriqueStatut historique;
 
     //============ Les Methodes =============//
-
-
-    public void setHistoriqueStatutId(HistoriqueStatut historiqueStatutId) {
-        this.historiqueStatutId = historiqueStatutId;
-        this.idHistoriqueStatut = historiqueStatutId.getId();
-    }
 
     public StatutAvecDate(StatutTache statut, LocalDate dateDeModification) {
         this.statut = statut;

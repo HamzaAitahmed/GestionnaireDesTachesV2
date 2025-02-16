@@ -1,15 +1,14 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.Enum.Niveau;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import aitahmed.hamza.gestionnairedestachesservice.enumeration.Niveau;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-    @Data @AllArgsConstructor @NoArgsConstructor @Entity
+@Data @AllArgsConstructor @NoArgsConstructor @Entity
     public class CompetenceRequise {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,23 +19,16 @@ import lombok.NoArgsConstructor;
         @Enumerated(EnumType.STRING)
         private Niveau niveau;
 
-        private Integer idListCompetencesRequise;
-
         //============ Relation =============//
 
+        @NonNull
         @ManyToOne
-        @JoinColumn(name = "Competence_Id", nullable = false)
         private Competence competence;
 
         @ManyToOne
-        private ListCompetencesRequise ListDesCompetencesRequise;
+        private ListCompetencesRequise listCompetencesRequise;
 
    //============ Les Methodes =============//
-
-        public void setCompetenceDeProjet(ListCompetencesRequise listcompetenceDeProjet) {
-            this.ListDesCompetencesRequise = listcompetenceDeProjet;
-            this.idListCompetencesRequise = listcompetenceDeProjet.getId();
-        }
 
         public void setCompetences(Competence competences) {
             this.competence = competences;
@@ -45,6 +37,6 @@ import lombok.NoArgsConstructor;
 
         @JsonIgnore
         public ListCompetencesRequise getListDesCompetencesRequise() {
-            return ListDesCompetencesRequise;
+            return listCompetencesRequise;
         }
     }

@@ -1,7 +1,7 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.Enum.Priorite;
-import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
+import aitahmed.hamza.gestionnairedestachesservice.enumeration.Priorite;
+import aitahmed.hamza.gestionnairedestachesservice.enumeration.StatutTache;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -12,12 +12,13 @@ import java.time.LocalDate;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class Tache {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(unique=true) // unique seulement dans le projet
     private String nom;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private StatutTache statutTache;
@@ -26,21 +27,13 @@ public class Tache {
     private Priorite priorite;
 
     private LocalDate dateDeCreation;
-
-    private LocalDate dateDebut, dateFin;
-
-    private String description;
-
-    private Integer idAssigneurDeTache;
-
-    private Integer idProjetDeTache;
-
-    private Integer idHistoriqueStatut;
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
 
     //============ Relation =============//
 
     @ManyToOne @JsonManagedReference
-    private HistoriqueStatut historiqueStatut;
+    private HistoriqueStatut historiqueDeLaTache;
 
     @ManyToOne @JsonBackReference
     private Projet projetDeTache;
@@ -52,23 +45,7 @@ public class Tache {
 
     public void setStatutTache(StatutTache statutTache) {
         this.statutTache = statutTache;
-        this.historiqueStatut.ajouterStatut(statutTache);
-    }
-
-    public void setHistoriqueStatut(HistoriqueStatut historiqueStatut) {
-        this.historiqueStatut = historiqueStatut;
-        this.idHistoriqueStatut = historiqueStatut.getId();
-    }
-
-    public void setProjetDeTache(Projet projetDeTache) {
-        this.projetDeTache = projetDeTache;
-        this.idProjetDeTache = projetDeTache.getId();
-    }
-
-    public void setAssigneurDeTache(Utilisateur assigneurDeTache) {
-//        System.out.println("Change Utilisateur " +  this.assigneurDeTache.getId + " ==> " + assigneurDeTache.getId());
-        this.assigneurDeTache = assigneurDeTache;
-        this.idAssigneurDeTache = assigneurDeTache.getId();
+        this.historiqueDeLaTache.ajouterStatut(statutTache);
     }
 
 }

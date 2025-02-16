@@ -1,8 +1,7 @@
-package aitahmed.hamza.gestionnairedestachesservice.Entity;
+package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.Enum.StatutTache;
+import aitahmed.hamza.gestionnairedestachesservice.enumeration.StatutTache;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,39 +14,32 @@ import java.util.List;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Entity
 public class HistoriqueStatut {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer idTache;
-
     //============ Relation =============//
-
-    @OneToMany(mappedBy = "historiqueStatutId")
-    @JsonManagedReference
-    private List<StatutAvecDate> historique = new ArrayList<>();;
 
 //    @OneToOne
 //    private Utilisateur modifiePar;
 
     @OneToOne @JsonBackReference
-    private Tache lesStatutDeLaTache;
+    private Tache tacheDeHistorique;
+
+    @OneToMany(mappedBy = "historique")
+    @JsonManagedReference
+    private List<StatutAvecDate> listDesStatuts;
 
     //============ Les Methodes =============//
 
-    public void setLesStatutDeLaTache(Tache lesStatutDeLaTache) {
-        this.lesStatutDeLaTache = lesStatutDeLaTache;
-        this.idTache = lesStatutDeLaTache.getId();
-    }
-
     public void ajouterStatut(StatutTache statutTache) {
         StatutAvecDate statutAvecDate = new StatutAvecDate(statutTache, LocalDate.now());
-        statutAvecDate.setHistoriqueStatutId(this);
-        historique.add(statutAvecDate);
+        statutAvecDate.setHistorique(this);
+        listDesStatuts.add(statutAvecDate);
     }
 
     public String getStatut(LocalDate date) {
-        for (StatutAvecDate statutAvecDate : historique) {
+        for (StatutAvecDate statutAvecDate : listDesStatuts) {
             if (statutAvecDate.dateDeModification.equals(date)) {
                 return statutAvecDate.statut.toString();
             }
