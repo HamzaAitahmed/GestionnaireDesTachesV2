@@ -31,7 +31,7 @@ public class Utilisateur {
 
     private LocalDate dateOfBirth;
     private LocalDate dateInscription;
-    private int anneeExpeience;
+    private int anneeExperience;
 
     @Enumerated(EnumType.STRING)
     private Role role;

@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.DTO.Request;
+package aitahmed.hamza.gestionnairedestachesservice.dtos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +10,9 @@ import java.time.LocalDate;
 @Data @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StatutAvecDateRequestDTO {
+public class StatutAvecDateResponseDTO {
+    private Integer id;
     private String statut;
     private LocalDate dateDeModification;
-    private Integer idHistoriqueStatut;
+    private Integer historiqueId;
 }

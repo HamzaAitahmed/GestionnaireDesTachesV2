@@ -1,4 +1,4 @@
-package aitahmed.hamza.gestionnairedestachesservice.DTO.Request;
+package aitahmed.hamza.gestionnairedestachesservice.dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,5 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class HistoriqueStatutRequestDTO {
-    private Integer idTache;
+    private Integer tacheDeHistoriqueId;
+    private List<Integer> listDesStatutsIds;    // IDs des membres de l'équipe
 }
+
