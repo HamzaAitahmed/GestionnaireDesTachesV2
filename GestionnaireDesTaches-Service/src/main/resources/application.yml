@@ -1,0 +1,35 @@
+#server:
+#  port: 8088
+#spring:
+#  application:
+#    name: GestionnaireDesTaches-Service
+##  config:
+##    import: optional:configserver:http://localhost:8888
+#  cloud:
+#    discovery:
+#      enabled: false
+#    gateway:
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowedOrigins: "http://localhost:4200"
+#            allowedHeaders: "*"
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+#
+##
+##      =====> Methode Static
+##
+##    gateway:
+##      routes:
+##        - id : r1
+##          uri : http://localhost:8081/
+##          predicates :
+##            - Path= /customers/**
+##        - id : r2
+##          uri : http://localhost:8082/
+##          predicates :
+##            - Path= /products/**
