@@ -54,6 +54,30 @@ public class ProjetGraphQLController {
     }
 
     @QueryMapping
+    public List<ProjetResponseDTO> ProjetByChefProjetId(@Argument int chefProjetId) {
+        List<Projet> projets = projetService.getProjetsByChefProjetId(chefProjetId);
+
+        return projets.stream()
+                .map(projetMapper::ProjettoProjetResponseDTO) // Utilisez le mapper pour convertir chaque projet
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
+    public List<ProjetResponseDTO> ProjetByEquipeDuProjetId(@Argument int equipeDuProjetId) {
+        List<Projet> projets = projetService.getProjetsByEquipeDuProjetId(equipeDuProjetId);
+
+        return projets.stream()
+                .map(projetMapper::ProjettoProjetResponseDTO) // Utilisez le mapper pour convertir chaque projet
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
+    public ProjetResponseDTO ProjetByTacheId(@Argument int tacheId) {
+        Projet projet = projetService.getProjetByTacheId(tacheId);
+        return projetMapper.ProjettoProjetResponseDTO(projet);
+    }
+
+    @QueryMapping
     public ProjetResponseDTO ProjetById(@Argument int id)
     {
         Projet projet = projetService.getProjetById(id);
@@ -61,17 +85,17 @@ public class ProjetGraphQLController {
     }
 
     @MutationMapping
-    public ProjetResponseDTO AjouterProjet(@Argument ProjetRequestDTO projetRequest)
+    public ProjetResponseDTO AjouterProjet(@Argument ProjetRequestDTO projetObjet)
     {
-        Projet projet = projetMapper.ProjetRequestDTOtoProjet(projetRequest);
+        Projet projet = projetMapper.ProjetRequestDTOtoProjet(projetObjet);
         projet = projetService.ajouterProjet(projet);
         return projetMapper.ProjettoProjetResponseDTO(projet);
     }
 
     @MutationMapping
-    public ProjetResponseDTO ModifierProjet(@Argument int id, @Argument ProjetRequestDTO projetRequest)
+    public ProjetResponseDTO ModifierProjet(@Argument int id, @Argument ProjetRequestDTO projetObjet)
     {
-        Projet projet = projetMapper.ProjetRequestDTOtoProjet(projetRequest);
+        Projet projet = projetMapper.ProjetRequestDTOtoProjet(projetObjet);
         projet = projetService.modifierProjet(id, projet);
         return projetMapper.ProjettoProjetResponseDTO(projet);
     }

@@ -26,6 +26,14 @@ public class ProjetService {
         return projetRepository.findProjetsByChefProjetId(userId);
     }
 
+
+    public List<Projet> getProjetsByEquipeDuProjetId(int equipeDuProjetId) {
+        return projetRepository.findProjetsByEquipeDuProjetId(equipeDuProjetId);
+    }
+
+    public Projet getProjetByTacheId(int tacheId) {
+        return projetRepository.findProjetsByLesTachesDeProjetId(tacheId);
+    }
     public List<Projet> getOtherProjectByUserId(int userId){
         System.out.println("getOtherProjectByUserId");
         return projetRepository.findOtherProjectByUserId(userId);

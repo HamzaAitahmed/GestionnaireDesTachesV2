@@ -29,4 +29,7 @@ public interface ProjetRepository extends JpaRepository<Projet,Integer> {
     @Query("SELECT p FROM Projet p WHERE p.chefProjet.id = :id  OR p.equipeDuProjet.chefEquipe.id = :id  OR :id IN (SELECT u.id FROM Equipe t JOIN t.lesMembresDEquipe u WHERE t = p.equipeDuProjet)")
     List<Projet> findAllProjectByUserId(int id);    // il recupere les projets où l'utilisateur est un chef du projet, aussi membre ou chef d'équipe affecté au projet
 
+    List<Projet> findProjetsByEquipeDuProjetId(@Param("id") int equipeDuProjetId);
+
+    Projet findProjetsByLesTachesDeProjetId(int tacheId);
 }
