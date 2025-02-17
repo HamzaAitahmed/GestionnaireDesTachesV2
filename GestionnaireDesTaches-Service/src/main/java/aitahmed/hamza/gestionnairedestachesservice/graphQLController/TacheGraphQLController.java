@@ -24,9 +24,27 @@ public class TacheGraphQLController {
     }
 
     @QueryMapping
-    public List<TacheResponseDTO> Taches(@Argument int id)
+    public List<TacheResponseDTO> Taches()
     {
-        List<Tache> taches = tacheService.getTachesByProjetId(id);
+        List<Tache> taches = tacheService.getToutesLesTaches();
+        return taches.stream()
+                .map(tacheMapper::TachetoTacheResponseDTO) // Utilisez le mapper pour convertir chaque tache
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
+    public List<TacheResponseDTO> TachesByUtilisateurId(@Argument int utilisateurId )
+    {
+        List<Tache> taches = tacheService.getTachesByAssigneurId(utilisateurId);
+        return taches.stream()
+                .map(tacheMapper::TachetoTacheResponseDTO) // Utilisez le mapper pour convertir chaque tache
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
+    public List<TacheResponseDTO> TachesByProjetId(@Argument int projetId)
+    {
+        List<Tache> taches = tacheService.getTachesByProjetId(projetId);
         return taches.stream()
                 .map(tacheMapper::TachetoTacheResponseDTO) // Utilisez le mapper pour convertir chaque tache
                 .collect(Collectors.toList());
@@ -40,17 +58,17 @@ public class TacheGraphQLController {
     }
 
     @MutationMapping
-    public TacheResponseDTO AjouterTache(@Argument TacheRequestDTO tacheRequest)
+    public TacheResponseDTO AjouterTache(@Argument TacheRequestDTO tacheObjet)
     {
-        Tache recupererTache = tacheMapper.TacheRequestDTOtoTache(tacheRequest);
+        Tache recupererTache = tacheMapper.TacheRequestDTOtoTache(tacheObjet);
         Tache tache = tacheService.ajouterTache(recupererTache);
         return tacheMapper.TachetoTacheResponseDTO(tache);
     }
 
     @MutationMapping
-    public TacheResponseDTO ModifierTache(@Argument int id, @Argument TacheRequestDTO tacheRequest)
+    public TacheResponseDTO ModifierTache(@Argument int id, @Argument TacheRequestDTO tacheObjet)
     {
-        Tache recupererTache = tacheMapper.TacheRequestDTOtoTache(tacheRequest);
+        Tache recupererTache = tacheMapper.TacheRequestDTOtoTache(tacheObjet);
         Tache tache = tacheService.modifierTache(id, recupererTache);
         return tacheMapper.TachetoTacheResponseDTO(tache);
     }

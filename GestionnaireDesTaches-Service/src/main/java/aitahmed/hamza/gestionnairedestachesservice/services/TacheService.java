@@ -27,6 +27,10 @@ public class TacheService {
         return tacheRepository.findTachesByProjetDeTacheId(projetId);
     }
 
+    public List<Tache> getTachesByAssigneurId(int assigneurDeTacheId) {
+        return tacheRepository.findTachesByAssigneurDeTacheId(assigneurDeTacheId);
+    }
+
     public Tache getTacheById(int tacheId)
     {
         return tacheRepository.findTacheById(tacheId);

@@ -35,11 +35,11 @@ public class TacheMapper {
         tache.setId(null);
         tache.setNom(dto.getNom());
         tache.setDescription(dto.getDescription());
-        tache.setStatutTache(StatutTache.valueOf(dto.getStatutTache())); // Conversion String -> Enum
-        tache.setPriorite(Priorite.valueOf(dto.getPriorite())); // Conversion String -> Enum
         tache.setDateDeCreation(dto.getDateDeCreation());
         tache.setDateDebut(dto.getDateDebut());
         tache.setDateFin(dto.getDateFin());
+        tache.setStatutTache(StatutTache.valueOf(dto.getStatutTache())); // Conversion String -> Enum
+        tache.setPriorite(Priorite.valueOf(dto.getPriorite())); // Conversion String -> Enum
 
         // Récupération des objets associés via les services
         if (dto.getProjetDeTacheId() != null) {
@@ -66,11 +66,11 @@ public class TacheMapper {
         dto.setId(tache.getId());
         dto.setNom(tache.getNom());
         dto.setDescription(tache.getDescription());
-        dto.setStatutTache(tache.getStatutTache().name()); // Conversion Enum -> String
-        dto.setPriorite(tache.getPriorite().name()); // Conversion Enum -> String
         dto.setDateDeCreation(tache.getDateDeCreation());
         dto.setDateDebut(tache.getDateDebut());
         dto.setDateFin(tache.getDateFin());
+        dto.setStatutTache((tache.getStatutTache()==null) ? "EN_ATTENTE ": tache.getStatutTache().toString() ); // Conversion Enum -> String
+        dto.setPriorite( (tache.getPriorite()==null) ? "BASSE ": tache.getPriorite().toString() ); // Conversion Enum -> String
 
         // Récupération des IDs des objets associés
         if (tache.getProjetDeTache() != null) {

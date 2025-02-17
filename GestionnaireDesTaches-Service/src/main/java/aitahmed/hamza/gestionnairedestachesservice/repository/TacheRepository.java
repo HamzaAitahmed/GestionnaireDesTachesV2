@@ -19,4 +19,5 @@ public interface TacheRepository extends JpaRepository<Tache,Integer>{
 
     Tache findById(int id);
 
+    List<Tache> findTachesByAssigneurDeTacheId(@Param("id") int assigneurDeTacheId);
 }
