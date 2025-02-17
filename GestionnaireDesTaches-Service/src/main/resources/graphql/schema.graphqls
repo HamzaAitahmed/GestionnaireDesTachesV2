@@ -1,12 +1,20 @@
 type Query{
-    Projets  (id:Int) : [ProjetResponse]
+    Projets : [ProjetResponse]
     ProjetsSearch  (id:Int, search:String) : [ProjetResponse]
+    ProjetByChefProjetId (chefProjetId:Int) : [ProjetResponse]
+    ProjetByEquipeDuProjetId (equipeDuProjetId:Int) : [ProjetResponse]
+    ProjetByTacheId (tacheId:Int) : ProjetResponse
     ProjetById (id:Int) : ProjetResponse
 
     Equipes : [EquipeResponse]
+    EquipeByChefEquipeId (chefEquipeId:Int) : [EquipeResponse]
+    EquipeByMemberEquipeId (memberEquipeId:Int) : [EquipeResponse]
+    EquipeByProjetEquipeId (projetId:Int) : [EquipeResponse]
     EquipeById (id:Int) : EquipeResponse
 
-    Taches (id:Int) : [TacheResponse]
+    Taches : [TacheResponse]
+    TachesByProjetId (projetId:Int) : [TacheResponse]
+    TachesByUtilisateurId (utilisateurId:Int) : [TacheResponse]
     TacheById (id:Int) : TacheResponse
 
     Utilisateurs : [UtilisateurResponse]
@@ -15,20 +23,20 @@ type Query{
 }
 
 type Mutation {
-    AjouterProjet (projetObject : ProjetRequest) : ProjetResponse
-    ModifierProjet (id: Int,projetObject : ProjetRequest) : ProjetResponse
+    AjouterProjet (projetObjet : ProjetRequest) : ProjetResponse
+    ModifierProjet (id: Int,projetObjet : ProjetRequest) : ProjetResponse
     supprimerProjet (id: Int) : Boolean
 
-    AjouterEquipe (equipeObject : EquipeRequest) : EquipeResponse
-    ModifierEquipe (id: Int, equipeObject : EquipeRequest) : EquipeResponse
+    AjouterEquipe (equipeObjet : EquipeRequest) : EquipeResponse
+    ModifierEquipe (id: Int, equipeObjet : EquipeRequest) : EquipeResponse
     supprimerEquipe (id: Int) : Boolean
 
-    AjouterTache (tacheObject : TacheRequest) : TacheResponse
-    ModifierTache (id: Int,  tacheObject : TacheRequest) : TacheResponse
+    AjouterTache (tacheObjet : TacheRequest) : TacheResponse
+    ModifierTache (id: Int,  tacheObjet : TacheRequest) : TacheResponse
     supprimerTache (id: Int) : Boolean
 
-    AjouterUtilisateur (utilisateurObject : UtilisateurRequest) : UtilisateurResponse
-    ModifierUtilisateur (id: Int,  utilisateurObject : UtilisateurRequest) : UtilisateurResponse
+    AjouterUtilisateur (utilisateurObjet : UtilisateurRequest) : UtilisateurResponse
+    ModifierUtilisateur (id: Int,  utilisateurObjet : UtilisateurRequest) : UtilisateurResponse
     supprimerUtilisateur (id: Int) : Boolean
 }
 
