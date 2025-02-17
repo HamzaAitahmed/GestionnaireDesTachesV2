@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <div class="content-page">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
+                <div class="iq-header-title">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb iq-bg-primary mb-0">
+                      <li class="breadcrumb-item"><a routerLink="/projet" ><i class="ri-home-4-line mr-1 float-left"></i>Project</a></li>
+                      <li class="breadcrumb-item"><a >{{ search | supprimerCaracterePipe:'_':" "}}</a></li>
+                    </ol>
+                  </nav>
+                </div>
+                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                  <div class="dropdown status-dropdown mr-3">
+                    <div class="dropdown-toggle" id="dropdownMenuButton03" data-toggle="dropdown">
+                      <div class="btn bg-body">
+                        <span class="h6">Status :</span><span >{{ search | supprimerCaracterePipe:'_':" "}}</span><i class="ri-arrow-down-s-line ml-2 mr-0"></i>
+                      </div>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton03">
+                      <a class="dropdown-item" (click)="mopdifierSearch('Toutes_Les_Projets')">
+                        <i class="ri-mic-line mr-2"></i>Toutes Les Projets
+                      </a>
+                      <a class="dropdown-item" (click)="mopdifierSearch('Mes_Projets')">
+                        <i class="ri-attachment-line mr-2"></i>Mes Projets
+                      </a>
+                      <a class="dropdown-item" (click)="mopdifierSearch('Les_Autres_Projets')">
+                        <i class="ri-file-copy-line mr-2"></i>Les Autres Projets
+                      </a>
+                    </div>
+                  </div>
+                  <div class="pl-3 border-left btn-new">
+                    <button class="btn btn-primary" (click)="ajouterProjet()" >Nouveau Projet</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="grid" class="item-content animate__animated animate__fadeIn active" data-toggle-extra="tab-content">
+        <div class="row" >
+          <div class="col-lg-4 col-md-6" *ngFor="let projet of projets">
+            <div class="card card-block card-stretch card-height">
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <!--                                    <div th:id="${iterator.index < 10} ? 'circle-progress-0'+${iterator.index} : 'circle-progress-'+${iterator.index} " class="circle-progress-01 circle-progress circle-progress-primary" data-min-value="0" data-max-value="100" data-value="25" data-type="percent"></div>-->
+                  <img style="height: 100px ; width: 100px" class="img-fluid avatar-40 rounded-circle" [src]="projet.chefProjet?.profilePicture" alt="">
+                  <a class="btn m-0 btn-white badge-warning text-primary " routerLink="/projet" >Les Taches</a>
+                </div>
+                <h5 class="mb-1" >{{projet.nom}}</h5>
+                <p class="mb-3"  >{{projet.description}}</p>
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                  <div class="iq-media-group"  >
+                    <div class="d-inline-block" *ngIf="projet.idEquipeDeProjet==null" >
+                      <a href="#"  class="iq-media mr-3">
+                        <img class="img-fluid avatar-40 rounded-circle" [src]="projet.equipeDeProjet?.chefEquipe?.profilePicture" alt="">
+                      </a>
+                      <a *ngFor="let mb of projet.equipeDeProjet?.mesMembers" [hidden]="projet.chefProjet == mb || projet.equipeDeProjet?.chefEquipe?.id == mb.id" class="iq-media">
+                        <img  class="img-fluid avatar-40 rounded-circle" [src]="mb.profilePicture" alt="">
+
+                      </a>
+                    </div>
+                  </div>
+                  <div class="link-shadow">
+<!--                    <a class="btn bg-success-light mr-1" [hidden]="projet.idChefProjet != currentUser.id" (click)="modifierProjet(projet)" ><i class="ri-edit-box-line m-0"></i></a>-->
+<!--                    <a class="btn bg-secondary-light"  [hidden]="projet.idChefProjet != currentUser.id"   (click)="supprimerProjet(projet)" ><i class="ri-delete-bin-2-fill m-0"></i></a>-->
+                    <a class="btn bg-success-light mr-1" [hidden]="projet.chefProjet?.id != currentUser.id" (click)="modifierProjet(projet)" ><i class="ri-edit-box-line m-0"></i></a>
+                    <a class="btn bg-secondary-light"    [hidden]="projet.chefProjet?.id != currentUser.id" (click)="supprimerProjet(projet)" ><i class="ri-delete-bin-2-fill m-0"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Page end  -->
+    </div>
+  </div>
+</div>

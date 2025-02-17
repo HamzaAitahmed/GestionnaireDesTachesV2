@@ -1,0 +1,43 @@
+<div class="modal fade show" role="dialog" aria-modal="true" id="new-project-modal" style="display: block; padding-left: 4px;">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header d-block text-center pb-3 border-bttom">
+        <h3 class="modal-title" id="exampleModalCenterTitle01">New Project</h3>
+      </div>
+      <form (ngSubmit)="saveProject(projetAjouter)" >
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group mb-3">
+                <label for="exampleInputText01" class="h5">Nom Projet*</label>
+                <input  type="text" required class="form-control" [(ngModel)]="projetAjouter.nom" name="projectName" id="exampleInputText01" placeholder="Project Name">
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="form-group mb-3">
+                <label for="exampleInputText02" class="h5">Description Projet*</label>
+                <input type="text" required class="form-control" [(ngModel)]="projetAjouter.description" name="Description" id="exampleInputText02" placeholder="Project Description">
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="form-group mb-3">
+                <label  class="h5">Project Team</label>
+                <select name="projectTeam" class="form-control" [(ngModel)]="projetAjouter.equipeDeProjet">
+                  <option [ngValue]="null" hidden="hidden"> Choisir une équipe </option>
+                  <option [ngValue]="null"> !!!! Aucune équipe !!!! </option>
+                  <option  *ngFor="let equipe of listDesEquipes" [ngValue]="equipe"> {{ equipe.nom }} </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="d-flex flex-wrap align-items-center justify-content-center mt-2">
+                <button class="btn btn-primary mr-3" type="submit" >Save</button>
+                <button class="btn btn-primary" (click)="ferme()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
