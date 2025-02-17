@@ -32,23 +32,47 @@ public class EquipeGraphQLController {
     }
 
     @QueryMapping
+    public List<EquipeResponseDTO> EquipeByChefEquipeId(@Argument int chefEquipeId) {
+        List<Equipe> equipes = equipeService.getEquipeByChefEquipeId(chefEquipeId);
+        return equipes.stream()
+                .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
+    public List<EquipeResponseDTO> EquipeByMemberEquipeId(@Argument int memberEquipeId) {
+        List<Equipe> equipes = equipeService.getEquipeByMembreEquipeId(memberEquipeId);
+        return equipes.stream()
+                .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
+    public List<EquipeResponseDTO> EquipeByProjetEquipeId(@Argument int projetId) {
+        List<Equipe> equipes = equipeService.getEquipeByProjetId(projetId);
+        return equipes.stream()
+                .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
+                .collect(Collectors.toList());
+    }
+
+    @QueryMapping
     public EquipeResponseDTO EquipeById(@Argument int id) {
         Equipe equipe = equipeService.getEquipeById(id);
         return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @MutationMapping
-    public EquipeResponseDTO AjouterEquipe(@Argument EquipeRequestDTO equipeRequest)
+    public EquipeResponseDTO AjouterEquipe(@Argument EquipeRequestDTO equipeObjet)
     {
-        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeRequest);
+        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeObjet);
         Equipe equipe = equipeService.ajouterEquipe(recupererEquipe);
         return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @MutationMapping
-    public EquipeResponseDTO ModifierEquipe(@Argument int id, @Argument EquipeRequestDTO equipeRequest)
+    public EquipeResponseDTO ModifierEquipe(@Argument int id, @Argument EquipeRequestDTO equipeObjet)
     {
-        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeRequest);
+        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeObjet);
         Equipe equipe = equipeService.modifierEquipe(id, recupererEquipe);
         return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }

@@ -24,6 +24,8 @@ public interface EquipeRepository extends JpaRepository<Equipe,Integer>{
 
     List<Equipe> findEquipesByChefEquipeId(@Param("id") Integer id);
 
+    List<Equipe> findEquipesByLesMembresDEquipeId(@Param("id") Integer id);
+
     List<Equipe> findEquipesByChefEquipe_Id(@Param("id") Integer id);
 
 //    @Query("SELECT t FROM Equipe t WHERE t.chefEquipe.id = :id")
@@ -33,4 +35,5 @@ public interface EquipeRepository extends JpaRepository<Equipe,Integer>{
     @Query("SELECT t FROM Equipe t WHERE t In (select u.mesEquipes from Utilisateur u  where u.id = :id ) or t.chefEquipe.id = :id ")
     List<Equipe> findMesEquipesByUser(@Param("id") Integer id);
 
+    List<Equipe> findEquipesByLesProjetsDEquipeId(@Param("id") int projetId);
 }

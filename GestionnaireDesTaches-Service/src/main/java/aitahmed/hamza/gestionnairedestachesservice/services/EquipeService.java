@@ -18,7 +18,19 @@ public class EquipeService {
     public List<Equipe> getToutesLesEquipes(){
         return equipeRepository.findAll();
     }
-    
+
+    public List<Equipe> getEquipeByChefEquipeId(int chefEquipeId) {
+        return equipeRepository.findEquipesByChefEquipeId(chefEquipeId);
+    }
+
+    public List<Equipe> getEquipeByMembreEquipeId(int memberEquipeId) {
+        return equipeRepository.findEquipesByLesMembresDEquipeId(memberEquipeId);
+    }
+
+    public List<Equipe> getEquipeByProjetId(int projetId) {
+        return equipeRepository.findEquipesByLesProjetsDEquipeId(projetId);
+    }
+
     public Equipe getEquipeById(int id){
         return equipeRepository.findEquipeById(id);
     }
