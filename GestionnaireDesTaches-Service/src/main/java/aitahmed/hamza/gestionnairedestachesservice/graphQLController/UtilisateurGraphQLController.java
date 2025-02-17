@@ -46,18 +46,18 @@ public class UtilisateurGraphQLController {
     }
 
     @MutationMapping
-    public UtilisateurResponseDTO AjouterUtilisateur(@Argument UtilisateurRequestDTO utilisateurRequest)
+    public UtilisateurResponseDTO AjouterUtilisateur(@Argument UtilisateurRequestDTO utilisateurObjet)
     {
-        Utilisateur recupererUtilisateur = utilisateurMapper.UtilisateurRequestDTOtoUtilisateur(utilisateurRequest);
+        Utilisateur recupererUtilisateur = utilisateurMapper.UtilisateurRequestDTOtoUtilisateur(utilisateurObjet);
         Utilisateur utilisateur = utilisateurService.ajouterUtilisateur(recupererUtilisateur);
         return utilisateurMapper.UtilisateurToUtilisateurResponseDTO(utilisateur);
 
     }
 
     @MutationMapping
-    public UtilisateurResponseDTO ModifierUtilisateur(@Argument int id, @Argument UtilisateurRequestDTO utilisateurRequest)
+    public UtilisateurResponseDTO ModifierUtilisateur(@Argument int id, @Argument UtilisateurRequestDTO utilisateurObjet)
     {
-        Utilisateur recupererUtilisateur = utilisateurMapper.UtilisateurRequestDTOtoUtilisateur(utilisateurRequest);
+        Utilisateur recupererUtilisateur = utilisateurMapper.UtilisateurRequestDTOtoUtilisateur(utilisateurObjet);
         Utilisateur utilisateur = utilisateurService.modifierUtilisateur(id, recupererUtilisateur);
         return utilisateurMapper.UtilisateurToUtilisateurResponseDTO(utilisateur);
 

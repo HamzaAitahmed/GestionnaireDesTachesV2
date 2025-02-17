@@ -93,9 +93,9 @@ public class UtilisateurMapper {
         dto.setDateInscription(utilisateur.getDateInscription());
         dto.setAnneeExperience(utilisateur.getAnneeExperience());
         dto.setProfilePicture(utilisateur.getProfilePicture());
-        dto.setRole(utilisateur.getRole().name());
+        dto.setRole( (utilisateur.getRole()!=null) ? utilisateur.getRole().name() : "USER" );
 
-        if (utilisateur.getListMesCompetences() != null) {
+        if (utilisateur.getListMesCompetences() != null ) {
             dto.setListMesCompetencesId(utilisateur.getListMesCompetences().getId());
         }
 

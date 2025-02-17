@@ -34,7 +34,7 @@ public class Utilisateur {
     private int anneeExperience;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.USER;
 
     @Column(name = "photo")
     private String profilePicture;
