@@ -1,53 +1,68 @@
 package aitahmed.hamza.gestionnairedestachesservice.restController;
 
+import aitahmed.hamza.gestionnairedestachesservice.dtos.request.EquipeRequestDTO;
+import aitahmed.hamza.gestionnairedestachesservice.dtos.response.EquipeResponseDTO;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Equipe;
+import aitahmed.hamza.gestionnairedestachesservice.mappers.EquipeMapper;
 import aitahmed.hamza.gestionnairedestachesservice.repository.EquipeRepository;
+import aitahmed.hamza.gestionnairedestachesservice.services.EquipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/Equipe/{userId}")
 public class EquipeRest {
 
-    @Autowired private EquipeRepository equipeRepository;
+    private final EquipeService equipeService;
+    private final EquipeMapper equipeMapper;
+
+    EquipeRest (EquipeService equipeService, EquipeMapper equipeMapper) {
+        this.equipeService = equipeService;
+        this.equipeMapper = equipeMapper;
+    }
 
     @GetMapping(path="/All")
-    public List<Equipe> getMesEquipes() {
-        return equipeRepository.findAll();
+    public List<EquipeResponseDTO> getMesEquipes() {
+        List<Equipe> equipes = equipeService.getToutesLesEquipes();
+        return equipes.stream()
+                .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
+                .collect(Collectors.toList());
     }
 
     @GetMapping(path="/{id}")
-    public Equipe getEquipeById(@PathVariable int id) {
-        return equipeRepository.findById(id);
+    public EquipeResponseDTO getEquipeById(@PathVariable int id) {
+        Equipe equipe = equipeService.getEquipeById(id);
+        return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @PostMapping(path="/AjouterEquipe")
-    public Equipe AjouterEquipe(@RequestBody Equipe equipe)
+    public EquipeResponseDTO AjouterEquipe(@RequestBody EquipeRequestDTO equipeObjet)
     {
-        System.out.println("AjouterEquipe : ");
-//        System.out.println("AjouterEquipe : "+equipe.toString());
-        return equipeRepository.save(equipe);
+        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeObjet);
+        Equipe equipe = equipeService.ajouterEquipe(recupererEquipe);
+        return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @PutMapping(path="/ModifierEquipe/{id}")
-    public Equipe ModifierEquipe(@PathVariable int id, @RequestBody Equipe equipe)
+    public EquipeResponseDTO ModifierEquipe(@PathVariable int id, @RequestBody EquipeRequestDTO equipeObjet)
     {
-        System.out.println("ModifierEquipe id : "+id);
-        return equipeRepository.findById(id);
+        Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeObjet);
+        Equipe equipe = equipeService.modifierEquipe(id, recupererEquipe);
+        return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @DeleteMapping(path="/SupprimerEquipe/{id}")
     public void supprimerEquipe(@PathVariable int id)
     {
-        System.out.println("DeleteEquipesById :"+id);
-        equipeRepository.deleteById(id);
+        equipeService.supprimerEquipe(id);
     }
 
 //    @DeleteMapping("/Delete/{id}")
 //    public boolean supprimerEquipe(@PathVariable Integer id) {
-//        equipeRepository.deleteById(id);
+//        equipeService.deleteById(id);
 //        return true;
 //    }
 
