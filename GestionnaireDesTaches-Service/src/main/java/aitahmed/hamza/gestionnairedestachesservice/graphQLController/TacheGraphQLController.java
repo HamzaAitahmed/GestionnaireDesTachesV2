@@ -33,7 +33,7 @@ public class TacheGraphQLController {
     }
 
     @QueryMapping
-    public List<TacheResponseDTO> TachesByUtilisateurId(@Argument int utilisateurId )
+    public List<TacheResponseDTO> TachesByUtilisateurId(@Argument Integer utilisateurId )
     {
         List<Tache> taches = tacheService.getTachesByAssigneurId(utilisateurId);
         return taches.stream()
@@ -42,7 +42,7 @@ public class TacheGraphQLController {
     }
 
     @QueryMapping
-    public List<TacheResponseDTO> TachesByProjetId(@Argument int projetId)
+    public List<TacheResponseDTO> TachesByProjetId(@Argument Integer projetId)
     {
         List<Tache> taches = tacheService.getTachesByProjetId(projetId);
         return taches.stream()
@@ -51,9 +51,9 @@ public class TacheGraphQLController {
     }
 
     @QueryMapping
-    public TacheResponseDTO TacheById(@Argument int id)
+    public TacheResponseDTO TacheById(@Argument Integer tacheId)
     {
-        Tache tache = tacheService.getTacheById(id);
+        Tache tache = tacheService.getTacheById(tacheId);
         return tacheMapper.TachetoTacheResponseDTO(tache);
     }
 
@@ -66,7 +66,7 @@ public class TacheGraphQLController {
     }
 
     @MutationMapping
-    public TacheResponseDTO ModifierTache(@Argument int id, @Argument TacheRequestDTO tacheObjet)
+    public TacheResponseDTO ModifierTache(@Argument Integer id, @Argument TacheRequestDTO tacheObjet)
     {
         Tache recupererTache = tacheMapper.TacheRequestDTOtoTache(tacheObjet);
         Tache tache = tacheService.modifierTache(id, recupererTache);
@@ -74,7 +74,7 @@ public class TacheGraphQLController {
     }
 
     @MutationMapping
-    public boolean supprimerTache(@Argument int id)
+    public boolean supprimerTache(@Argument Integer id)
     {
         return tacheService.supprimerTache(id);
     }

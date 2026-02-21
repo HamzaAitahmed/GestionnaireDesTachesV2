@@ -32,7 +32,7 @@ public class EquipeGraphQLController {
     }
 
     @QueryMapping
-    public List<EquipeResponseDTO> EquipeByChefEquipeId(@Argument int chefEquipeId) {
+    public List<EquipeResponseDTO> EquipeByChefEquipeId(@Argument Integer chefEquipeId) {
         List<Equipe> equipes = equipeService.getEquipeByChefEquipeId(chefEquipeId);
         return equipes.stream()
                 .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
@@ -40,7 +40,7 @@ public class EquipeGraphQLController {
     }
 
     @QueryMapping
-    public List<EquipeResponseDTO> EquipeByMemberEquipeId(@Argument int memberEquipeId) {
+    public List<EquipeResponseDTO> EquipeByMemberEquipeId(@Argument Integer memberEquipeId) {
         List<Equipe> equipes = equipeService.getEquipeByMembreEquipeId(memberEquipeId);
         return equipes.stream()
                 .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
@@ -48,7 +48,7 @@ public class EquipeGraphQLController {
     }
 
     @QueryMapping
-    public List<EquipeResponseDTO> EquipeByProjetEquipeId(@Argument int projetId) {
+    public List<EquipeResponseDTO> EquipeByProjetEquipeId(@Argument Integer projetId) {
         List<Equipe> equipes = equipeService.getEquipeByProjetId(projetId);
         return equipes.stream()
                 .map(equipeMapper::EquipeToEquipeResponseDTO) // Utilisez le mapper pour convertir chaque equipe
@@ -56,8 +56,8 @@ public class EquipeGraphQLController {
     }
 
     @QueryMapping
-    public EquipeResponseDTO EquipeById(@Argument int id) {
-        Equipe equipe = equipeService.getEquipeById(id);
+    public EquipeResponseDTO EquipeById(@Argument Integer equipeId) {
+        Equipe equipe = equipeService.getEquipeById(equipeId);
         return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
@@ -70,7 +70,7 @@ public class EquipeGraphQLController {
     }
 
     @MutationMapping
-    public EquipeResponseDTO ModifierEquipe(@Argument int id, @Argument EquipeRequestDTO equipeObjet)
+    public EquipeResponseDTO ModifierEquipe(@Argument Integer id, @Argument EquipeRequestDTO equipeObjet)
     {
         Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeObjet);
         Equipe equipe = equipeService.modifierEquipe(id, recupererEquipe);
@@ -78,7 +78,7 @@ public class EquipeGraphQLController {
     }
 
     @MutationMapping
-    public boolean supprimerEquipe(@Argument int id)
+    public boolean supprimerEquipe(@Argument Integer id)
     {
         return equipeService.supprimerEquipe(id);
     }

@@ -39,7 +39,7 @@ public class ProjetGraphQLController {
     }
 
     @QueryMapping
-    public List<ProjetResponseDTO> ProjetsSearch(@Argument(name = SEARCH ) String search , @Argument int id)
+    public List<ProjetResponseDTO> ProjetsSearch(@Argument(name = SEARCH ) String search , @Argument Integer id)
     {
         System.out.println("search = " + search);
         List<Projet> projets = switch (search) {
@@ -54,7 +54,7 @@ public class ProjetGraphQLController {
     }
 
     @QueryMapping
-    public List<ProjetResponseDTO> ProjetByChefProjetId(@Argument int chefProjetId) {
+    public List<ProjetResponseDTO> ProjetByChefProjetId(@Argument Integer chefProjetId) {
         List<Projet> projets = projetService.getProjetsByChefProjetId(chefProjetId);
 
         return projets.stream()
@@ -63,7 +63,7 @@ public class ProjetGraphQLController {
     }
 
     @QueryMapping
-    public List<ProjetResponseDTO> ProjetByEquipeDuProjetId(@Argument int equipeDuProjetId) {
+    public List<ProjetResponseDTO> ProjetByEquipeDuProjetId(@Argument Integer equipeDuProjetId) {
         List<Projet> projets = projetService.getProjetsByEquipeDuProjetId(equipeDuProjetId);
 
         return projets.stream()
@@ -72,15 +72,15 @@ public class ProjetGraphQLController {
     }
 
     @QueryMapping
-    public ProjetResponseDTO ProjetByTacheId(@Argument int tacheId) {
+    public ProjetResponseDTO ProjetByTacheId(@Argument Integer tacheId) {
         Projet projet = projetService.getProjetByTacheId(tacheId);
         return projetMapper.ProjettoProjetResponseDTO(projet);
     }
 
     @QueryMapping
-    public ProjetResponseDTO ProjetById(@Argument int id)
+    public ProjetResponseDTO ProjetById(@Argument Integer projetId)
     {
-        Projet projet = projetService.getProjetById(id);
+        Projet projet = projetService.getProjetById(projetId);
         return projetMapper.ProjettoProjetResponseDTO(projet);
     }
 
@@ -93,7 +93,7 @@ public class ProjetGraphQLController {
     }
 
     @MutationMapping
-    public ProjetResponseDTO ModifierProjet(@Argument int id, @Argument ProjetRequestDTO projetObjet)
+    public ProjetResponseDTO ModifierProjet(@Argument Integer id, @Argument ProjetRequestDTO projetObjet)
     {
         Projet projet = projetMapper.ProjetRequestDTOtoProjet(projetObjet);
         projet = projetService.modifierProjet(id, projet);
@@ -101,7 +101,7 @@ public class ProjetGraphQLController {
     }
 
     @MutationMapping
-    public boolean supprimerProjet(@Argument int id)
+    public boolean supprimerProjet(@Argument Integer id)
     {
         return projetService.supprimerProjet(id);
     }

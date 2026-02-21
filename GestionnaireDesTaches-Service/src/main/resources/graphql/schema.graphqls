@@ -4,21 +4,21 @@ type Query{
     ProjetByChefProjetId (chefProjetId:Int) : [ProjetResponse]
     ProjetByEquipeDuProjetId (equipeDuProjetId:Int) : [ProjetResponse]
     ProjetByTacheId (tacheId:Int) : ProjetResponse
-    ProjetById (id:Int) : ProjetResponse
+    ProjetById (projetId:Int) : ProjetResponse
 
     Equipes : [EquipeResponse]
     EquipeByChefEquipeId (chefEquipeId:Int) : [EquipeResponse]
     EquipeByMemberEquipeId (memberEquipeId:Int) : [EquipeResponse]
     EquipeByProjetEquipeId (projetId:Int) : [EquipeResponse]
-    EquipeById (id:Int) : EquipeResponse
+    EquipeById (equipeId:Int) : EquipeResponse
 
     Taches : [TacheResponse]
     TachesByProjetId (projetId:Int) : [TacheResponse]
     TachesByUtilisateurId (utilisateurId:Int) : [TacheResponse]
-    TacheById (id:Int) : TacheResponse
+    TacheById (tacheId:Int) : TacheResponse
 
     Utilisateurs : [UtilisateurResponse]
-    UtilisateurById (id:Int) : UtilisateurResponse
+    UtilisateurById (utilisateurId:Int) : UtilisateurResponse
     UtilisateurByEmail (email:String): UtilisateurResponse
 }
 
