@@ -98,7 +98,6 @@ public class ProjetService {
         if (source.getBudget() < 0) target.setBudget(source.getBudget());
         if (source.getClient() != null) target.setClient(source.getClient());
         if (source.getDescription() != null) target.setDescription(source.getDescription());
-        if (source.getStatut() != null) target.setStatut(source.getStatut());
 
         if (source.getDateDeCreation() != null) target.setDateDeCreation(source.getDateDeCreation());
         if (source.getDateDebut() != null) target.setDateDebut(source.getDateDebut());
@@ -106,7 +105,6 @@ public class ProjetService {
 
         //============ Relation =============//
 
-        if (source.getListMesCompetences() != null) target.setListMesCompetences(source.getListMesCompetences());
         if (source.getLesTachesDeProjet() != null) target.setLesTachesDeProjet(source.getLesTachesDeProjet());
         if (source.getChefProjet() != null) target.setChefProjet(source.getChefProjet());
         if (source.getEquipeDuProjet() != null) target.setEquipeDuProjet(source.getEquipeDuProjet());

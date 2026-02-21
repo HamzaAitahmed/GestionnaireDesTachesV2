@@ -1,10 +1,7 @@
 package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.enumeration.Priorite;
-import aitahmed.hamza.gestionnairedestachesservice.enumeration.StatutTache;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,20 +17,11 @@ public class Tache {
     private String nom;
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private StatutTache statutTache;
-
-    @Enumerated(EnumType.STRING)
-    private Priorite priorite;
-
     private LocalDate dateDeCreation;
     private LocalDate dateDebut;
     private LocalDate dateFin;
 
     //============ Relation =============//
-
-    @ManyToOne @JsonManagedReference
-    private HistoriqueStatut historiqueDeLaTache;
 
     @ManyToOne @JsonBackReference
     private Projet projetDeTache;
@@ -42,10 +30,5 @@ public class Tache {
     private Utilisateur assigneurDeTache;
 
     //============ Les Methodes =============//
-
-    public void setStatutTache(StatutTache statutTache) {
-        this.statutTache = statutTache;
-        this.historiqueDeLaTache.ajouterStatut(statutTache);
-    }
 
 }

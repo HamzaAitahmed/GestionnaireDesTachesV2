@@ -2,10 +2,6 @@ package aitahmed.hamza.gestionnairedestachesservice.mappers;
 
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.TacheRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.TacheResponseDTO;
-import aitahmed.hamza.gestionnairedestachesservice.entity.HistoriqueStatut;
-import aitahmed.hamza.gestionnairedestachesservice.enumeration.Priorite;
-import aitahmed.hamza.gestionnairedestachesservice.enumeration.StatutTache;
-import aitahmed.hamza.gestionnairedestachesservice.services.HistoriqueStatutService;
 import aitahmed.hamza.gestionnairedestachesservice.services.ProjetService;
 import org.springframework.stereotype.Component;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Projet;
@@ -13,20 +9,16 @@ import aitahmed.hamza.gestionnairedestachesservice.entity.Tache;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
 import aitahmed.hamza.gestionnairedestachesservice.services.UtilisateurService;
 
-import java.util.stream.Collectors;
-
 @Component
 public class TacheMapper {
 
     private final ProjetService projetService;
     private final UtilisateurService utilisateurService;
-    private final HistoriqueStatutService historiqueStatutService;
 
     // Injection des services via le constructeur
-    public TacheMapper(ProjetService projetService, UtilisateurService utilisateurService, HistoriqueStatutService historiqueStatutService) {
+    public TacheMapper(ProjetService projetService, UtilisateurService utilisateurService) {
         this.projetService = projetService;
         this.utilisateurService = utilisateurService;
-        this.historiqueStatutService = historiqueStatutService;
     }
 
     // Conversion de TacheRequestDTO vers Tache
@@ -38,8 +30,6 @@ public class TacheMapper {
         tache.setDateDeCreation(dto.getDateDeCreation());
         tache.setDateDebut(dto.getDateDebut());
         tache.setDateFin(dto.getDateFin());
-        tache.setStatutTache(StatutTache.valueOf(dto.getStatutTache())); // Conversion String -> Enum
-        tache.setPriorite(Priorite.valueOf(dto.getPriorite())); // Conversion String -> Enum
 
         // Récupération des objets associés via les services
         if (dto.getProjetDeTacheId() != null) {
@@ -50,11 +40,6 @@ public class TacheMapper {
         if (dto.getAssigneurDeTacheId() != null) {
             Utilisateur assigneur = utilisateurService.getUtilisateurById(dto.getAssigneurDeTacheId());
             tache.setAssigneurDeTache(assigneur);
-        }
-
-        if (dto.getHistoriqueDeLaTacheId() != null) {
-            HistoriqueStatut historique = historiqueStatutService.getHistoriqueStatutById(dto.getHistoriqueDeLaTacheId());
-            tache.setHistoriqueDeLaTache(historique);
         }
 
         return tache;
@@ -69,8 +54,6 @@ public class TacheMapper {
         dto.setDateDeCreation(tache.getDateDeCreation());
         dto.setDateDebut(tache.getDateDebut());
         dto.setDateFin(tache.getDateFin());
-        dto.setStatutTache((tache.getStatutTache()==null) ? "EN_ATTENTE ": tache.getStatutTache().toString() ); // Conversion Enum -> String
-        dto.setPriorite( (tache.getPriorite()==null) ? "BASSE ": tache.getPriorite().toString() ); // Conversion Enum -> String
 
         // Récupération des IDs des objets associés
         if (tache.getProjetDeTache() != null) {
@@ -79,10 +62,6 @@ public class TacheMapper {
 
         if (tache.getAssigneurDeTache() != null) {
             dto.setAssigneurDeTacheId(tache.getAssigneurDeTache().getId());
-        }
-
-        if (tache.getHistoriqueDeLaTache() != null) {
-            dto.setHistoriqueDeLaTacheId(tache.getHistoriqueDeLaTache().getId());
         }
 
         return dto;

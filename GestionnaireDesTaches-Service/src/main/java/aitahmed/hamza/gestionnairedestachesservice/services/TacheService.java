@@ -74,16 +74,12 @@ public class TacheService {
         if (source.getNom() != null) target.setNom(source.getNom());
         if (source.getDescription() != null) target.setDescription(source.getDescription());
 
-        if (source.getStatutTache() != null) target.setStatutTache(source.getStatutTache());
-        if (source.getPriorite() != null) target.setPriorite(source.getPriorite());
-
         if (source.getDateDeCreation() != null) target.setDateDeCreation(source.getDateDeCreation());
         if (source.getDateDebut() != null) target.setDateDebut(source.getDateDebut());
         if (source.getDateFin() != null) target.setDateFin(source.getDateFin());
 
         //============ Relation =============//
 
-        if (source.getHistoriqueDeLaTache() != null) target.setHistoriqueDeLaTache(source.getHistoriqueDeLaTache());
         if (source.getProjetDeTache() != null) target.setProjetDeTache(source.getProjetDeTache());
         if (source.getAssigneurDeTache() != null) target.setAssigneurDeTache(source.getAssigneurDeTache());
     }

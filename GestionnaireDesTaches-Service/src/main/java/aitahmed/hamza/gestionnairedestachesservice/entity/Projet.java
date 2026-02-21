@@ -1,6 +1,5 @@
 package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.enumeration.StatutProjet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -21,17 +20,11 @@ public class Projet {
     private String client;
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private StatutProjet statut;
-
     private LocalDate dateDeCreation;
     private LocalDate dateDebut;
     private LocalDate dateFin;
 
     //============ Relation =============//
-
-    @OneToOne
-    private ListCompetencesRequise listMesCompetences;
 
     @OneToMany(mappedBy = "projetDeTache")
     @JsonManagedReference

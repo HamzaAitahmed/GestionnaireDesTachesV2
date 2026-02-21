@@ -40,24 +40,6 @@ type Mutation {
     supprimerUtilisateur (id: Int) : Boolean
 }
 
-input CompetenceRequest {
-    nom: String
-}
-
-input CompetenceRequiseRequest {
-    nom: String
-    niveau: String
-    competenceId: Int
-    listCompetencesRequiseId: Int
-}
-
-input CompetenceUtilisateurRequest {
-    nom: String
-    niveau: String
-    competenceId: Int
-    listCompetencesUtilisateurId: Int
-}
-
 input ConnecterRequest {
     email: String
     password: String
@@ -65,15 +47,12 @@ input ConnecterRequest {
 
 input EquipeRequest {
     nom: String
+
     dateDeCreation: String
+
     chefEquipeId: Int
     lesProjetsDEquipeIds: [Int]
     lesMembresDEquipeIds: [Int]
-}
-
-input HistoriqueStatutRequest {
-    tacheDeHistoriqueId: Int
-    listDesStatutsIds: [Int]
 }
 
 input InscriptionRequest {
@@ -83,185 +62,116 @@ input InscriptionRequest {
     confirmerPassword: String
 }
 
-input ListCompetencesRequiseRequest {
-    projetId: Int
-    lesCompetencesRequiseIds: [Int]
-}
-
-input ListCompetencesUtilisateurRequest {
-    utilisateurId: Int
-    lesCompetencesUtilisateurIds: [Int]
-}
-
-input MessageRequestRequest {
-    dateEnvoyer: String
-    dateRecever: String
-    dateLu: Boolean
-    lu: Boolean
-    titre: String
-    message: String
-    idEmmetteur: Int
-    idRecepteur: Int
-}
-
-input NotificationRequest {
-    dateLu: String
-    lu: Boolean
-    idRecepteur: Int
-}
-
 input ProjetRequest {
     nom: String
+
     budget: Float
     client: String
     description: String
-    statut: String
+
     dateDeCreation: String
     dateDebut: String
     dateFin: String
+
     chefProjetId: Int
     equipeDuProjetId: Int
-    listMesCompetencesId: Int
     lesTachesDeProjetIds: [Int]
-}
-
-input StatutAvecDateRequest {
-    statut: String
-    dateDeModification: String
-    historiqueId: Int
 }
 
 input TacheRequest {
     nom: String
     description: String
-    statutTache: String
-    priorite: String
+
     dateDeCreation: String
     dateDebut: String
     dateFin: String
-    historiqueDeLaTacheId: Int
+
     projetDeTacheId: Int
     assigneurDeTacheId: Int
 }
 
 input UtilisateurRequest {
     email: String
+
     salaire: Float
+
     nom: String
     prenom: String
     username: String
     gender: String
+
     dateOfBirth: String
     dateInscription: String
     anneeExperience: Int
-    role: String
+
     profilePicture: String
-    listMesCompetencesId: Int
+
     mesProjetsIds: [Int]
     mesTachesIds: [Int]
     mesEquipesIds: [Int]
     membreDansLEquipeIds: [Int]
 }
 
-type CompetenceResponse {
-    id: Int
-    nom: String
-}
-
-type CompetenceRequiseResponse {
-    id: Int
-    nom: String
-    niveau: String
-    competenceId: Int
-    listCompetencesRequiseId: Int
-}
-
-type CompetenceUtilisateurResponse {
-    id: Int
-    nom: String
-    niveau: String
-    competenceId: Int
-    listCompetencesUtilisateurId: Int
-}
-
 type EquipeResponse {
     id: Int
     nom: String
+
     dateDeCreation: String
+
     chefEquipeId: Int
     lesProjetsDEquipeIds: [Int]
     lesMembresDEquipeIds: [Int]
 }
 
-type HistoriqueStatutResponse {
-    id: Int
-    tacheDeHistoriqueId: Int
-    listDesStatutsIds: [Int]
-}
-
-type ListCompetencesRequiseResponse {
-    id: Int
-    projetId: Int
-    lesCompetencesRequiseIds: [Int]
-}
-
-type ListCompetencesUtilisateurResponse {
-    id: Int
-    utilisateurId: Int
-    lesCompetencesUtilisateurIds: [Int]
-}
-
 type ProjetResponse {
     id: Int
+
     nom: String
+
     budget: Float
     client: String
     description: String
-    statut: String
+
     dateDeCreation: String
     dateDebut: String
     dateFin: String
+
     chefProjetId: Int
     equipeDuProjetId: Int
-    listMesCompetencesId: Int
     lesTachesDeProjetIds: [Int]
-}
-
-type StatutAvecDateResponse {
-    id: Int
-    statut: String
-    dateDeModification: String
-    historiqueId: Int
 }
 
 type TacheResponse {
     id: Int
+
     nom: String
     description: String
-    statutTache: String
-    priorite: String
+
     dateDeCreation: String
     dateDebut: String
     dateFin: String
-    historiqueDeLaTacheId: Int
+
     projetDeTacheId: Int
     assigneurDeTacheId: Int
 }
 
 type UtilisateurResponse {
     id: Int
+
     email: String
     salaire: Float
+
     nom: String
     prenom: String
     username: String
     gender: String
+
     dateOfBirth: String
     dateInscription: String
     anneeExperience: Int
-    role: String
+
     profilePicture: String
-    listMesCompetencesId: Int
+
     mesProjetsIds: [Int]
     mesTachesIds: [Int]
     mesEquipesIds: [Int]

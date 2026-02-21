@@ -12,16 +12,18 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ProjetRequestDTO {
+
     private String nom;
+
     private double budget;
     private String client;
     private String description;
-    private String statut;
+
     private LocalDate dateDeCreation;
     private LocalDate dateDebut;
     private LocalDate dateFin;
+
     private Integer chefProjetId; // ID du chef de projet
     private Integer equipeDuProjetId; // ID de l'équipe associée
-    private Integer listMesCompetencesId;
     private List<Integer> lesTachesDeProjetIds; // IDs des membres de l'équipe
 }

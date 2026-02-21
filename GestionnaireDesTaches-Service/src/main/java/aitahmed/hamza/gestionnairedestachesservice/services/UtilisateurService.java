@@ -2,7 +2,6 @@ package aitahmed.hamza.gestionnairedestachesservice.services;
 
 
 import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
-import aitahmed.hamza.gestionnairedestachesservice.enumeration.Role;
 import aitahmed.hamza.gestionnairedestachesservice.repository.UtilisateurRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,7 +34,6 @@ public class UtilisateurService {
 
     public Utilisateur creerUtilisateur(Utilisateur utilisateur){
         utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
-        utilisateur.setRole(Role.USER);
         utilisateur.setProfilePicture("assets/images/user/inconnu.jpg");
         Utilisateur newUtilisateur = enregistrerUtilisateur(utilisateur);
         utilisateurRepository.flush();
@@ -81,12 +79,10 @@ public class UtilisateurService {
         if (source.getDateOfBirth() != null) target.setDateOfBirth(source.getDateOfBirth());
         if (source.getDateInscription() != null) target.setDateInscription(source.getDateInscription());
         if (source.getAnneeExperience() != 0) target.setAnneeExperience(source.getAnneeExperience());
-        if (source.getRole() != null) target.setRole(source.getRole());
         if (source.getProfilePicture() != null) target.setProfilePicture(source.getProfilePicture());
 
         //============ Relation =============//
 
-        if (source.getListMesCompetences() != null) target.setListMesCompetences(source.getListMesCompetences());
         if (source.getMesProjets() != null) target.setMesProjets(source.getMesProjets());
         if (source.getMesTaches() != null) target.setMesTaches(source.getMesTaches());
         if (source.getMesEquipes() != null) target.setMesEquipes(source.getMesEquipes());

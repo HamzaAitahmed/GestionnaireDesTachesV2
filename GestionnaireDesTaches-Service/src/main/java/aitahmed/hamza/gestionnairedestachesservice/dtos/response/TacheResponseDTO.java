@@ -12,14 +12,14 @@ import java.time.LocalDate;
 @Builder
 public class TacheResponseDTO {
     private Integer id;
+
     private String nom;
     private String description;
-    private String statutTache;
-    private String priorite;
+
     private LocalDate dateDeCreation;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-    private Integer historiqueDeLaTacheId;
+
     private Integer projetDeTacheId; // ID du projet associé
     private Integer assigneurDeTacheId; // ID de l'utilisateur assigneur
 }

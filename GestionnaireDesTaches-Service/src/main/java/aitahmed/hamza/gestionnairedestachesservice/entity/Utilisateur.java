@@ -1,6 +1,5 @@
 package aitahmed.hamza.gestionnairedestachesservice.entity;
 
-import aitahmed.hamza.gestionnairedestachesservice.enumeration.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -33,16 +32,14 @@ public class Utilisateur {
     private LocalDate dateInscription;
     private int anneeExperience;
 
-    @Enumerated(EnumType.STRING)
-    private Role role = Role.USER;
 
     @Column(name = "photo")
     private String profilePicture;
 
     //============ Relation =============//
 
-    @OneToOne @JsonManagedReference
-    private ListCompetencesUtilisateur listMesCompetences;
+//    @OneToOne @JsonManagedReference
+//    private ListCompetencesUtilisateur listMesCompetences;
 
     @OneToMany(mappedBy = "chefProjet") @JsonIgnore
     private Collection<Projet> mesProjets;
@@ -62,9 +59,9 @@ public class Utilisateur {
 
     //============ Les Methodes =============//
 
-    public void setListMesCompetences(ListCompetencesUtilisateur listMesCompetences) {
-        this.listMesCompetences = listMesCompetences;
-        this.listMesCompetences.setUtilisateur(this);
-    }
+//    public void setListMesCompetences(ListCompetencesUtilisateur listMesCompetences) {
+//        this.listMesCompetences = listMesCompetences;
+//        this.listMesCompetences.setUtilisateur(this);
+//    }
 
 }
