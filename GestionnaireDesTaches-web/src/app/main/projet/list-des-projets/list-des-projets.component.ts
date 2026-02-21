@@ -2,13 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthentificationService} from '../../../services/authentification.service';
 import {ProjetService} from '../../../services/projet.service';
-import {Projet} from '../../../model/projet.model';
+import {ProjetResponse} from '../../../model/responses/projet-response.model';
 import {Router} from '@angular/router';
 import {AjouterProjetComponent} from '../ajouter-projet/ajouter-projet.component';
 import {ModifierProjetComponent} from '../modifier-projet/modifier-projet.component';
-import {Equipe} from '../../../model/equipe.model';
+import {EquipeResponse} from '../../../model/responses/equipe-response.model';
 import {EquipeService} from '../../../services/equipe.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-list-des-projets',
@@ -18,10 +17,10 @@ import {Observable} from 'rxjs';
 })
 
 export class ListDesProjetsComponent implements OnInit {
-  projets: Projet[] = []; // Liste des projets
+  projets: ProjetResponse[] = []; // Liste des projets
   currentUser:any = null;
   constructor(private dialog: MatDialog,private projetService: ProjetService,private equipeService: EquipeService, private authService: AuthentificationService, private router :Router) {}
-  listDesEquipes: Equipe[] = [];
+  listDesEquipes: EquipeResponse[] = [];
   // listDesEquipes: Equipe[] = [
   //   {
   //     id: 1,
@@ -93,7 +92,7 @@ export class ListDesProjetsComponent implements OnInit {
     }
   }
 
-  gotoTache(projet:Projet)
+  gotoTache(projet:ProjetResponse)
   {
     this.router.navigateByUrl("/Tache/"+projet.id)
   }
@@ -118,7 +117,7 @@ export class ListDesProjetsComponent implements OnInit {
     }
   }
 
-  async modifierProjet(p: Projet) {
+  async modifierProjet(p: ProjetResponse) {
     try {
       await this.loadEquipesGraphQl();
       const dialogRef = this.dialog.open(ModifierProjetComponent, {
@@ -138,7 +137,7 @@ export class ListDesProjetsComponent implements OnInit {
     }
   }
 
-  supprimerProjet(projet: Projet) {
+  supprimerProjet(projet: ProjetResponse) {
 
   }
 }

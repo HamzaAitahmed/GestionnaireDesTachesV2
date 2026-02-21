@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
-import {HttpClientModule, provideHttpClient} from '@angular/common/http';
+import { provideHttpClient} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthModule} from './auth/auth.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatDialogModule} from '@angular/material/dialog';
-import {APOLLO_OPTIONS, ApolloModule} from 'apollo-angular';
+import {APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
 
@@ -24,9 +24,6 @@ import { InMemoryCache } from '@apollo/client/core';
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    FormsModule,
-    ApolloModule, // Ajoutez ApolloModule ici
-    HttpClientModule, // Assurez-vous que HttpClientModule est importé
   ],
   providers: [
     provideHttpClient(),

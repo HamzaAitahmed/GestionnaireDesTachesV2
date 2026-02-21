@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Apollo, gql, QueryRef} from 'apollo-angular';
-import {Projet} from '../model/projet.model';
 import {HttpClient} from '@angular/common/http';
 import { Query_Projets } from '../graphqlQueries/projet.queries';
+import {ProjetResponse} from '../model/responses/projet-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class ProjetService {
 
   public projetsNotFiltred: any;
   projetsNotFilter:any = null;
-  projetss: Array<Projet> = [];
-  projets: Array<Projet> = [];
+  projetss: Array<ProjetResponse> = [];
+  projets: Array<ProjetResponse> = [];
   loading:any = null
   error:any = null
 
@@ -26,15 +26,15 @@ export class ProjetService {
     return this.http.get<any[]>(`${this.projetUrl}/${userId}/projets`);
   }
 
-  ajouterProjet(projet: Projet): Observable<any[]> {
+  ajouterProjet(projet: ProjetResponse): Observable<any[]> {
     console.log("ProjetService projetAjouter : ")
     console.log(projet)
     return this.http.post<any[]>(`${this.simpleUrl}/projets`,{projet});
     // return this.http.post<any[]>(`${this.projetUrl}/AjouterProjet`,{projet});  // il y a une erreur je crois que je dois utiliser projetDTO etc ...
   }
 
-  getProjetsByUserGql(userId: number, search: string): QueryRef<{ searchProjets: Projet[] }, { id: number; search: string  }> {
-    return this.apollo.watchQuery<{ searchProjets: Projet[] }, { id: number; search: string}>({
+  getProjetsByUserGql(userId: number, search: string): QueryRef<{ searchProjets: ProjetResponse[] }, { id: number; search: string  }> {
+    return this.apollo.watchQuery<{ searchProjets: ProjetResponse[] }, { id: number; search: string}>({
       query: Query_Projets, // Utilisez la requête importée
       variables: {
         id: userId,

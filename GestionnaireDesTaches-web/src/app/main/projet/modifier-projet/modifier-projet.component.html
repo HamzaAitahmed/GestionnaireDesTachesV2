@@ -22,8 +22,8 @@
             <div class="col-lg-12">
               <div class="form-group mb-3">
                 <h5>Project Team</h5>
-                <select name="projectTeam" class="form-control" [(ngModel)]="projetSelectionner.equipeDeProjet" >
-                  <option [ngValue]="null" [disabled]="projetSelectionner.equipeDeProjet == null" [hidden]="projetSelectionner.equipeDeProjet  != null" > Choisir une équipe </option>
+                <select name="projectTeam" class="form-control" [(ngModel)]="projetSelectionner.equipeDuProjetId" >
+                  <option [ngValue]="null" [disabled]="projetSelectionner.equipeDuProjetId == null" [hidden]="projetSelectionner.equipeDuProjetId  != null" > Choisir une équipe </option>
                   <option [ngValue]="null"> !!!! Aucune équipe !!!! </option>
                   <option  *ngFor="let equipe of listDesEquipes" [ngValue]="equipe"> {{ equipe.nom }} </option>
                 </select>

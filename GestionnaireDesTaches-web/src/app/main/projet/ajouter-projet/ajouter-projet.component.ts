@@ -1,8 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Projet} from '../../../model/projet.model';
-import {Equipe} from '../../../model/equipe.model';
 import {ProjetService} from '../../../services/projet.service';
+import {ProjetResponse} from '../../../model/responses/projet-response.model';
+import {EquipeResponse} from '../../../model/responses/equipe-response.model';
 
 @Component({
   selector: 'app-ajouter-projet',
@@ -14,35 +14,33 @@ import {ProjetService} from '../../../services/projet.service';
 
 export class AjouterProjetComponent {
   currentUser:any;
-  projetAjouter : Projet = {
+  projetAjouter : ProjetResponse = {
     id:0,
+
     nom:'',
+
     budget:0,
     client:'',
     description:'',
-    statut:'',
+
     dateDeCreation:'',
     dateDebut:'',
     dateFin:'',
-    idChefProjet:0,
-    idEquipeDeProjet:0,
-    idListCompetencesRequise:0,
-    listMesCompetencesRequise:null,
-    tachesDeProjet:null,
-    chefProjet:null, // Initialisation avec un objet Utilisateur vide
-    equipeDeProjet:null,
+
+    chefProjetId:0,
+    equipeDuProjetId:0,
+    lesTachesDeProjetIds:null,
   };
 
-  listDesEquipes: Equipe[] = [];
+  listDesEquipes: EquipeResponse[] = [];
 
   constructor(
     private projetService: ProjetService,
     public dialogRef: MatDialogRef<AjouterProjetComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { equipes: Equipe[], currentUser: any }
+    @Inject(MAT_DIALOG_DATA) public data: { equipes: EquipeResponse[], currentUser: any }
   ) {
     this.currentUser = data.currentUser
-    this.projetAjouter.idChefProjet=this.currentUser.id
-    this.projetAjouter.chefProjet=this.currentUser
+    this.projetAjouter.chefProjetId=this.currentUser.id
     this.listDesEquipes = data.equipes; // Access the passed list of teams
   }
 
@@ -50,7 +48,7 @@ export class AjouterProjetComponent {
     this.dialogRef.close();
   }
 
-  saveProject(projetAjouter: Projet): void {
+  saveProject(projetAjouter: ProjetResponse): void {
     console.log("projetAjouter : ")
     console.log(projetAjouter)
     this.projetService.ajouterProjet(projetAjouter).subscribe({

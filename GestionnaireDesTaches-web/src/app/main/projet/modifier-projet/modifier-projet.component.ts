@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Projet} from '../../../model/projet.model';
-import {Equipe} from '../../../model/equipe.model';
+import {ProjetResponse} from '../../../model/responses/projet-response.model';
+import {EquipeResponse} from '../../../model/responses/equipe-response.model';
 
 @Component({
   selector: 'app-modifier-projet',
@@ -11,12 +11,12 @@ import {Equipe} from '../../../model/equipe.model';
   styleUrl: './modifier-projet.component.css'
 })
 export class ModifierProjetComponent implements OnInit {
-  projetSelectionner: Projet;
-  listDesEquipes: Equipe[] = [];
+  projetSelectionner: ProjetResponse;
+  listDesEquipes: EquipeResponse[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<ModifierProjetComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { projet: Projet, equipes: Equipe[] }
+    @Inject(MAT_DIALOG_DATA) public data: { projet: ProjetResponse, equipes: EquipeResponse[] }
   ) {
     this.projetSelectionner = data.projet; // Access the passed projet object
     this.listDesEquipes = data.equipes; // Access the passed list of teams

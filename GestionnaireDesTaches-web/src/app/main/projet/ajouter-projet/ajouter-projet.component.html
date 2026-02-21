@@ -22,7 +22,7 @@
             <div class="col-lg-12">
               <div class="form-group mb-3">
                 <label  class="h5">Project Team</label>
-                <select name="projectTeam" class="form-control" [(ngModel)]="projetAjouter.equipeDeProjet">
+                <select name="projectTeam" class="form-control" [(ngModel)]="projetAjouter.equipeDuProjetId">
                   <option [ngValue]="null" hidden="hidden"> Choisir une équipe </option>
                   <option [ngValue]="null"> !!!! Aucune équipe !!!! </option>
                   <option  *ngFor="let equipe of listDesEquipes" [ngValue]="equipe"> {{ equipe.nom }} </option>
