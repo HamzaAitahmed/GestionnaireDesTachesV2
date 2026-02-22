@@ -8,6 +8,8 @@ import {AjouterProjetComponent} from '../ajouter-projet/ajouter-projet.component
 import {ModifierProjetComponent} from '../modifier-projet/modifier-projet.component';
 import {EquipeResponse} from '../../../model/responses/equipe-response.model';
 import {EquipeService} from '../../../services/equipe.service';
+import {ObservableQuery} from '@apollo/client';
+import Result = ObservableQuery.Result;
 
 @Component({
   selector: 'app-list-des-projets',
@@ -55,19 +57,19 @@ export class ListDesProjetsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.loadProjets();
-    this.loadProjetsGraphQl();
+    // this.loadProjetsGraphQl();
   }
 
   mopdifierSearch(newSearch: string): void {
     this.search = newSearch; // Mettre à jour la valeur de search
-    this.loadProjetsGraphQl(); // Recharger les projets
+    // this.loadProjetsGraphQl(); // Recharger les projets
   }
 
   loadEquipesGraphQl(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.equipeService.getToutesLesEquipesGql().valueChanges.subscribe({
+      this.equipeService.GetToutesLesEquipes().subscribe({
         next: (result) => {
-          this.listDesEquipes = result.data.Equipes;
+          this.listDesEquipes = result ?? [];
           resolve(); // Résoudre la promesse quand les données sont chargées
         },
         error: (err) => {
@@ -78,19 +80,19 @@ export class ListDesProjetsComponent implements OnInit {
     });
   }
 
-  loadProjetsGraphQl(): void {
-    this.currentUser = this.authService.getCurrentUser();
-    if (this.currentUser && this.currentUser.id) {
-      this.projetService.getProjetsByUserGql(this.currentUser.id, this.search).valueChanges.subscribe({
-        next: (result) => {
-          this.projets = result.data.searchProjets;
-        },
-        error: (err) => {
-          console.error('Erreur lors du chargement des projets :', err);
-        },
-      });
-    }
-  }
+  // loadProjetsGraphQl(): void {
+  //   this.currentUser = this.authService.getCurrentUser();
+  //   if (this.currentUser && this.currentUser.id) {
+  //     this.projetService.getProjetsByUserGql(this.currentUser.id, this.search).valueChanges.subscribe({
+  //       next: (result) => {
+  //         this.projets = result.data.searchProjets;
+  //       },
+  //       error: (err) => {
+  //         console.error('Erreur lors du chargement des projets :', err);
+  //       },
+  //     });
+  //   }
+  // }
 
   gotoTache(projet:ProjetResponse)
   {

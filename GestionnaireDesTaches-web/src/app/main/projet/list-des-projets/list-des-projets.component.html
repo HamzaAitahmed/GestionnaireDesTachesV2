@@ -44,41 +44,44 @@
       </div>
       <div id="grid" class="item-content animate__animated animate__fadeIn active" data-toggle-extra="tab-content">
         <div class="row" >
-          <div class="col-lg-4 col-md-6" *ngFor="let projet of projets">
-            <div class="card card-block card-stretch card-height">
-              <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                  <!--                                    <div th:id="${iterator.index < 10} ? 'circle-progress-0'+${iterator.index} : 'circle-progress-'+${iterator.index} " class="circle-progress-01 circle-progress circle-progress-primary" data-min-value="0" data-max-value="100" data-value="25" data-type="percent"></div>-->
-<!--                  <img style="height: 100px ; width: 100px" class="img-fluid avatar-40 rounded-circle" [src]="projet.chefProjetId?.profilePicture" alt="">-->
-                  <a class="btn m-0 btn-white badge-warning text-primary " routerLink="/projet" >Les Taches</a>
-                </div>
-                <h5 class="mb-1" >{{projet.nom}}</h5>
-                <p class="mb-3"  >{{projet.description}}</p>
-                <div class="d-flex align-items-center justify-content-between pt-3 border-top">
-                  <div class="iq-media-group"  >
-                    <div class="d-inline-block" *ngIf="projet.equipeDuProjetId==null" >
-<!--                      <a href="#"  class="iq-media mr-3">-->
-<!--                        <img class="img-fluid avatar-40 rounded-circle" [src]="projet.equipeDeProjet?.chefEquipe?.profilePicture" alt="">-->
-<!--                      </a>-->
-<!--                      <a *ngFor="let mb of projet.equipeDeProjet?.mesMembers" [hidden]="projet.chefProjet == mb || projet.equipeDeProjet?.chefEquipe?.id == mb.id" class="iq-media">-->
-<!--                        <img  class="img-fluid avatar-40 rounded-circle" [src]="mb.profilePicture" alt="">-->
-
-<!--                      </a>-->
+          @for (projet of projets; track projet) {
+            <div class="col-lg-4 col-md-6">
+              <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <!--                                    <div th:id="${iterator.index < 10} ? 'circle-progress-0'+${iterator.index} : 'circle-progress-'+${iterator.index} " class="circle-progress-01 circle-progress circle-progress-primary" data-min-value="0" data-max-value="100" data-value="25" data-type="percent"></div>-->
+                    <!--                  <img style="height: 100px ; width: 100px" class="img-fluid avatar-40 rounded-circle" [src]="projet.chefProjetId?.profilePicture" alt="">-->
+                    <a class="btn m-0 btn-white badge-warning text-primary " routerLink="/projet" >Les Taches</a>
+                  </div>
+                  <h5 class="mb-1" >{{projet.nom}}</h5>
+                  <p class="mb-3"  >{{projet.description}}</p>
+                  <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                    <div class="iq-media-group"  >
+                      @if (projet.equipeDuProjetId==null) {
+                        <div class="d-inline-block" >
+                          <!--                      <a href="#"  class="iq-media mr-3">-->
+                          <!--                        <img class="img-fluid avatar-40 rounded-circle" [src]="projet.equipeDeProjet?.chefEquipe?.profilePicture" alt="">-->
+                        <!--                      </a>-->
+                        <!--                      <a *ngFor="let mb of projet.equipeDeProjet?.mesMembers" [hidden]="projet.chefProjet == mb || projet.equipeDeProjet?.chefEquipe?.id == mb.id" class="iq-media">-->
+                        <!--                        <img  class="img-fluid avatar-40 rounded-circle" [src]="mb.profilePicture" alt="">-->
+                      <!--                      </a>-->
                     </div>
-                  </div>
-                  <div class="link-shadow">
-<!--                    <a class="btn bg-success-light mr-1" [hidden]="projet.idChefProjet != currentUser.id" (click)="modifierProjet(projet)" ><i class="ri-edit-box-line m-0"></i></a>-->
-<!--                    <a class="btn bg-secondary-light"  [hidden]="projet.idChefProjet != currentUser.id"   (click)="supprimerProjet(projet)" ><i class="ri-delete-bin-2-fill m-0"></i></a>-->
-                    <a class="btn bg-success-light mr-1" [hidden]="projet.chefProjetId != currentUser.id" (click)="modifierProjet(projet)" ><i class="ri-edit-box-line m-0"></i></a>
-                    <a class="btn bg-secondary-light"    [hidden]="projet.chefProjetId != currentUser.id" (click)="supprimerProjet(projet)" ><i class="ri-delete-bin-2-fill m-0"></i></a>
-                  </div>
+                  }
+                </div>
+                <div class="link-shadow">
+                  <!--                    <a class="btn bg-success-light mr-1" [hidden]="projet.idChefProjet != currentUser.id" (click)="modifierProjet(projet)" ><i class="ri-edit-box-line m-0"></i></a>-->
+                  <!--                    <a class="btn bg-secondary-light"  [hidden]="projet.idChefProjet != currentUser.id"   (click)="supprimerProjet(projet)" ><i class="ri-delete-bin-2-fill m-0"></i></a>-->
+                  <a class="btn bg-success-light mr-1" [hidden]="projet.chefProjetId != currentUser.id" (click)="modifierProjet(projet)" ><i class="ri-edit-box-line m-0"></i></a>
+                  <a class="btn bg-secondary-light"    [hidden]="projet.chefProjetId != currentUser.id" (click)="supprimerProjet(projet)" ><i class="ri-delete-bin-2-fill m-0"></i></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Page end  -->
+      }
     </div>
   </div>
+  <!-- Page end  -->
+</div>
+</div>
 </div>
