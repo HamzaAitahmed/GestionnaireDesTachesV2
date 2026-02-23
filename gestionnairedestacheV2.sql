@@ -247,6 +247,28 @@ INSERT INTO `utilisateur` (`id`, `email`, `password`, `username`, `photo`, `nom`
  (30, 'user123@gmail.com', '123',  'user123', 'images/user/inconnu.jpg', NULL, NULL, NULL, NULL,null,null,null),
  (31, 'admin@gmail.com', '$2a$10$vvIsfW6rkwxknDYOJ6b.fuwINLYplRuJvfCozCJqIwbI/3UJlRXPS', 'admin', 'images/user/11.jpg', NULL, NULL, NULL, NULL,null,null,null);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `refresh_token`
+--
+
+CREATE TABLE `refresh_token` (
+ `id` int(11) NOT NULL,
+ `created_at` datetime(6) DEFAULT NULL,
+ `expires_at` datetime(6) DEFAULT NULL,
+ `revoked` bit(1) NOT NULL,
+ `token` varchar(255) DEFAULT NULL,
+ `proprietaire_du_token_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `refresh_token`
+--
+
+INSERT INTO `refresh_token` (`id`, `created_at`, `expires_at`, `revoked`, `token`, `proprietaire_du_token_id`) VALUES
+(4, '2026-02-23 01:05:59.000000', '2026-03-02 01:05:59.000000', b'1', 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW16YUBnbWFpbC5jb20iLCJpYXQiOjE3NzE4MDg3NTksImV4cCI6MTc3NDQwMDc1OX0.y93rkudYQ1ZpuYPy1xIgmXK_c55hnphAmOMxgGH_q9EmCa5sQtC0hDg5CrX3sFin-tmKGmIvCuDDT1nzp5FxQw', 16),
+(5, '2026-02-23 01:06:17.000000', '2026-03-02 01:06:17.000000', b'1', 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW16YUBnbWFpbC5jb20iLCJpYXQiOjE3NzE4MDg3NzcsImV4cCI6MTc3NDQwMDc3N30.pmIfyJOujbnjHxoJH-AjlmFfSMRqfKtctcIN0vK-tNbi5GsPEvcttfVzel-z822ScqCtq76PLKbzovArpCRL1Q', 16);
 
 --
 -- Index pour les tables déchargées
@@ -275,6 +297,13 @@ ALTER TABLE `projet`
   ADD UNIQUE KEY `UKhc62ibguw2x2cf7f1b2sr2j23` (`nom`),
   ADD KEY `FKryggnvufkm34xwoqvuegjusq7` (`chef_projet_id`),
   ADD KEY `FK4dvjk7ccuo7mofnn72ybnt3md` (`equipe_du_projet_id`);
+
+--
+-- Index pour la table `refresh_token`
+--
+ALTER TABLE `refresh_token`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKoah43xchqcesap1exueatv4pd` (`proprietaire_du_token_id`);
 
 --
 -- Index pour la table `tache`
@@ -307,6 +336,12 @@ ALTER TABLE `equipe`
 --
 ALTER TABLE `projet`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `refresh_token`
+--
+ALTER TABLE `refresh_token`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `tache`
@@ -343,6 +378,12 @@ ALTER TABLE `equipe_les_membresdequipe`
 ALTER TABLE `projet`
   ADD CONSTRAINT `FK4dvjk7ccuo7mofnn72ybnt3md` FOREIGN KEY (`equipe_du_projet_id`) REFERENCES `equipe` (`id`),
   ADD CONSTRAINT `FKryggnvufkm34xwoqvuegjusq7` FOREIGN KEY (`chef_projet_id`) REFERENCES `utilisateur` (`id`);
+
+--
+-- Contraintes pour la table `projet`
+--
+ALTER TABLE `refresh_token`
+  ADD CONSTRAINT `FKoah43xchqcesap1exueatv4pd` FOREIGN KEY (`proprietaire_du_token_id`) REFERENCES `utilisateur` (`id`);
 
 --
 -- Contraintes pour la table `tache`
