@@ -111,11 +111,11 @@ public class UtilisateurMapper {
     }
 
 
-    public Utilisateur InscriptionRequestDTOtoUtilisateur(InscriptionRequestDTO dto) {
+    public Utilisateur InscriptionRequestDTOtoUtilisateur(InscriptionRequestDTO inscriptionRequestDTO) {
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setUsername(dto.getUsername());
-        utilisateur.setPassword(dto.getPassword());
-        utilisateur.setEmail(dto.getEmail());
+        utilisateur.setUsername(inscriptionRequestDTO.getUsername());
+        utilisateur.setPassword(inscriptionRequestDTO.getPassword());
+        utilisateur.setEmail(inscriptionRequestDTO.getEmail());
         return utilisateur;
     }
 

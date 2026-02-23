@@ -38,8 +38,6 @@ public class Utilisateur {
 
     //============ Relation =============//
 
-//    @OneToOne @JsonManagedReference
-//    private ListCompetencesUtilisateur listMesCompetences;
 
     @OneToMany(mappedBy = "chefProjet") @JsonIgnore
     private Collection<Projet> mesProjets;
@@ -47,8 +45,6 @@ public class Utilisateur {
     @OneToMany(mappedBy = "assigneurDeTache") @JsonIgnore
     private Collection<Tache> mesTaches;
 
-//    @OneToMany(mappedBy = "recepteur")
-//    private Collection<Notification> notifications;
 
     @OneToMany(mappedBy = "chefEquipe")
     @JsonManagedReference
@@ -57,11 +53,11 @@ public class Utilisateur {
     @ManyToMany(mappedBy = "lesMembresDEquipe") @JsonBackReference
     private Collection<Equipe> membreDansLEquipe;
 
+    @OneToMany(mappedBy = "proprietaireDuToken")
+    @JsonManagedReference
+    private Collection<RefreshToken> tokens;
+
     //============ Les Methodes =============//
 
-//    public void setListMesCompetences(ListCompetencesUtilisateur listMesCompetences) {
-//        this.listMesCompetences = listMesCompetences;
-//        this.listMesCompetences.setUtilisateur(this);
-//    }
 
 }
