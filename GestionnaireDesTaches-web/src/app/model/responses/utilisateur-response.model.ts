@@ -1,7 +1,7 @@
 export interface UtilisateurResponse {
     id: number;
 
-    email: string;
+    email: string| null;
 
     salaire: number;
 
@@ -20,4 +20,5 @@ export interface UtilisateurResponse {
     mesTachesIds: number[] | null;
     mesEquipesIds: number[] | null;
     membreDansLEquipeIds: number[] | null;
+
 }

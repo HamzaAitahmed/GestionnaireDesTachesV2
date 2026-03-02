@@ -14,7 +14,7 @@ export class NavbarComponent{
   constructor(public authService: AuthentificationService) {}
 
   onLogout(): void {
-    this.authService.logout();
+    this.authService.deconnexionProcess();
   }
 
 }

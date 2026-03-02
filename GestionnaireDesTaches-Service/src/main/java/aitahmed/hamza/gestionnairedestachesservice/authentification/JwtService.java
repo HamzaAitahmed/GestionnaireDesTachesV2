@@ -18,6 +18,12 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String secret;
 
+    @Value("${refreshtoken.time}")
+    private long refreshtokenTime;
+
+    @Value("${accesstoken.time}")
+    private long accesstokenTime;
+
     public JwtService(TokenService tokenService) {
         this.tokenService = tokenService;
     }
@@ -31,7 +37,8 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(utilisateur.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 15)) // 15 min
+                .setAudience("Access")
+                .setExpiration(new Date(System.currentTimeMillis() + accesstokenTime)) // 15 min
                 .signWith(getSigningKey())
                 .compact();
     }
@@ -41,7 +48,8 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(utilisateur.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30)) // 30 days
+                .setAudience("Refresh")
+                .setExpiration(new Date(System.currentTimeMillis() + refreshtokenTime)) // 30 days
                 .signWith(getSigningKey())
                 .compact();
     }

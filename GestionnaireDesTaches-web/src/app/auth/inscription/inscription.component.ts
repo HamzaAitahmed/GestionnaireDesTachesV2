@@ -1,8 +1,10 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthentificationService} from '../../services/authentification.service';
+import {InscriptionRequest} from '../../model/requests/inscription-request.model';
+import {ROUTE_CONNECTER} from '../../constants/global.constants';
 
 function passwordMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -41,12 +43,13 @@ export class InscriptionComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       const {username, email, password, confirmerPassword} = this.registerForm.value;
-      this.auth.inscription(username, email, password, confirmerPassword).subscribe({
+      const inscriptionRequest:InscriptionRequest = {username, email, password, confirmerPassword};
+      this.auth.inscription(inscriptionRequest).subscribe({
         next: (response: any) => {
           if (response.status === 'success') {
             this.isSuccess = true;
             this.message = response.message; // Affichez le message de succès
-            this.router.navigate(['/connecter']); // Redirigez vers la page de connexion
+            this.router.navigate([ROUTE_CONNECTER]); // Redirigez vers la page de connexion
           } else {
             this.isSuccess = false;
             this.message = response.message; // Affichez le message d'erreur

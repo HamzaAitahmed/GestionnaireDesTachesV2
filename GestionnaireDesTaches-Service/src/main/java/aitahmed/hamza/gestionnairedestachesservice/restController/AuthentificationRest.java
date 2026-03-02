@@ -4,6 +4,7 @@ import aitahmed.hamza.gestionnairedestachesservice.authentification.Authentifica
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.ConnecterRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.InscriptionRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.TokenRequestDTO;
+import aitahmed.hamza.gestionnairedestachesservice.dtos.response.ConnecterResponseDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.TokenResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth/")
+@RequestMapping("/api/auth")
 public class AuthentificationRest {
     private final AuthentificationService authentificationService;
 
@@ -33,7 +34,7 @@ public class AuthentificationRest {
     public ResponseEntity<?> login(@RequestBody ConnecterRequestDTO ConnecterRequestDTO) {
 
         try {
-            TokenResponseDTO response = authentificationService.connexion(ConnecterRequestDTO);
+            ConnecterResponseDTO response = authentificationService.connexion(ConnecterRequestDTO);
             return ResponseEntity.ok(response);
 
         } catch (RuntimeException e) {
@@ -54,7 +55,13 @@ public class AuthentificationRest {
 
     @PostMapping("/refresh")
     public ResponseEntity<TokenResponseDTO> refresh( @RequestBody TokenRequestDTO tokenRequestDTO) {
+        return ResponseEntity.ok(
+                authentificationService.refresh(tokenRequestDTO)
+        );
+    }
 
+    @PostMapping("/redirectToRefresh")
+    public ResponseEntity<TokenResponseDTO> guardsRefresh( @RequestBody TokenRequestDTO tokenRequestDTO) {
         return ResponseEntity.ok(
                 authentificationService.refresh(tokenRequestDTO)
         );

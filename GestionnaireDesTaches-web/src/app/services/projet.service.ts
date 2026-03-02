@@ -4,14 +4,14 @@ import {Apollo, gql, QueryRef} from 'apollo-angular';
 import {HttpClient} from '@angular/common/http';
 import { Query_Projets } from '../graphqlQueries/projet.queries';
 import {ProjetResponse} from '../model/responses/projet-response.model';
+import {URL_BACKEND, URL_PROJET} from '../constants/global.constants';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ProjetService {
-  private projetUrl = "http://localhost:8088/api/Projet"
-  private simpleUrl = "http://localhost:8088"
+  private projetUrl = URL_BACKEND + URL_PROJET;
 
   public projetsNotFiltred: any;
   projetsNotFilter:any = null;
@@ -29,7 +29,7 @@ export class ProjetService {
   ajouterProjet(projet: ProjetResponse): Observable<any[]> {
     console.log("ProjetService projetAjouter : ")
     console.log(projet)
-    return this.http.post<any[]>(`${this.simpleUrl}/projets`,{projet});
+    return this.http.post<any[]>(URL_PROJET+`/projets`,{projet});
     // return this.http.post<any[]>(`${this.projetUrl}/AjouterProjet`,{projet});  // il y a une erreur je crois que je dois utiliser projetDTO etc ...
   }
 

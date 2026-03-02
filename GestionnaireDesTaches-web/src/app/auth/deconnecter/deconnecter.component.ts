@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthentificationService} from '../../services/authentification.service';
+import {UtilisateurResponse} from '../../model/responses/utilisateur-response.model';
+import {ConnecterRequest} from '../../model/requests/connecter-request.model';
+import {BehaviorSubject} from 'rxjs';
+import {CURRENT_USER, ROUTE_MAIN} from '../../constants/global.constants';
 
 @Component({
   selector: 'app-deconnecter',
@@ -12,6 +16,9 @@ import {AuthentificationService} from '../../services/authentification.service';
 export class DeconnecterComponent implements OnInit{
   logoutForm: FormGroup;
   user: { username: string, email: string, profilePicture: string } = { username: '', email: '', profilePicture: '' }; // Informations de l'utilisateur
+  utilisateurDeconnecter:UtilisateurResponse | null = null;
+  private currentUserSubject = new BehaviorSubject<UtilisateurResponse | null>(null); // Stocke les données de l'utilisateur
+  public currentUser$ = this.currentUserSubject.asObservable(); // Observable pour les composants
   errorMessage:string = '';
 
   constructor(private fb: FormBuilder, private router: Router,private authService: AuthentificationService) {
@@ -21,39 +28,32 @@ export class DeconnecterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.onLogout();
+    this.deconnexionClicked();
   }
 
-  onSubmit() {
+  reconnecter() {
     if (this.logoutForm.valid) {
-      console.log('Déconnexion en cours...', this.logoutForm.value);
       const { password } = this.logoutForm.value;
-      this.authService.login(this.user.email, password).subscribe({
-        next: (user) => {
-          const currentUser = this.authService.getCurrentUser();
-          console.log('Login successful', currentUser);
-          this.router.navigate(['main']); // Redirigez après une connexion réussie
+      const connecterRequest:ConnecterRequest = { email:"hamza@gmail.com", password: password}
+      this.authService.connecter(connecterRequest).subscribe({
+        next: () => {
+          this.utilisateurDeconnecter = this.authService.getCurrentUser();
+          this.router.navigate([ROUTE_MAIN]); // Redirigez après une connexion réussie
         },
-        error: (error) => {
-          console.error('Login failed', error);
+        error: () => {
           this.errorMessage = 'Mot de passe incorrect.'; // Affichez un message d'erreur
         }
       });
     }
   }
 
-  onLogout(): void {
-    // Récupérez les informations de l'utilisateur connecté
-    const currentUser = this.authService.getCurrentUser();
-    if (currentUser) {
-      this.user = {
-        username: currentUser.username,
-        email: currentUser.email,
-        profilePicture: currentUser.profilePicture,
-      };
+  deconnexionClicked(): void {
+    const storedUser = localStorage.getItem(CURRENT_USER);
+    if (storedUser) {
+      this.currentUserSubject.next(JSON.parse(storedUser)); // Récupérer l'utilisateur depuis LocalStorage
     }
-    this.authService.logout();
-    console.log(currentUser)
+
+    this.authService.deconnexionProcess();
   }
 
 }

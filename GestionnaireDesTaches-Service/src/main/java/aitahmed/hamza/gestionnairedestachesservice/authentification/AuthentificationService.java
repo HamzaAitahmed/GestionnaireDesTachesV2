@@ -3,7 +3,9 @@ package aitahmed.hamza.gestionnairedestachesservice.authentification;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.ConnecterRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.InscriptionRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.TokenRequestDTO;
+import aitahmed.hamza.gestionnairedestachesservice.dtos.response.ConnecterResponseDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.TokenResponseDTO;
+import aitahmed.hamza.gestionnairedestachesservice.dtos.response.UtilisateurResponseDTO;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
 import aitahmed.hamza.gestionnairedestachesservice.mappers.UtilisateurMapper;
 import aitahmed.hamza.gestionnairedestachesservice.services.UtilisateurService;
@@ -28,7 +30,7 @@ public class AuthentificationService {
         this.jwtService = jwtService;
     }
 
-    public TokenResponseDTO connexion(ConnecterRequestDTO ConnecterRequestDTO) {
+    public ConnecterResponseDTO connexion(ConnecterRequestDTO ConnecterRequestDTO) {
         try {
             Utilisateur utilisateur = utilisateurService.getUtilisateurByEmail(ConnecterRequestDTO.getEmail());
             if (utilisateur == null) {
@@ -45,9 +47,12 @@ public class AuthentificationService {
 
             String accessToken = jwtService.generateAccessToken(authUtilisateur);
             String refreshToken = jwtService.generateRefreshToken(authUtilisateur);
+            TokenResponseDTO tokenReponse = new TokenResponseDTO(accessToken, refreshToken);
+
+            UtilisateurResponseDTO utilisateurResponse = utilisateurMapper.UtilisateurToUtilisateurResponseDTO(utilisateur);
 
             jwtService.saveToken(authUtilisateur, refreshToken);
-            return new TokenResponseDTO(accessToken, refreshToken);
+            return new ConnecterResponseDTO( tokenReponse, utilisateurResponse);
         } catch (Exception e) {
             throw new RuntimeException("Authentication failed");
         }

@@ -3,13 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import {InscriptionComponent} from './inscription/inscription.component';
 import {ConnecterComponent} from './connecter/connecter.component';
 import {DeconnecterComponent} from './deconnecter/deconnecter.component';
+import {ErreurComponent} from '../shared/erreur/erreur.component';
+import {  ROUTE_AUTH, ROUTE_CONNECTER, ROUTE_DECONNECTER, ROUTE_ERREUR, ROUTE_INSCRIPTION } from '../constants/global.constants';
 
 export const auth_routes: Routes = [
-  // { path: '', redirectTo: 'connecter', pathMatch: 'full' }, // Default to projet module
-  { path: 'auth', redirectTo: 'connecter', pathMatch: 'full' }, // Default to projet module
-  { path: 'connecter', component: ConnecterComponent },
-  { path: 'deconnecter', component: DeconnecterComponent },
-  { path: 'inscription', component: InscriptionComponent },
+  { path: ROUTE_AUTH, redirectTo: ROUTE_CONNECTER, pathMatch: 'full' },
+  { path: ROUTE_CONNECTER, component: ConnecterComponent },
+  { path: ROUTE_DECONNECTER, component: DeconnecterComponent },
+  { path: ROUTE_INSCRIPTION, component: InscriptionComponent },
+  { path: ROUTE_ERREUR, component: ErreurComponent },
 ];
 
 @NgModule({

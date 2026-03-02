@@ -49,11 +49,8 @@ export class AjouterProjetComponent {
   }
 
   saveProject(projetAjouter: ProjetResponse): void {
-    console.log("projetAjouter : ")
-    console.log(projetAjouter)
     this.projetService.ajouterProjet(projetAjouter).subscribe({
       next: (response) => {
-        console.log('Projet ajouté', response);
         this.dialogRef.close('Projet ajouté');
       },
       error: (err) => {
