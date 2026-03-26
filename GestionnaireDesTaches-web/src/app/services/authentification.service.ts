@@ -24,15 +24,16 @@ export class AuthentificationService {
   private currentUserSubject = new BehaviorSubject<UtilisateurResponse | null>(null); // Stocke les données de l'utilisateur
   public currentUser$ = this.currentUserSubject.asObservable(); // Observable pour les composants
 
+  private accessToken: string | null = null;
+
   constructor(private http: HttpClient,private router: Router) {
   }
 
   connecter(connecterRequest: ConnecterRequest) {
-    return this.http.post<ConnecterResponse>(this.authUrl+URL_CONNECTER, connecterRequest)
+    return this.http.post<ConnecterResponse>(this.authUrl+URL_CONNECTER, connecterRequest,{withCredentials: true})
       .pipe(
         tap(response => {
-            localStorage.setItem(REFRESH_TOKEN, response.tokenResponse.refreshToken);
-            localStorage.setItem(ACCESS_TOKEN, response.tokenResponse.accessToken);
+            this.accessToken = response.tokenResponse.accessToken;
             this.currentUserSubject.next(response.utulisateurResponse);
             localStorage.setItem(CURRENT_USER, JSON.stringify(response.utulisateurResponse));
           }
@@ -51,11 +52,7 @@ export class AuthentificationService {
 
   refreshTokenBackend(UrlPath:string) {
     const tokenRequest: TokenRequest = this.getToken();
-    return this.http.post<TokenResponse>(this.authUrl+UrlPath, tokenRequest);
-  }
-
-  checkRefreshToken():boolean{
-      return !this.isTokenExpired(REFRESH_TOKEN)
+    return this.http.post<TokenResponse>(this.authUrl+UrlPath, tokenRequest,{withCredentials: true});
   }
 
   refreshTokenProcess(UrlPath:string): Observable<TokenResponse> {
@@ -90,28 +87,20 @@ export class AuthentificationService {
   }
 
   deconnexionBackend() {
-    if(localStorage.getItem(REFRESH_TOKEN)==null)
-    {
-      return throwError(() => console.error("!!! No Refresh Token Found !!!"));
+    const requestToken:TokenRequest = {
+      accessToken:this.accessToken,
     }
-    let requestToken:TokenRequest = {
-      accessToken  : localStorage.getItem(ACCESS_TOKEN)  || '',
-      refreshToken : localStorage.getItem(REFRESH_TOKEN) || ''
-    };
-
-    return this.http.post(this.authUrl+URL_DECONNECTER, requestToken);
+    return this.http.post(this.authUrl+URL_DECONNECTER, requestToken,{withCredentials: true});
   }
 
   private cleanClientAuth() {
     this.currentUserSubject.next(null);
     localStorage.removeItem(CURRENT_USER);
-    localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem(REFRESH_TOKEN);
+    this.accessToken=null;
   }
 
   private setClientToken(tokenResponse:TokenResponse) {
-    localStorage.setItem(ACCESS_TOKEN, tokenResponse.accessToken)
-    localStorage.setItem(REFRESH_TOKEN, tokenResponse.refreshToken)
+    this.accessToken=tokenResponse.accessToken;
   }
 
   getCurrentUser(): any {
@@ -120,18 +109,17 @@ export class AuthentificationService {
 
   getToken(): TokenRequest {
     const token:TokenRequest = {
-       accessToken:localStorage.getItem(ACCESS_TOKEN),
-       refreshToken:localStorage.getItem(REFRESH_TOKEN)
+       accessToken:this.accessToken,
     }
     return token;
   }
 
   isAuthenticated(): boolean {
-    return !this.isTokenExpired(ACCESS_TOKEN);
+    return !this.isTokenExpired();
   }
 
-  isTokenExpired(tokenType:string): boolean {
-    const decoded: any = this.getDecodedToken(tokenType);
+  isTokenExpired(): boolean {
+    const decoded: any = this.getDecodedToken();
     if (!decoded) return true;
 
     const expiration = decoded.exp * 1000;
@@ -139,16 +127,9 @@ export class AuthentificationService {
     return Date.now() > expiration;
   }
 
-  getDecodedToken(tokenType:string): any | null {
+  getDecodedToken(): any | null {
     let token:string | null = '';
-    if(REFRESH_TOKEN.includes(tokenType))
-    {
-       token = this.getRefreshToken();
-    }
-    if(ACCESS_TOKEN.includes(tokenType))
-    {
-      token = this.getAccessToken();
-    }
+    token = this.getAccessToken();
 
     if (!token) return null;
 
@@ -156,11 +137,11 @@ export class AuthentificationService {
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem(ACCESS_TOKEN);
+    return this.accessToken;
   }
 
-  getRefreshToken(): string | null {
-    return localStorage.getItem(REFRESH_TOKEN);
+  setAccessToken(token: string) {
+    this.accessToken = token;
   }
 
 }

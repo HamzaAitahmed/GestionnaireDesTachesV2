@@ -86,11 +86,13 @@ public class TokenService {
 
 }
 
-//        | Situation            | Action         |
-//        | -------------------- | -------------- |
-//        | Logout               | Revoke         |
-//        | Refresh rotation     | Revoke old     |
-//        | Password change      | Revoke all     |
-//        | Admin block          | Revoke all     |
-//        | Cleanup job          | Delete expired |
-//        | User account deleted | Delete all     |
+//        + -------------------- + -------------- +------------ +
+//        | Situation            | Action         | Released    |
+//        | -------------------- | -------------- |------------ |
+//        | Logout               | Revoke         | Yes         |
+//        | Refresh rotation     | Revoke old     | Yes         |
+//        | Password change      | Revoke all     | No Yet      |
+//        | Admin block          | Revoke all     | No Yet      |
+//        | Cleanup job          | Delete expired | No Yet      |
+//        | User account deleted | Delete all     | No Yet      |
+//        + -------------------- + -------------- +------------ +

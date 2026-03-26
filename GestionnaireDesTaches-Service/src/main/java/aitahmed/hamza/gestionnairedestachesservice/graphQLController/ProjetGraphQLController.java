@@ -1,5 +1,6 @@
 package aitahmed.hamza.gestionnairedestachesservice.graphQLController;
 
+import aitahmed.hamza.gestionnairedestachesservice.constants.Constants;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.ProjetRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.ProjetResponseDTO;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Projet;
@@ -23,12 +24,6 @@ public class ProjetGraphQLController {
         this.projetMapper = projetMapper;
     }
 
-    public static final String MY_PROJECT = "Mes_Projets";
-    public static final String OTHER_PROJECTS = "Les_Autres_Projets";
-    public static final String ALL_PROJECTS = "Toutes_Les_Projets";
-
-    public static final String SEARCH = "search";
-
     @QueryMapping
     public List<ProjetResponseDTO> Projets() {
         List<Projet> projets = projetService.getToutesLesProjets();
@@ -39,12 +34,11 @@ public class ProjetGraphQLController {
     }
 
     @QueryMapping
-    public List<ProjetResponseDTO> ProjetsSearch(@Argument(name = SEARCH ) String search , @Argument Integer id)
+    public List<ProjetResponseDTO> ProjetsSearch(@Argument(name = Constants.SEARCH ) String search , @Argument Integer id)
     {
-        System.out.println("search = " + search);
         List<Projet> projets = switch (search) {
-            case MY_PROJECT -> projetService.getProjetsByChefProjetId(id);
-            case OTHER_PROJECTS -> projetService.getOtherProjectByUserId(id);
+            case Constants.MY_PROJECT -> projetService.getProjetsByChefProjetId(id);
+            case Constants.OTHER_PROJECTS -> projetService.getOtherProjectByUserId(id);
             default -> projetService.getAllProjectByUserId(id);
         };
 

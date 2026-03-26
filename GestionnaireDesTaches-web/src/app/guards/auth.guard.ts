@@ -15,14 +15,13 @@ export class AuthGuard implements CanMatch {
       return of(true);
     }
 
-    if(this.authService.checkRefreshToken()){
+    if(this.authService.getAccessToken()) {
       return this.authService.refreshTokenProcess(URL_REFRESH).pipe(
         map(() => true),
         catchError(() => of(false))
       );
     }
 
-    this.authService.deconnexion();
     return of(this.router.parseUrl(ROUTE_AUTH));
   }
 }

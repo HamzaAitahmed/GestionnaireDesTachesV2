@@ -1,7 +1,7 @@
-package aitahmed.hamza.gestionnairedestachesservice.services;
+package aitahmed.hamza.gestionnairedestachesservice.authentification;
 
-import aitahmed.hamza.gestionnairedestachesservice.authentification.CustomUserDetails;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
+import aitahmed.hamza.gestionnairedestachesservice.services.UtilisateurService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
