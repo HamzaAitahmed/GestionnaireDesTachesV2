@@ -1,5 +1,6 @@
 package aitahmed.hamza.gestionnairedestachesservice.authentification;
 
+import aitahmed.hamza.gestionnairedestachesservice.constants.Constants;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Utilisateur;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
@@ -15,14 +16,14 @@ import java.util.Date;
 public class JwtService {
 
     private final TokenService tokenService;
-    @Value("${jwt.secret}")
+    @Value(Constants.JWT_SECRET)
     private String secret;
 
-    @Value("${refreshtoken.time}")
-    private long refreshtokenTime;
+    @Value(Constants.REFRESH_TOKEN_TIME)
+    protected long refreshtokenTime;
 
-    @Value("${accesstoken.time}")
-    private long accesstokenTime;
+    @Value(Constants.ACCESS_TOKEN_TIME)
+    protected long accesstokenTime;
 
     public JwtService(TokenService tokenService) {
         this.tokenService = tokenService;
@@ -37,7 +38,7 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(utilisateur.getEmail())
                 .setIssuedAt(new Date())
-                .setAudience("Access")
+                .setAudience(Constants.ACCESS_TOKEN)
                 .setExpiration(new Date(System.currentTimeMillis() + accesstokenTime)) // 15 min
                 .signWith(getSigningKey())
                 .compact();
@@ -48,7 +49,7 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(utilisateur.getEmail())
                 .setIssuedAt(new Date())
-                .setAudience("Refresh")
+                .setAudience(Constants.REFRESH_TOKEN)
                 .setExpiration(new Date(System.currentTimeMillis() + refreshtokenTime)) // 30 days
                 .signWith(getSigningKey())
                 .compact();

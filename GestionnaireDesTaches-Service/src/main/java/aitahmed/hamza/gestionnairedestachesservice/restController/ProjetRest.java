@@ -1,5 +1,6 @@
 package aitahmed.hamza.gestionnairedestachesservice.restController;
 
+import aitahmed.hamza.gestionnairedestachesservice.constants.Constants;
 import aitahmed.hamza.gestionnairedestachesservice.entity.Projet;
 import aitahmed.hamza.gestionnairedestachesservice.services.ProjetService;
 import org.springframework.web.bind.annotation.*;
@@ -15,19 +16,14 @@ public class ProjetRest {
         this.projetService = projetService;
     }
 
-    public static final String MY_PROJECT = "Mes_Projets";
-    public static final String OTHER_PROJECTS = "Les_Autres_Projets";
-    public static final String ALL_PROJECTS = "Toutes_Les_Projets";
-    public static final String SEARCH = "search";
-
     @GetMapping(path="/{userId}/projets")
-    public List<Projet> projets(@RequestParam(name = SEARCH , defaultValue = ALL_PROJECTS) String search , @PathVariable int userId )
+    public List<Projet> projets(@RequestParam(name = Constants.SEARCH , defaultValue = Constants.ALL_PROJECTS) String search , @PathVariable int userId )
     {
         System.out.println("search : "+search+" userId : "+userId );
         return switch (search) {
-            case MY_PROJECT -> projetService.getProjetsByChefProjetId(userId);
-            case OTHER_PROJECTS -> projetService.getOtherProjectByUserId(userId);
-            case ALL_PROJECTS -> projetService.getAllProjectByUserId(userId);
+            case Constants.MY_PROJECT -> projetService.getProjetsByChefProjetId(userId);
+            case Constants.OTHER_PROJECTS -> projetService.getOtherProjectByUserId(userId);
+            case Constants.ALL_PROJECTS -> projetService.getAllProjectByUserId(userId);
             default -> projetService.getAllProjectByUserId(userId);
         };
     }

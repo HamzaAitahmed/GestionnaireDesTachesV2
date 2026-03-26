@@ -11,7 +11,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TokenRequestDTO {
     private String accessToken;
-
-    @NotNull
-    private String refreshToken;
 }

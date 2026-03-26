@@ -1,11 +1,13 @@
 package aitahmed.hamza.gestionnairedestachesservice.restController;
 
 import aitahmed.hamza.gestionnairedestachesservice.authentification.AuthentificationService;
+import aitahmed.hamza.gestionnairedestachesservice.constants.Constants;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.ConnecterRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.request.InscriptionRequestDTO;
-import aitahmed.hamza.gestionnairedestachesservice.dtos.request.TokenRequestDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.ConnecterResponseDTO;
 import aitahmed.hamza.gestionnairedestachesservice.dtos.response.TokenResponseDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class AuthentificationRest {
         this.authentificationService = authentificationService;
     }
 
-    @PostMapping(path = "/inscription")
+    @PostMapping(path = Constants.URL_INSCRIPTION_REST)
     public ResponseEntity<?> createNewUser(@RequestBody InscriptionRequestDTO InscriptionRequestDTO) {
 
         authentificationService.enregister(InscriptionRequestDTO);
@@ -30,41 +32,44 @@ public class AuthentificationRest {
     }
 
 
-    @PostMapping(path = "/connecter")
-    public ResponseEntity<?> login(@RequestBody ConnecterRequestDTO ConnecterRequestDTO) {
+    @PostMapping(path = Constants.URL_CONNECTER_REST)
+    public ResponseEntity<?> login(@RequestBody ConnecterRequestDTO ConnecterRequestDTO, HttpServletResponse response) {
 
         try {
-            ConnecterResponseDTO response = authentificationService.connexion(ConnecterRequestDTO);
-            return ResponseEntity.ok(response);
+            ConnecterResponseDTO connecterResponseDTO = authentificationService.connexion(ConnecterRequestDTO, response);
+            return ResponseEntity.ok(connecterResponseDTO);
 
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
+    }
+
+    @PostMapping(Constants.URL_DECONNECTER_REST)
+    public ResponseEntity<Map<String, String>> logout(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(Constants.URL_DECONNECTER_REST);
+        authentificationService.deconnexion(request, response);
+        return ResponseEntity.ok( Map.of("message", "Logged out successfully") );
+    }
+
+    @PostMapping(Constants.URL_REFRESH_REST)
+    public ResponseEntity<TokenResponseDTO> refresh(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(Constants.URL_REFRESH_REST);
+        try {
+            return ResponseEntity.ok( authentificationService.refresh(request, response) );
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
     }
 
-    @PostMapping("/deconnecter")
-    public ResponseEntity<Map<String, String>> logout(@RequestBody TokenRequestDTO tokenRequest) {
-
-        authentificationService.deconnexion(tokenRequest.getRefreshToken());
-
-        return ResponseEntity.ok(
-                Map.of("message", "Logged out successfully")
-        );
-    }
-
-    @PostMapping("/refresh")
-    public ResponseEntity<TokenResponseDTO> refresh( @RequestBody TokenRequestDTO tokenRequestDTO) {
-        return ResponseEntity.ok(
-                authentificationService.refresh(tokenRequestDTO)
-        );
-    }
-
-    @PostMapping("/redirectToRefresh")
-    public ResponseEntity<TokenResponseDTO> guardsRefresh( @RequestBody TokenRequestDTO tokenRequestDTO) {
-        return ResponseEntity.ok(
-                authentificationService.refresh(tokenRequestDTO)
-        );
+    @PostMapping(Constants.URL_REDIRECT_REFRESH_REST)
+    public ResponseEntity<TokenResponseDTO> guardsRefresh(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(Constants.URL_REDIRECT_REFRESH_REST);
+        try {
+            return ResponseEntity.ok( authentificationService.refresh(request, response) );
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 package aitahmed.hamza.gestionnairedestachesservice.config;
 
 import aitahmed.hamza.gestionnairedestachesservice.authentification.JwtAuthConverter;
+import aitahmed.hamza.gestionnairedestachesservice.authentification.JwtAuthenticationFilter;
+import aitahmed.hamza.gestionnairedestachesservice.constants.Constants;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -33,10 +35,13 @@ public class SecurityConfig {
     @Value("${jwt.secret}")
     private String secret;
 
-    private final JwtAuthConverter jwtAuthConverter;
+    @Value(Constants.URL_LOCAL_HOST)
+    private String localHost;
 
-    public SecurityConfig(JwtAuthConverter jwtAuthConverter) {
-        this.jwtAuthConverter = jwtAuthConverter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
@@ -47,9 +52,9 @@ public class SecurityConfig {
                 .csrf(cs->cs.disable())
                 .headers(h->h.frameOptions(fo->fo.disable()))
                 .authorizeHttpRequests(ar->ar
-                                        .requestMatchers("/api/auth/**").permitAll()
+                                        .requestMatchers(Constants.PERMIT_ALL_PATH).permitAll()
                                         .anyRequest().authenticated() )
-                .oauth2ResourceServer(ors->ors.jwt(jwt-> jwt.jwtAuthenticationConverter(jwtAuthConverter)))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -57,12 +62,13 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setExposedHeaders(Arrays.asList("*"));
+        configuration.setAllowedOrigins(List.of(localHost));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(List.of(Constants.HEADER_AUTHORIZATION, Constants.HEADER_CONTENT_TYPE));
+        configuration.setExposedHeaders(List.of(Constants.HEADER_AUTHORIZATION));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration(Constants.ALL_PATH, configuration);
         return source;
     }
 
