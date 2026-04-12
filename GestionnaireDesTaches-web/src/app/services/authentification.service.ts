@@ -9,9 +9,7 @@ import {TokenRequest} from '../model/requests/token.request';
 import {jwtDecode} from 'jwt-decode';
 import {ConnecterResponse} from '../model/responses/connecter-response.model';
 import {UtilisateurResponse} from '../model/responses/utilisateur-response.model';
-import {
-  ACCESS_TOKEN, CURRENT_USER,
-  REFRESH_TOKEN, URL_API_AUTH,
+import { CURRENT_USER, URL_API_AUTH,
   URL_BACKEND, URL_CONNECTER,
   URL_DECONNECTER, URL_INSCRIPTION
 } from '../constants/global.constants';
@@ -34,8 +32,8 @@ export class AuthentificationService {
       .pipe(
         tap(response => {
             this.accessToken = response.tokenResponse.accessToken;
-            this.currentUserSubject.next(response.utulisateurResponse);
-            localStorage.setItem(CURRENT_USER, JSON.stringify(response.utulisateurResponse));
+            this.currentUserSubject.next(response.utilisateurResponse);
+            localStorage.setItem(CURRENT_USER, JSON.stringify(response.utilisateurResponse));
           }
         ),
         catchError((error):any => {
@@ -103,7 +101,7 @@ export class AuthentificationService {
     this.accessToken=tokenResponse.accessToken;
   }
 
-  getCurrentUser(): any {
+  getCurrentUser():UtilisateurResponse | null {
     return this.currentUserSubject.value;
   }
 

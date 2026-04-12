@@ -3,5 +3,5 @@ import {UtilisateurResponse} from './utilisateur-response.model';
 
 export interface ConnecterResponse {
     tokenResponse: TokenResponse;
-    utulisateurResponse: UtilisateurResponse;
+    utilisateurResponse: UtilisateurResponse;
 }

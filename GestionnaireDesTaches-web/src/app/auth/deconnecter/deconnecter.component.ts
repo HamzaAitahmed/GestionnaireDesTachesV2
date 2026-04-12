@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthentificationService} from '../../services/authentification.service';
-import {UtilisateurResponse} from '../../model/responses/utilisateur-response.model';
 import {ConnecterRequest} from '../../model/requests/connecter-request.model';
-import {BehaviorSubject} from 'rxjs';
-import {CURRENT_USER, ROUTE_MAIN} from '../../constants/global.constants';
+import {ROUTE_MAIN} from '../../constants/global.constants';
 
 @Component({
   selector: 'app-deconnecter',
@@ -16,9 +14,6 @@ import {CURRENT_USER, ROUTE_MAIN} from '../../constants/global.constants';
 export class DeconnecterComponent implements OnInit{
   logoutForm: FormGroup;
   user: { username: string, email: string, profilePicture: string } = { username: '', email: '', profilePicture: '' }; // Informations de l'utilisateur
-  utilisateurDeconnecter:UtilisateurResponse | null = null;
-  private currentUserSubject = new BehaviorSubject<UtilisateurResponse | null>(null); // Stocke les données de l'utilisateur
-  public currentUser$ = this.currentUserSubject.asObservable(); // Observable pour les composants
   errorMessage:string = '';
 
   constructor(private fb: FormBuilder, private router: Router,private authService: AuthentificationService) {
@@ -34,10 +29,9 @@ export class DeconnecterComponent implements OnInit{
   reconnecter() {
     if (this.logoutForm.valid) {
       const { password } = this.logoutForm.value;
-      const connecterRequest:ConnecterRequest = { email:"hamza@gmail.com", password: password}
+      const connecterRequest:ConnecterRequest = { email:this.user.email, password: password}
       this.authService.connecter(connecterRequest).subscribe({
         next: () => {
-          this.utilisateurDeconnecter = this.authService.getCurrentUser();
           this.router.navigate([ROUTE_MAIN]); // Redirigez après une connexion réussie
         },
         error: () => {
@@ -48,12 +42,12 @@ export class DeconnecterComponent implements OnInit{
   }
 
   deconnexionClicked(): void {
-    const storedUser = localStorage.getItem(CURRENT_USER);
-    if (storedUser) {
-      this.currentUserSubject.next(JSON.parse(storedUser)); // Récupérer l'utilisateur depuis LocalStorage
-    }
-
+    const u = this.authService.getCurrentUser();
+    this.user = {
+      username: u?.username || '',
+      email: u?.email || '',
+      profilePicture: u?.profilePicture || ''
+    };
     this.authService.deconnexionProcess();
   }
-
 }

@@ -34,7 +34,7 @@ public class UtilisateurService {
 
     public Utilisateur creerUtilisateur(Utilisateur utilisateur){
         utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
-        utilisateur.setProfilePicture("assets/images/user/inconnu.jpg");
+        utilisateur.setProfilePicture("images/user/inconnu.jpg");
         Utilisateur newUtilisateur = enregistrerUtilisateur(utilisateur);
         utilisateurRepository.flush();
         return newUtilisateur;
