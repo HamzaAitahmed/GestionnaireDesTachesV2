@@ -58,7 +58,7 @@ public class JwtService {
     public boolean isTokenValid(String token, Utilisateur utilisateur) {
 
         // Validate in DB
-        if( !tokenService.validateRefreshToken(token) )
+        if( Constants.REFRESH_TOKEN.equals(getTokenType(token)) && !tokenService.validateRefreshToken(token) )
         {
             return false;
         }
@@ -87,6 +87,10 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    private String getTokenType(String token) {
+        return getClaims(token).getAudience();
     }
 
     protected void revokeToken(String token)
