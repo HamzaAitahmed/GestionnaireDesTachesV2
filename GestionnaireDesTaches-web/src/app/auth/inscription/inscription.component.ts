@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {AuthentificationService} from '../../services/authentification.service';
+import {AuthentificationService} from '../../services/authentification/authentification.service';
 import {InscriptionRequest} from '../../model/requests/inscription-request.model';
 import {ROUTE_CONNECTER} from '../../constants/global.constants';
 

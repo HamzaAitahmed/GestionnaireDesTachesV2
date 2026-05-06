@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ProjetService} from '../../../services/projet.service';
+import {ProjetService} from '../../../services/business/projet.service';
 import {ProjetResponse} from '../../../model/responses/projet-response.model';
 import {EquipeResponse} from '../../../model/responses/equipe-response.model';
 

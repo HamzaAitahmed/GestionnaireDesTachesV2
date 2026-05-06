@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {AuthentificationService} from '../../../services/authentification.service';
-import {ProjetService} from '../../../services/projet.service';
+import {AuthentificationService} from '../../../services/authentification/authentification.service';
+import {ProjetService} from '../../../services/business/projet.service';
 import {ProjetResponse} from '../../../model/responses/projet-response.model';
 import {Router} from '@angular/router';
 import {AjouterProjetComponent} from '../ajouter-projet/ajouter-projet.component';
 import {ModifierProjetComponent} from '../modifier-projet/modifier-projet.component';
 import {EquipeResponse} from '../../../model/responses/equipe-response.model';
-import {EquipeService} from '../../../services/equipe.service';
+import {EquipeService} from '../../../services/business/equipe.service';
 import {ObservableQuery} from '@apollo/client';
 import Result = ObservableQuery.Result;
 
@@ -58,6 +58,7 @@ export class ListDesProjetsComponent implements OnInit {
   ngOnInit(): void {
     // this.loadProjets();
     // this.loadProjetsGraphQl();
+    this.loadAllProjets();
   }
 
   mopdifierSearch(newSearch: string): void {
@@ -78,6 +79,22 @@ export class ListDesProjetsComponent implements OnInit {
         },
       });
     });
+  }
+
+  loadAllProjets(): void {
+    this.currentUser = this.authService.getCurrentUser();
+    if (this.currentUser && this.currentUser.id) {
+      this.projetService
+        .getAllProjects()
+        .subscribe({
+          next: (projets) => {
+            this.projets = projets;
+          },
+          error: (err) => {
+            console.error('Erreur lors du chargement des projets :', err);
+          },
+        });
+    }
   }
 
   // loadProjetsGraphQl(): void {

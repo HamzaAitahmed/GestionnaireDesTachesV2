@@ -1,6 +1,6 @@
 import {HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {AuthentificationService} from '../services/authentification.service';
+import {AuthentificationService} from '../services/authentification/authentification.service';
 import {catchError, switchMap, throwError} from 'rxjs';
 import {TokenRequest} from '../model/requests/token.request';
 import {TokenResponse} from '../model/responses/token.response';

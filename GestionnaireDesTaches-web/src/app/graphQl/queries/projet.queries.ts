@@ -1,7 +1,6 @@
 import {gql} from '@apollo/client';
 
-const Query_Projets = gql`
-
+export const GetToutesLesProjets = gql`
   query GetToutesLesProjets {
     Projets {
       id
@@ -18,7 +17,9 @@ const Query_Projets = gql`
       lesTachesDeProjetIds
     }
   }
+`;
 
+export const ChercherProjet = gql`
   query ChercherProjet($id: Int!, $search: String!){
     ProjetsSearch(id: $id, search: $search) {
       id
@@ -35,7 +36,9 @@ const Query_Projets = gql`
       lesTachesDeProjetIds
     }
   }
+`;
 
+export const ProjetByChefProjetId = gql`
   query ProjetByChefProjetId($id: Int!){
     ProjetByChefProjetId(chefProjetId: $id) {
       id
@@ -52,7 +55,9 @@ const Query_Projets = gql`
       lesTachesDeProjetIds
     }
   }
+`;
 
+export const ProjetByEquipeDuProjetId = gql`
   query ProjetByEquipeDuProjetId($id: Int!){
     ProjetByEquipeDuProjetId(equipeDuProjetId: $id) {
       id
@@ -69,7 +74,9 @@ const Query_Projets = gql`
       lesTachesDeProjetIds
     }
   }
+`;
 
+export const ProjetByTacheId = gql`
   query ProjetByTacheId($id: Int!){
     ProjetByTacheId(tacheId: $id) {
       id
@@ -86,7 +93,9 @@ const Query_Projets = gql`
       lesTachesDeProjetIds
     }
   }
+`;
 
+export const ProjetById = gql`
   query ProjetById($id: Int!){
     ProjetById(projetId: $id) {
       id
@@ -103,7 +112,4 @@ const Query_Projets = gql`
       lesTachesDeProjetIds
     }
   }
-
 `;
-
-export { Query_Projets };
