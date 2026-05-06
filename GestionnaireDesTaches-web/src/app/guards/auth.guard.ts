@@ -1,5 +1,5 @@
 import {CanMatch, Router, UrlTree} from '@angular/router';
-import {AuthentificationService} from '../services/authentification.service';
+import {AuthentificationService} from '../services/authentification/authentification.service';
 import {Injectable} from '@angular/core';
 import {catchError, map, Observable, of} from 'rxjs';
 import {ROUTE_AUTH, URL_REFRESH} from '../constants/global.constants';

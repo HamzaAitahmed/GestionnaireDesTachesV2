@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, catchError, Observable, tap, throwError} from 'rxjs';
 import {Router} from '@angular/router';
-import {ConnecterRequest} from '../model/requests/connecter-request.model';
-import {TokenResponse} from '../model/responses/token.response';
-import {InscriptionRequest} from '../model/requests/inscription-request.model';
-import {TokenRequest} from '../model/requests/token.request';
+import {ConnecterRequest} from '../../model/requests/connecter-request.model';
+import {TokenResponse} from '../../model/responses/token.response';
+import {InscriptionRequest} from '../../model/requests/inscription-request.model';
+import {TokenRequest} from '../../model/requests/token.request';
 import {jwtDecode} from 'jwt-decode';
-import {ConnecterResponse} from '../model/responses/connecter-response.model';
-import {UtilisateurResponse} from '../model/responses/utilisateur-response.model';
+import {ConnecterResponse} from '../../model/responses/connecter-response.model';
+import {UtilisateurResponse} from '../../model/responses/utilisateur-response.model';
 import { CURRENT_USER, URL_API_AUTH,
   URL_BACKEND, URL_CONNECTER,
   URL_DECONNECTER, URL_INSCRIPTION
-} from '../constants/global.constants';
+} from '../../constants/global.constants';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
-import {EquipeResponse} from '../model/responses/equipe-response.model';
+import {EquipeResponse} from '../../model/responses/equipe-response.model';
 import {Apollo, QueryRef} from 'apollo-angular';
-import {Query_Toutes_Equipes} from '../graphqlQueries/equipe.queries';
+import {Query_Toutes_Equipes} from '../../graphQl/queries/equipe.queries';
 
 @Injectable({
   providedIn: 'root'

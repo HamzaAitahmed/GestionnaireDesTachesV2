@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthentificationService} from '../../services/authentification.service';
+import {AuthentificationService} from '../../services/authentification/authentification.service';
 import {ConnecterRequest} from '../../model/requests/connecter-request.model';
 import {ROUTE_MAIN} from '../../constants/global.constants';
 

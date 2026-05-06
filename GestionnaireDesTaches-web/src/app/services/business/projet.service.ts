@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Apollo, gql, QueryRef} from 'apollo-angular';
 import {HttpClient} from '@angular/common/http';
-import { Query_Projets } from '../graphqlQueries/projet.queries';
-import {ProjetResponse} from '../model/responses/projet-response.model';
-import {URL_BACKEND, URL_PROJET} from '../constants/global.constants';
+import { GetToutesLesProjets } from '../../graphQl/queries/projet.queries';
+import {ProjetResponse} from '../../model/responses/projet-response.model';
+import {URL_BACKEND, URL_PROJET} from '../../constants/global.constants';
+import {ProjetGqlService} from '../graphQl/projet-gpl.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class ProjetService {
   loading:any = null
   error:any = null
 
-  constructor(private apollo: Apollo,private http: HttpClient) {}
+  constructor(private apollo: Apollo,private http: HttpClient, private projetGqlService: ProjetGqlService) {}
 
   getProjetsByUser(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.projetUrl}/${userId}/projets`);
@@ -33,14 +34,23 @@ export class ProjetService {
     // return this.http.post<any[]>(`${this.projetUrl}/AjouterProjet`,{projet});  // il y a une erreur je crois que je dois utiliser projetDTO etc ...
   }
 
-  getProjetsByUserGql(userId: number, search: string): QueryRef<{ searchProjets: ProjetResponse[] }, { id: number; search: string  }> {
-    return this.apollo.watchQuery<{ searchProjets: ProjetResponse[] }, { id: number; search: string}>({
-      query: Query_Projets, // Utilisez la requête importée
-      variables: {
-        id: userId,
-        search: search,
-      },
-    });
+
+  // getProjetsByUserGql(userId: number, search: string): QueryRef<{ searchProjets: ProjetResponse[] }, { id: number; search: string  }> {
+  //   return this.apollo.watchQuery<{ searchProjets: ProjetResponse[] }, { id: number; search: string}>({
+  //     query: Query_Projets, // Utilisez la requête importée
+  //     variables: {
+  //       id: userId,
+  //       search: search,
+  //     },
+  //   });
+  // }
+
+  getProjetsByUserGql(userId: number,search: string): Observable<ProjetResponse[]> {
+    return this.projetGqlService.searchProjets(userId, search);
+  }
+
+  getAllProjects(): Observable<ProjetResponse[]> {
+    return this.projetGqlService.getAllProjects();
   }
 
 
