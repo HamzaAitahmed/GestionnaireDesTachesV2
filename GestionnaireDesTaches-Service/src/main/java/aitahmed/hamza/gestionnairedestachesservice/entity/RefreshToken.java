@@ -20,7 +20,8 @@ public class RefreshToken {
 
     private String token;              // The refresh token value
 
-    private boolean revoked;           // For logout
+    @Column(nullable = false)
+    private boolean revoked = false;           // For logout
 
     private LocalDateTime createdAt;
 
