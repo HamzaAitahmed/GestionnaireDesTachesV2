@@ -24,8 +24,6 @@ public class Projet {
     private LocalDate dateDebut;
     private LocalDate dateFin;
 
-    //============ Relation =============//
-
     @OneToMany(mappedBy = "projetDeTache")
     @JsonManagedReference
     private Collection<Tache> lesTachesDeProjet;
@@ -35,8 +33,5 @@ public class Projet {
 
     @ManyToOne  @JsonIgnore
     private Equipe equipeDuProjet;
-
-    //============ Les Methodes =============//
-
 
 }

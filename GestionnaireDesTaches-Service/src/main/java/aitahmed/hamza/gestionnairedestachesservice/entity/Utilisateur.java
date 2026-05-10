@@ -36,9 +36,6 @@ public class Utilisateur {
     @Column(name = "photo")
     private String profilePicture;
 
-    //============ Relation =============//
-
-
     @OneToMany(mappedBy = "chefProjet") @JsonIgnore
     private Collection<Projet> mesProjets;
 
@@ -56,8 +53,5 @@ public class Utilisateur {
     @OneToMany(mappedBy = "proprietaireDuToken")
     @JsonManagedReference
     private Collection<RefreshToken> tokens;
-
-    //============ Les Methodes =============//
-
 
 }

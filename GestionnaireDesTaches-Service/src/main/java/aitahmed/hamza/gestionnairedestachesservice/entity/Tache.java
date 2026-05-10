@@ -13,22 +13,19 @@ public class Tache {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique=true) // unique seulement dans le projet
+    @Column(unique=true)
     private String nom;
     private String description;
+    private boolean statut=false;
 
     private LocalDate dateDeCreation;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-
-    //============ Relation =============//
 
     @ManyToOne @JsonBackReference
     private Projet projetDeTache;
 
     @ManyToOne @JsonIgnore
     private Utilisateur assigneurDeTache;
-
-    //============ Les Methodes =============//
 
 }

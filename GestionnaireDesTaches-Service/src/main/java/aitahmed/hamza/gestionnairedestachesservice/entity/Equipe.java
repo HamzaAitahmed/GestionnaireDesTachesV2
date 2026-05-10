@@ -25,8 +25,6 @@ public class Equipe {
 
     private LocalDate dateDeCreation;
 
-    //============ Relation =============//
-
     @ManyToOne @JsonBackReference
     private Utilisateur chefEquipe;
 
@@ -35,8 +33,5 @@ public class Equipe {
 
     @JsonIgnore @OneToMany(mappedBy = "equipeDuProjet")
     private Collection<Projet> lesProjetsDEquipe;
-
-
-    //============ Les Methodes =============//
 
 }
