@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
-const Query_Toutes_Equipes = gql`
+export const ToutesLesEquipes = gql`
 
-  query GetToutesLesEquipes {
+  query ToutesLesEquipes {
     Equipes {
       id
       nom
@@ -12,6 +12,9 @@ const Query_Toutes_Equipes = gql`
       lesProjetsDEquipeIds
     }
   }
+`;
+
+export const EquipeByChefEquipeId = gql`
 
   query EquipeByChefEquipeId($id: Int!){
     EquipeByChefEquipeId(chefEquipeId: $id) {
@@ -23,6 +26,9 @@ const Query_Toutes_Equipes = gql`
       lesProjetsDEquipeIds
     }
   }
+`;
+
+export const EquipeByMemberEquipeId = gql`
 
   query EquipeByMemberEquipeId($id: Int!){
     EquipeByMemberEquipeId(memberEquipeId: $id) {
@@ -34,6 +40,9 @@ const Query_Toutes_Equipes = gql`
       lesProjetsDEquipeIds
     }
   }
+`;
+
+export const EquipeByProjetEquipeId = gql`
 
   query EquipeByProjetEquipeId($id: Int!){
     EquipeByProjetEquipeId(projetId: $id) {
@@ -45,6 +54,9 @@ const Query_Toutes_Equipes = gql`
       lesProjetsDEquipeIds
     }
   }
+`;
+
+export const EquipeById = gql`
 
   query EquipeById($id: Int!){
     EquipeById(equipeId: $id) {
@@ -56,7 +68,4 @@ const Query_Toutes_Equipes = gql`
       lesProjetsDEquipeIds
     }
   }
-
 `;
-
-export { Query_Toutes_Equipes };
