@@ -28,11 +28,11 @@ export class TacheService {
     return this.tacheGplService.getToutesLesTaches()
   }
 
-  AjouterTache(tacheRequest: TacheRequest):Observable<TacheResponse[]>{
+  AjouterTache(tacheRequest: TacheRequest):Observable<TacheResponse>{
     return this.tacheGplService.AjouterTache(tacheRequest)
   }
 
-  ModifierTache(tacheId: number, tacheRequest: TacheRequest):Observable<TacheResponse[]>{
+  ModifierTache(tacheId: number, tacheRequest: TacheRequest):Observable<TacheResponse>{
     return this.tacheGplService.ModifierTache(tacheId, tacheRequest)
   }
 

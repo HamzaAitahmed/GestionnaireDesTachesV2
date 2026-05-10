@@ -1,49 +1,39 @@
 import { Injectable } from '@angular/core';
 import {UtilisateurResponse} from '../../model/responses/utilisateur-response.model';
+import {UtilisateurGplService} from '../graphQl/utilisateur-gpl.service';
+import {Observable} from 'rxjs';
+import {UtilisateurRequest} from '../../model/requests/utilisateur-request.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilisateurService {
 
-  private utilisateur: UtilisateurResponse | null = null;
-
-  constructor() {
-    // Initialisation de l'utilisateur avec des données fictives
-    this.utilisateur = {
-      id: 1,
-
-      email: 'john.doe@example.com',
-
-      salaire: 50000,
-
-      nom: 'Doe',
-      prenom: 'John',
-      username: 'karim',
-      gender: 'Male',
-
-      dateOfBirth: '1990-05-15',
-      dateInscription: '2021-01-01',
-      anneeExperience: 5,
-
-      profilePicture: 'assets/images/user/user-2.jpg',
-
-      mesProjetsIds: null,
-      mesTachesIds: null,
-      mesEquipesIds: null,
-      membreDansLEquipeIds: null,
-    };
+  constructor(private utilisateurGplService:UtilisateurGplService) {
   }
 
-  getUtilisateur(): UtilisateurResponse {
-    return <UtilisateurResponse>this.utilisateur;
+  getToutesLesUtilisateurs():Observable<UtilisateurResponse[]>{
+    return this.utilisateurGplService.getToutesLesUtilisateurs()
   }
 
-  setUtilisateur(utilisateur: UtilisateurResponse): void {
-    this.utilisateur = utilisateur;
+  getUtilisateurById(utilisateurId:number):Observable<UtilisateurResponse>{
+    return this.utilisateurGplService.getUtilisateurById(utilisateurId)
   }
 
-  clearUtilisateur(): void {
-    this.utilisateur = null;
+  getUtilisateurByEmail(email : string):Observable<UtilisateurResponse>{
+    return this.utilisateurGplService.getUtilisateurByEmail(email)
   }
+
+  AjouterUtilisateur(utilisateurRequest: UtilisateurRequest):Observable<UtilisateurResponse>{
+    return this.utilisateurGplService.AjouterUtilisateur(utilisateurRequest)
+  }
+
+  ModifierUtilisateur(utilisateurId: number, utilisateurRequest: UtilisateurRequest):Observable<UtilisateurResponse>{
+    return this.utilisateurGplService.ModifierUtilisateur(utilisateurId, utilisateurRequest)
+  }
+
+  supprimerUtilisateur(utilisateurId: number):Observable<boolean>{
+    return this.utilisateurGplService.supprimerUtilisateur(utilisateurId)
+  }
+
 }
