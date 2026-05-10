@@ -55,18 +55,18 @@ public class UtilisateurGraphQLController {
     }
 
     @MutationMapping
-    public UtilisateurResponseDTO ModifierUtilisateur(@Argument Integer id, @Argument UtilisateurRequestDTO utilisateurObjet)
+    public UtilisateurResponseDTO ModifierUtilisateur(@Argument Integer utilisateurId, @Argument UtilisateurRequestDTO utilisateurObjet)
     {
         Utilisateur recupererUtilisateur = utilisateurMapper.UtilisateurRequestDTOtoUtilisateur(utilisateurObjet);
-        Utilisateur utilisateur = utilisateurService.modifierUtilisateur(id, recupererUtilisateur);
+        Utilisateur utilisateur = utilisateurService.modifierUtilisateur(utilisateurId, recupererUtilisateur);
         return utilisateurMapper.UtilisateurToUtilisateurResponseDTO(utilisateur);
 
     }
 
     @MutationMapping
-    public boolean supprimerUtilisateur(@Argument Integer id)
+    public boolean supprimerUtilisateur(@Argument Integer utilisateurId)
     {
-        return utilisateurService.supprimerUtilisateur(id);
+        return utilisateurService.supprimerUtilisateur(utilisateurId);
     }
 
     

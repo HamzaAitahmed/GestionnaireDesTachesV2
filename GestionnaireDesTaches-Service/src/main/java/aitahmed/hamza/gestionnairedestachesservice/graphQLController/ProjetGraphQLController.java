@@ -34,12 +34,12 @@ public class ProjetGraphQLController {
     }
 
     @QueryMapping
-    public List<ProjetResponseDTO> ProjetsSearch(@Argument(name = Constants.SEARCH ) String search , @Argument Integer id)
+    public List<ProjetResponseDTO> ProjetsSearch(@Argument(name = Constants.SEARCH ) String search , @Argument Integer chefProjetId)
     {
         List<Projet> projets = switch (search) {
-            case Constants.MY_PROJECT -> projetService.getProjetsByChefProjetId(id);
-            case Constants.OTHER_PROJECTS -> projetService.getOtherProjectByUserId(id);
-            default -> projetService.getAllProjectByUserId(id);
+            case Constants.MY_PROJECT -> projetService.getProjetsByChefProjetId(chefProjetId);
+            case Constants.OTHER_PROJECTS -> projetService.getOtherProjectByUserId(chefProjetId);
+            default -> projetService.getAllProjectByUserId(chefProjetId);
         };
 
         return projets.stream()
@@ -87,17 +87,17 @@ public class ProjetGraphQLController {
     }
 
     @MutationMapping
-    public ProjetResponseDTO ModifierProjet(@Argument Integer id, @Argument ProjetRequestDTO projetObjet)
+    public ProjetResponseDTO ModifierProjet(@Argument Integer projetId, @Argument ProjetRequestDTO projetObjet)
     {
         Projet projet = projetMapper.ProjetRequestDTOtoProjet(projetObjet);
-        projet = projetService.modifierProjet(id, projet);
+        projet = projetService.modifierProjet(projetId, projet);
         return projetMapper.ProjettoProjetResponseDTO(projet);
     }
 
     @MutationMapping
-    public boolean supprimerProjet(@Argument Integer id)
+    public boolean supprimerProjet(@Argument Integer projetId)
     {
-        return projetService.supprimerProjet(id);
+        return projetService.supprimerProjet(projetId);
     }
 
 }

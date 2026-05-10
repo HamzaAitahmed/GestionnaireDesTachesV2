@@ -66,17 +66,17 @@ public class TacheGraphQLController {
     }
 
     @MutationMapping
-    public TacheResponseDTO ModifierTache(@Argument Integer id, @Argument TacheRequestDTO tacheObjet)
+    public TacheResponseDTO ModifierTache(@Argument Integer tacheId, @Argument TacheRequestDTO tacheObjet)
     {
         Tache recupererTache = tacheMapper.TacheRequestDTOtoTache(tacheObjet);
-        Tache tache = tacheService.modifierTache(id, recupererTache);
+        Tache tache = tacheService.modifierTache(tacheId, recupererTache);
         return tacheMapper.TachetoTacheResponseDTO(tache);
     }
 
     @MutationMapping
-    public boolean supprimerTache(@Argument Integer id)
+    public boolean supprimerTache(@Argument Integer tacheId)
     {
-        return tacheService.supprimerTache(id);
+        return tacheService.supprimerTache(tacheId);
     }
 
 }
