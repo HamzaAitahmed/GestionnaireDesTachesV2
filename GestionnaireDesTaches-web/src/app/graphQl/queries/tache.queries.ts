@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
-const Query_Tache = gql`
+export const ToutesLesTaches = gql`
 
-  query GetToutesLesTaches {
+  query ToutesLesTaches {
     Taches {
       assigneurDeTacheId
       dateDeCreation
@@ -14,6 +14,9 @@ const Query_Tache = gql`
       projetDeTacheId
     }
   }
+`;
+
+export const TachesByProjetId = gql`
 
   query TachesByProjetId($id: Int!){
     TachesByProjetId(projetId: $id) {
@@ -27,6 +30,9 @@ const Query_Tache = gql`
       projetDeTacheId
     }
   }
+`;
+
+export const TachesByUtilisateurId = gql`
 
   query TachesByUtilisateurId($id: Int!){
     TachesByUtilisateurId(utilisateurId: $id) {
@@ -40,6 +46,9 @@ const Query_Tache = gql`
       projetDeTacheId
     }
   }
+`;
+
+export const TacheById = gql`
 
   query TacheById($id: Int!){
     TacheById(tacheId: $id) {
@@ -53,7 +62,4 @@ const Query_Tache = gql`
       projetDeTacheId
     }
   }
-
 `;
-
-export { Query_Tache };

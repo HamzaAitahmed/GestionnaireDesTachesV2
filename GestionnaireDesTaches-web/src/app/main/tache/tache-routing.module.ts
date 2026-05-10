@@ -1,10 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TacheComponent } from './tache.component';
+import {AjouterTacheComponent} from '../tache/ajouter-tache/ajouter-tache.component';
+import {ModifierTacheComponent} from '../tache/modifier-tache/modifier-tache.component';
+import {ListeDesTachesComponent} from './liste-des-taches/liste-des-taches.component';
+import {ROUTE_TACHE} from '../../constants/global.constants';
+
 
 const routes: Routes = [
-  // { path: '', component: TacheComponent }
+  { path: 'list_tache', component: ListeDesTachesComponent },
+  { path: 'ajouter_tache', component: AjouterTacheComponent },
+  { path: 'modifier_tache', component: ModifierTacheComponent },
+  { path: ROUTE_TACHE, redirectTo: 'list_tache', pathMatch: 'full'}, // Default to list view
+  { path: '', redirectTo: 'list_tache', pathMatch: 'full'}, // Default to list view
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

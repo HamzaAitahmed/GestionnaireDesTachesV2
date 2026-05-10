@@ -3,6 +3,7 @@ export interface TacheResponse {
 
     nom: string;
     description: string;
+    statut: boolean;
 
     dateDeCreation: string;
     dateDebut: string;
