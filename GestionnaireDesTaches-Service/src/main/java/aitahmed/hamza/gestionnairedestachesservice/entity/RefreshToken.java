@@ -18,10 +18,10 @@ public class RefreshToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String token;              // The refresh token value
+    private String token;
 
     @Column(nullable = false)
-    private boolean revoked = false;           // For logout
+    private boolean revoked = false;
 
     private LocalDateTime createdAt;
 
