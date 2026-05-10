@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
-const Query_Utilisateur = gql`
+export const ToutesLesUtilisateurs = gql`
 
-  query GetToutesLesUtilisateurs {
+  query ToutesLesUtilisateurs {
     Utilisateurs {
       id
       username
@@ -21,6 +21,9 @@ const Query_Utilisateur = gql`
       mesTachesIds
     }
   }
+`;
+
+export const UtilisateurById = gql`
 
   query UtilisateurById($id: Int!){
     UtilisateurById(utilisateurId: $id) {
@@ -41,6 +44,9 @@ const Query_Utilisateur = gql`
       mesTachesIds
     }
   }
+`;
+
+export const UtilisateurByEmail = gql`
 
   query UtilisateurByEmail($email: String!){
     UtilisateurByEmail(email: $email) {
@@ -63,5 +69,3 @@ const Query_Utilisateur = gql`
   }
 
 `;
-
-export { Query_Utilisateur };
