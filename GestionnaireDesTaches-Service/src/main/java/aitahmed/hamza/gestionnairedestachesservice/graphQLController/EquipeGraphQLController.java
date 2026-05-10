@@ -70,17 +70,17 @@ public class EquipeGraphQLController {
     }
 
     @MutationMapping
-    public EquipeResponseDTO ModifierEquipe(@Argument Integer id, @Argument EquipeRequestDTO equipeObjet)
+    public EquipeResponseDTO ModifierEquipe(@Argument Integer equipeId, @Argument EquipeRequestDTO equipeObjet)
     {
         Equipe recupererEquipe = equipeMapper.EquipeRequestDTOtoEquipe(equipeObjet);
-        Equipe equipe = equipeService.modifierEquipe(id, recupererEquipe);
+        Equipe equipe = equipeService.modifierEquipe(equipeId, recupererEquipe);
         return equipeMapper.EquipeToEquipeResponseDTO(equipe);
     }
 
     @MutationMapping
-    public boolean supprimerEquipe(@Argument Integer id)
+    public boolean supprimerEquipe(@Argument Integer equipeId)
     {
-        return equipeService.supprimerEquipe(id);
+        return equipeService.supprimerEquipe(equipeId);
     }
     
 }

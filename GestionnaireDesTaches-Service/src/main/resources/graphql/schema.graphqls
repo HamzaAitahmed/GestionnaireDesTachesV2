@@ -1,6 +1,6 @@
 type Query{
     Projets : [ProjetResponse]
-    ProjetsSearch  (id:Int, search:String) : [ProjetResponse]
+    ProjetsSearch  (chefProjetId:Int, search:String) : [ProjetResponse]
     ProjetByChefProjetId (chefProjetId:Int) : [ProjetResponse]
     ProjetByEquipeDuProjetId (equipeDuProjetId:Int) : [ProjetResponse]
     ProjetByTacheId (tacheId:Int) : ProjetResponse
@@ -24,20 +24,20 @@ type Query{
 
 type Mutation {
     AjouterProjet (projetObjet : ProjetRequest) : ProjetResponse
-    ModifierProjet (id: Int,projetObjet : ProjetRequest) : ProjetResponse
-    supprimerProjet (id: Int) : Boolean
+    ModifierProjet (projetId: Int,projetObjet : ProjetRequest) : ProjetResponse
+    supprimerProjet (projetId: Int) : Boolean
 
     AjouterEquipe (equipeObjet : EquipeRequest) : EquipeResponse
-    ModifierEquipe (id: Int, equipeObjet : EquipeRequest) : EquipeResponse
-    supprimerEquipe (id: Int) : Boolean
+    ModifierEquipe (equipeId: Int, equipeObjet : EquipeRequest) : EquipeResponse
+    supprimerEquipe (equipeId: Int) : Boolean
 
     AjouterTache (tacheObjet : TacheRequest) : TacheResponse
-    ModifierTache (id: Int,  tacheObjet : TacheRequest) : TacheResponse
-    supprimerTache (id: Int) : Boolean
+    ModifierTache (tacheId: Int,  tacheObjet : TacheRequest) : TacheResponse
+    supprimerTache (tacheId: Int) : Boolean
 
     AjouterUtilisateur (utilisateurObjet : UtilisateurRequest) : UtilisateurResponse
-    ModifierUtilisateur (id: Int,  utilisateurObjet : UtilisateurRequest) : UtilisateurResponse
-    supprimerUtilisateur (id: Int) : Boolean
+    ModifierUtilisateur (utilisateurId: Int,  utilisateurObjet : UtilisateurRequest) : UtilisateurResponse
+    supprimerUtilisateur (utilisateurId: Int) : Boolean
 }
 
 input ConnecterRequest {
