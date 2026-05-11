@@ -21,7 +21,7 @@ export const ToutesLesProjets = gql`
 
 export const ChercherProjet = gql`
   query ChercherProjet($id: Int!, $search: String!){
-    ProjetsSearch(id: $id, search: $search) {
+    ProjetsSearch(chefProjetId: $id, search: $search) {
       id
       nom
       description

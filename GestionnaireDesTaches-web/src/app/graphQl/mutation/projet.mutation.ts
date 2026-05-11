@@ -23,7 +23,7 @@ export const AjouterProjet = gql`
 export const ModifierProjet = gql`
 
   mutation ModifierProjet($id: Int, $projetObjet: ProjetRequest = {}) {
-    ModifierProjet(id: $id, projetObjet: $projetObjet) {
+    ModifierProjet(projetId: $id, projetObjet: $projetObjet) {
       id
       nom
       description
@@ -43,6 +43,6 @@ export const ModifierProjet = gql`
 export const supprimerProjet = gql`
 
   mutation supprimerProjet($id: Int) {
-    supprimerProjet(id: $id)
+    supprimerProjet(projetId: $id)
   }
 `;

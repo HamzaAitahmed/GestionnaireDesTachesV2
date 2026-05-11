@@ -26,7 +26,7 @@ export const AjouterUtilisateur = gql`
 export const ModifierUtilisateur = gql`
 
   mutation ModifierUtilisateur($id: Int, $utilisateurObjet: UtilisateurRequest = {}) {
-    ModifierUtilisateur(id: $id, utilisateurObjet: $utilisateurObjet) {
+    ModifierUtilisateur(utilisateurId: $id, utilisateurObjet: $utilisateurObjet) {
       id
       username
       email
@@ -49,6 +49,6 @@ export const ModifierUtilisateur = gql`
 export const supprimerUtilisateur = gql`
 
   mutation supprimerUtilisateur($id: Int) {
-    supprimerUtilisateur(id: $id)
+    supprimerUtilisateur(utilisateurId: $id)
   }
 `;

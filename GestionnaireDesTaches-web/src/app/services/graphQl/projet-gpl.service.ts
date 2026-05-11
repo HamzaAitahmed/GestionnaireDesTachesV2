@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {map, Observable} from 'rxjs';
+import {map, Observable, tap} from 'rxjs';
 import {ProjetResponse} from '../../model/responses/projet-response.model';
 import {Apollo} from 'apollo-angular';
 import {
@@ -20,99 +20,101 @@ export class ProjetGqlService {
 
   getToutesLesProjets(): Observable<any> {
     return this.apollo
-      .watchQuery<{ projets: ProjetResponse[] }>({
+      .watchQuery<{ Projets: ProjetResponse[] }>({
         query: ToutesLesProjets,
       })
       .valueChanges.pipe(
-        map(result => (result.data?.projets ?? []).map(toProjet) )
+        map(result => (result.data?.Projets ?? []).map(toProjet) )
       );
   }
 
-  getChercherProjet(projetId : number, search : string): Observable<any> {
+  getChercherProjet(chefProjetId : number, search : string): Observable<any> {
     return this.apollo
-      .watchQuery<{ projets: ProjetResponse[] }>({
+      .watchQuery<{ ProjetsSearch: ProjetResponse[] }>({
         query: ChercherProjet,
-        variables: {projetId, search}
+        variables: { id : chefProjetId, search : search}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.projets ?? []).map(toProjet) )
+        // tap(result => { console.log('RAW GRAPHQL RESULT:', result); }),
+        map(result => (result.data?.ProjetsSearch ?? []).map(toProjet) ),
+        // tap(projet => { console.log('MAPPED PROJECTS:', projet); })
       );
   }
 
   getProjetByChefProjetId(chefProjetId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ projets: ProjetResponse[] }>({
+      .watchQuery<{ ProjetByChefProjetId: ProjetResponse[] }>({
         query: ProjetByChefProjetId,
-        variables: {chefProjetId}
+        variables: { id : chefProjetId}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.projets ?? []).map(toProjet) )
+        map(result => (result.data?.ProjetByChefProjetId ?? []).map(toProjet) )
       );
   }
 
   getProjetByEquipeDuProjetId(equipeDuProjetId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ projets: ProjetResponse[] }>({
+      .watchQuery<{ ProjetByEquipeDuProjetId: ProjetResponse[] }>({
         query: ProjetByEquipeDuProjetId,
-        variables: {equipeDuProjetId}
+        variables: { id : equipeDuProjetId}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.projets ?? []).map(toProjet) )
+        map(result => (result.data?.ProjetByEquipeDuProjetId ?? []).map(toProjet) )
       );
   }
 
   getProjetByTacheId(tacheId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ tache: ProjetResponse }>({
+      .watchQuery<{ ProjetByTacheId: ProjetResponse }>({
         query: ProjetByTacheId,
-        variables: {tacheId}
+        variables: { id : tacheId }
       })
       .valueChanges.pipe(
-        map(result => result.data?.tache ? toProjet(result.data.tache) : null )
+        map(result => result.data?.ProjetByTacheId ? toProjet(result.data.ProjetByTacheId) : null ),
       );
   }
 
   getProjetById(projetId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ projet: ProjetResponse }>({
+      .watchQuery<{ ProjetById: ProjetResponse }>({
         query: ProjetById,
-        variables: {projetId}
+        variables: { id : projetId}
       })
       .valueChanges.pipe(
-        map(result => result.data?.projet ? toProjet(result.data.projet) : null )
+        map(result => result.data?.ProjetById ? toProjet(result.data.ProjetById) : null )
       );
   }
 
   AjouterProjet(projetRequest: ProjetRequest): Observable<any> {
     return this.apollo
-      .mutate<{ projetReponse: ProjetResponse }>({
+      .mutate<{ AjouterProjet: ProjetResponse }>({
         mutation: AjouterProjet,
-        variables: projetRequest
+        variables: {projetObjet : projetRequest}
       })
       .pipe(
-        map(result => result.data?.projetReponse ? toProjet(result.data.projetReponse) : null )
+        map(result => result.data?.AjouterProjet ? toProjet(result.data.AjouterProjet) : null )
       );
   }
 
   ModifierProjet(projetId: number, projetRequest: ProjetRequest): Observable<any> {
     return this.apollo
-      .mutate<{ projetReponse: ProjetResponse }>({
+      .mutate<{ ModifierProjet: ProjetResponse }>({
         mutation: ModifierProjet,
-        variables: {projetId, projetRequest}
+        variables: { id : projetId, projetObjet : projetRequest}
       })
       .pipe(
-        map(result => result.data?.projetReponse ? toProjet(result.data.projetReponse) : null )
+        map(result => result.data?.ModifierProjet ? toProjet(result.data.ModifierProjet) : null )
       );
   }
 
   supprimerProjet(projetId: number): Observable<any> {
     return this.apollo
-      .mutate<{ Boolean: boolean }>({
+      .mutate<{ supprimerProjet: boolean }>({
         mutation: supprimerProjet,
-        variables: {projetId}
+        variables: { id : projetId}
       })
       .pipe(
-        map(result => result.data?.Boolean )
+        map(result => result.data?.supprimerProjet )
       );
   }
 

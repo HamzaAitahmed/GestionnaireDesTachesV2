@@ -17,7 +17,7 @@ export const AjouterEquipe = gql`
 export const ModifierEquipe = gql`
 
   mutation ModifierEquipe($id: Int, $equipeObjet: EquipeRequest = {}) {
-    ModifierEquipe(id: $id, equipeObjet: $equipeObjet) {
+    ModifierEquipe(equipeId: $id, equipeObjet: $equipeObjet) {
       id
       nom
       dateDeCreation
@@ -31,6 +31,6 @@ export const ModifierEquipe = gql`
 export const supprimerEquipe = gql`
 
   mutation supprimerEquipe($id: Int) {
-    supprimerEquipe(id: $id)
+    supprimerEquipe(equipeId: $id)
   }
 `;

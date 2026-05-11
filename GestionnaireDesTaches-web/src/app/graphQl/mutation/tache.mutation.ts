@@ -19,7 +19,7 @@ export const AjouterTache = gql`
 export const ModifierTache = gql`
 
   mutation ModifierTache($id: Int, $tacheObjet: TacheRequest = {}) {
-    ModifierTache(id: $id, tacheObjet: $tacheObjet) {
+    ModifierTache(tacheId: $id, tacheObjet: $tacheObjet) {
       assigneurDeTacheId
       dateDeCreation
       dateFin
@@ -35,6 +35,6 @@ export const ModifierTache = gql`
 export const supprimerTache = gql`
 
   mutation supprimerTache($id: Int) {
-    supprimerTache(id: $id)
+    supprimerTache(tacheId: $id)
   }
 `;
