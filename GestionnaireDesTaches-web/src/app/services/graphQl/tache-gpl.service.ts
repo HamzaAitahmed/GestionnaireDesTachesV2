@@ -17,34 +17,34 @@ export class TacheGplService {
 
   getTachesByProjetId(projetId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ Taches: TacheResponse[] }>({
+      .watchQuery<{ TachesByProjetId: TacheResponse[] }>({
         query: TachesByProjetId,
-        variables: {projetId}
+        variables: { id : projetId}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.Taches ?? []).map(toTache) )
+        map(result => (result.data?.TachesByProjetId ?? []).map(toTache) )
       );
   }
 
   getTachesByUtilisateurId(utilisateurId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ Taches: TacheResponse[] }>({
+      .watchQuery<{ TachesByUtilisateurId: TacheResponse[] }>({
         query: TachesByUtilisateurId,
-        variables: {utilisateurId}
+        variables: { id : utilisateurId}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.Taches ?? []).map(toTache) )
+        map(result => (result.data?.TachesByUtilisateurId ?? []).map(toTache) )
       );
   }
 
   getTacheById(tacheId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ Tache: TacheResponse }>({
+      .watchQuery<{ TacheById: TacheResponse }>({
         query: TacheById,
-        variables: {tacheId}
+        variables: { id : tacheId}
       })
       .valueChanges.pipe(
-        map(result => result.data?.Tache ? toTache(result.data.Tache) : null )
+        map(result => result.data?.TacheById ? toTache(result.data.TacheById) : null )
       );
   }
 
@@ -60,34 +60,34 @@ export class TacheGplService {
 
   AjouterTache(tacheRequest: TacheRequest): Observable<any> {
     return this.apollo
-      .mutate<{ tacheReponse: TacheResponse }>({
+      .mutate<{ AjouterTache: TacheResponse }>({
         mutation: AjouterTache,
         variables: tacheRequest
       })
       .pipe(
-        map(result => result.data?.tacheReponse ? toTache(result.data.tacheReponse) : null )
+        map(result => result.data?.AjouterTache ? toTache(result.data.AjouterTache) : null )
       );
   }
 
   ModifierTache(tacheId: number, tacheRequest: TacheRequest): Observable<any> {
     return this.apollo
-      .mutate<{ tacheReponse: TacheResponse }>({
+      .mutate<{ ModifierTache: TacheResponse }>({
         mutation: ModifierTache,
-        variables: {tacheId, tacheRequest}
+        variables: { id : tacheId, tacheObjet : tacheRequest}
       })
       .pipe(
-        map(result => result.data?.tacheReponse ? toTache(result.data.tacheReponse) : null )
+        map(result => result.data?.ModifierTache ? toTache(result.data.ModifierTache) : null )
       );
   }
 
   supprimerTache(tacheId: number): Observable<any> {
     return this.apollo
-      .mutate<{ Boolean: boolean }>({
+      .mutate<{ supprimerTache: boolean }>({
         mutation: supprimerTache,
-        variables: {tacheId}
+        variables: { id : tacheId}
       })
       .pipe(
-        map(result => result.data?.Boolean )
+        map(result => result.data?.supprimerTache )
       );
   }
 }

@@ -32,78 +32,78 @@ export class EquipeGplService {
 
   getEquipeByChefEquipeId(chefEquipeId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ equipes: EquipeResponse[] }>({
+      .watchQuery<{ EquipeByChefEquipeId: EquipeResponse[] }>({
         query: EquipeByChefEquipeId,
-        variables: {chefEquipeId}
+        variables: { id : chefEquipeId}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.equipes ?? []).map(toEquipe) )
+        map(result => (result.data?.EquipeByChefEquipeId ?? []).map(toEquipe) )
       );
   }
 
   getEquipeByMemberEquipeId(memberEquipeId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ equipes: EquipeResponse[] }>({
+      .watchQuery<{ EquipeByMemberEquipeId: EquipeResponse[] }>({
         query: EquipeByMemberEquipeId,
-        variables: {memberEquipeId}
+        variables: { id : memberEquipeId}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.equipes ?? []).map(toEquipe) )
+        map(result => (result.data?.EquipeByMemberEquipeId ?? []).map(toEquipe) )
       );
   }
 
   getEquipeByProjetEquipeId(projetId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ equipes: EquipeResponse[] }>({
+      .watchQuery<{ EquipeByProjetEquipeId: EquipeResponse[] }>({
         query: EquipeByProjetEquipeId,
-        variables: {projetId}
+        variables: { id : projetId}
       })
       .valueChanges.pipe(
-        map(result => (result.data?.equipes ?? []).map(toEquipe) )
+        map(result => (result.data?.EquipeByProjetEquipeId ?? []).map(toEquipe) )
       );
   }
 
   getEquipeById(equipeId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ equipe: EquipeResponse }>({
+      .watchQuery<{ EquipeById: EquipeResponse }>({
         query: EquipeById,
-        variables: {equipeId}
+        variables: { id : equipeId}
       })
       .valueChanges.pipe(
-        map(result => result.data?.equipe ? toEquipe(result.data.equipe) : null)
+        map(result => result.data?.EquipeById ? toEquipe(result.data.EquipeById) : null)
       );
   }
 
   AjouterEquipe(equipeRequest: EquipeRequest): Observable<any> {
     return this.apollo
-      .mutate<{ equipeReponse: EquipeResponse }>({
+      .mutate<{ AjouterEquipe: EquipeResponse }>({
         mutation: AjouterEquipe,
         variables: equipeRequest
       })
       .pipe(
-        map(result => result.data?.equipeReponse ? toEquipe(result.data.equipeReponse) : null )
+        map(result => result.data?.AjouterEquipe ? toEquipe(result.data.AjouterEquipe) : null )
       );
   }
 
   ModifierEquipe(equipeId: number, equipeRequest: EquipeRequest): Observable<any> {
     return this.apollo
-      .mutate<{ equipeReponse: EquipeResponse }>({
+      .mutate<{ ModifierEquipe: EquipeResponse }>({
         mutation: ModifierEquipe,
-        variables: {equipeId, equipeRequest}
+        variables: { id : equipeId, equipeObjet : equipeRequest}
       })
       .pipe(
-        map(result => result.data?.equipeReponse ? toEquipe(result.data.equipeReponse) : null )
+        map(result => result.data?.ModifierEquipe ? toEquipe(result.data.ModifierEquipe) : null )
       );
   }
 
   supprimerEquipe(equipeId: number): Observable<any> {
     return this.apollo
-      .mutate<{ Boolean: boolean }>({
+      .mutate<{ supprimerEquipe: boolean }>({
         mutation: supprimerEquipe,
-        variables: {equipeId}
+        variables: { id : equipeId}
       })
       .pipe(
-        map(result => result.data?.Boolean )
+        map(result => result.data?.supprimerEquipe )
       );
   }
 

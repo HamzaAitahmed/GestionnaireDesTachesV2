@@ -30,23 +30,23 @@ export class UtilisateurGplService {
 
   getUtilisateurByEmail(email : string): Observable<any> {
     return this.apollo
-      .watchQuery<{ Utilisateur: UtilisateurResponse }>({
+      .watchQuery<{ UtilisateurByEmail: UtilisateurResponse }>({
         query: UtilisateurByEmail,
-        variables: {email}
+        variables: { email : email}
       })
       .valueChanges.pipe(
-        map(result => result.data?.Utilisateur ? toUtilisateur(result.data.Utilisateur) : null )
+        map(result => result.data?.UtilisateurByEmail ? toUtilisateur(result.data.UtilisateurByEmail) : null )
       );
   }
 
   getUtilisateurById(utilisateurId : number): Observable<any> {
     return this.apollo
-      .watchQuery<{ Utilisateur: UtilisateurResponse }>({
+      .watchQuery<{ UtilisateurById: UtilisateurResponse }>({
         query: UtilisateurById,
-        variables: {utilisateurId}
+        variables: { id : utilisateurId}
       })
       .valueChanges.pipe(
-        map(result => result.data?.Utilisateur ? toUtilisateur(result.data.Utilisateur) : null )
+        map(result => result.data?.UtilisateurById ? toUtilisateur(result.data.UtilisateurById) : null )
       );
   }
 
@@ -63,23 +63,23 @@ export class UtilisateurGplService {
 
   ModifierUtilisateur(utilisateurId: number, utilisateurRequest: UtilisateurRequest): Observable<any> {
     return this.apollo
-      .mutate<{ utilisateurReponse: UtilisateurResponse }>({
+      .mutate<{ ModifierUtilisateur: UtilisateurResponse }>({
         mutation: ModifierUtilisateur,
-        variables: {utilisateurId, utilisateurRequest}
+        variables: { id : utilisateurId, utilisateurObjet : utilisateurRequest}
       })
       .pipe(
-        map(result => result.data?.utilisateurReponse ? toUtilisateur(result.data.utilisateurReponse) : null )
+        map(result => result.data?.ModifierUtilisateur ? toUtilisateur(result.data.ModifierUtilisateur) : null )
       );
   }
 
   supprimerUtilisateur(utilisateurId: number): Observable<any> {
     return this.apollo
-      .mutate<{ Boolean: boolean }>({
+      .mutate<{ supprimerUtilisateur: boolean }>({
         mutation: supprimerUtilisateur,
-        variables: {utilisateurId}
+        variables: { id : utilisateurId}
       })
       .pipe(
-        map(result => result.data?.Boolean )
+        map(result => result.data?.supprimerUtilisateur )
       );
   }
 
